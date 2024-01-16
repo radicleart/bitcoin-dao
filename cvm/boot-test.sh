@@ -6,11 +6,11 @@ deploy_order=(
 	# traits
 	"traits/extension-trait.clar" "traits/governance-token-trait.clar" "traits/ownable-trait.clar" "traits/proposal-trait.clar" "traits/sip010-ft-trait.clar"
 	# ExecutorDAO
-	"bitcoin-l2-dao.clar"
+	"bitcoin-dao.clar"
 	# Extensions
-	"extensions/ede000-governance-token.clar" "extensions/ede001-proposal-voting.clar" "extensions/ede002-proposal-submission.clar" "extensions/ede003-emergency-proposals.clar" "extensions/ede004-emergency-execute.clar" "extensions/ede005-dev-fund.clar"
+	"extensions/bde000-governance-token.clar" "extensions/bde001-proposal-voting.clar" "extensions/bde002-proposal-submission.clar" "extensions/bde003-emergency-proposals.clar" "extensions/bde004-emergency-execute.clar" "extensions/bde005-dev-fund.clar"
 	# Proposals
-	"proposals/edp000-bootstrap.clar" "proposals/edp001-dev-fund.clar" "proposals/edp002-kill-emergency-execute.clar"
+	"proposals/bdp000-bootstrap.clar" "proposals/bdp001-dev-fund.clar" "proposals/bdp002-kill-emergency-execute.clar"
 	)
 vmstate="vmstate.db"
 
@@ -21,7 +21,7 @@ for contract in "${deploy_order[@]}"; do
 	clarity-cli launch "$deployer.$(basename $contract .clar)" "../contracts/$contract" "$vmstate"
 done
 echo "BOOTSTRAP"
-result=$(clarity-cli execute "$vmstate" "$deployer.bitcoin-l2-dao" "construct" "$deployer" "'$deployer.edp000-bootstrap")
+result=$(clarity-cli execute "$vmstate" "$deployer.bitcoin-dao" "construct" "$deployer" "'$deployer.bdp000-bootstrap")
 if [[ $(echo $result | jq ".success") == "true" ]]; then
 	echo "OK"
 else

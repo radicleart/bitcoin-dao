@@ -1,6 +1,6 @@
 ;; An example external contract to show how the ExecutorDAO is able to
 ;; add external contracts to an allowlist. These contracts may not be aware of the DAO. See
-;; edp003-allowlist-escrow-nft for more details.
+;; bdp003-allowlist-escrow-nft for more details.
 
 (impl-trait .ownable-trait.ownable-trait)
 
