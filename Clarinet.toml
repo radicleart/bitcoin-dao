@@ -1,0 +1,109 @@
+[project]
+name = "bitcoin-l2-dao"
+requirements = []
+
+[contracts.ede000-governance-token]
+path = "contracts/extensions/ede000-governance-token.clar"
+depends_on = ["bitcoin-l2-dao", "governance-token-trait", "sip010-ft-trait"]
+
+[contracts.ede001-proposal-voting]
+path = "contracts/extensions/ede001-proposal-voting.clar"
+depends_on = ["bitcoin-l2-dao", "proposal-trait", "extension-trait", "governance-token-trait", "ede000-governance-token"]
+
+[contracts.ede002-proposal-submission]
+path = "contracts/extensions/ede002-proposal-submission.clar"
+depends_on = ["bitcoin-l2-dao", "extension-trait", "ede001-proposal-voting"]
+
+[contracts.ede003-emergency-proposals]
+path = "contracts/extensions/ede003-emergency-proposals.clar"
+depends_on = ["bitcoin-l2-dao", "extension-trait", "ede001-proposal-voting"]
+
+[contracts.ede004-emergency-execute]
+path = "contracts/extensions/ede004-emergency-execute.clar"
+depends_on = ["bitcoin-l2-dao", "extension-trait", "ede001-proposal-voting"]
+
+[contracts.ede005-dev-fund]
+path = "contracts/extensions/ede005-dev-fund.clar"
+depends_on = ["bitcoin-l2-dao", "extension-trait", "ede000-governance-token"]
+
+[contracts.edp000-bootstrap]
+path = "contracts/proposals/edp000-bootstrap.clar"
+depends_on = ["bitcoin-l2-dao", "proposal-trait", "extension-trait", "ede000-governance-token", "ede001-proposal-voting", "ede002-proposal-submission", "ede003-emergency-proposals", "ede004-emergency-execute"]
+
+[contracts.edp001-dev-fund]
+path = "contracts/proposals/edp001-dev-fund.clar"
+depends_on = ["ede000-governance-token", "bitcoin-l2-dao"]
+
+[contracts.edp002-kill-emergency-execute]
+path = "contracts/proposals/edp002-kill-emergency-execute.clar"
+depends_on = ["ede004-emergency-execute", "bitcoin-l2-dao"]
+
+[contracts.edp003-allowlist-escrow-nft]
+path = "contracts/proposals/edp003-allowlist-escrow-nft.clar"
+depends_on = ["proposal-trait", "nft-escrow"]
+
+
+[contracts.sip009-nft]
+path = "tests/proposals/sip009-nft.clar"
+depends_on = ["sip009-nft-trait"]
+
+[contracts.sip009-nft-trait]
+path = "tests/proposals/sip009-nft-trait.clar"
+depends_on = []
+
+[contracts.ede000-governance-token-v2]
+path = "tests/proposals/ede000-governance-token-v2.clar"
+depends_on = ["bitcoin-l2-dao", "governance-token-trait", "sip010-ft-trait"]
+
+[contracts.edp001-1-dev-fund]
+path = "tests/proposals/edp001-1-dev-fund.clar"
+depends_on = ["ede000-governance-token", "bitcoin-l2-dao"]
+
+[contracts.edp005-dao-change-sample-config]
+path = "tests/proposals/edp005-dao-change-sample-config.clar"
+depends_on = ["proposal-trait"]
+
+[contracts.edp004-dao-change-governance]
+path = "tests/proposals/edp004-dao-change-governance.clar"
+depends_on = ["proposal-trait"]
+
+[contracts.edp006-dao-mint-burn-edg]
+path = "tests/proposals/edp006-dao-mint-burn-edg.clar"
+depends_on = ["proposal-trait"]
+
+[contracts.edp007-dao-update-executive]
+path = "tests/proposals/edp007-dao-update-executive.clar"
+depends_on = ["proposal-trait"]
+
+[contracts.edp008-1-allowlist-nft-escrow]
+path = "tests/proposals/edp008-1-allowlist-nft-escrow.clar"
+depends_on = ["proposal-trait"]
+
+
+[contracts.bitcoin-l2-dao]
+path = "contracts/bitcoin-l2-dao.clar"
+depends_on = ["proposal-trait", "extension-trait"]
+
+[contracts.extension-trait]
+path = "contracts/traits/extension-trait.clar"
+depends_on = []
+
+[contracts.governance-token-trait]
+path = "contracts/traits/governance-token-trait.clar"
+depends_on = []
+
+[contracts.nft-escrow]
+path = "contracts/external/nft-escrow.clar"
+depends_on = ["ownable-trait", "sip009-nft-trait"]
+
+[contracts.ownable-trait]
+path = "contracts/traits/ownable-trait.clar"
+depends_on = []
+
+[contracts.proposal-trait]
+path = "contracts/traits/proposal-trait.clar"
+depends_on = []
+
+[contracts.sip010-ft-trait]
+path = "contracts/traits/sip010-ft-trait.clar"
+depends_on = []
