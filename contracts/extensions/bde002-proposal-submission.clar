@@ -2,7 +2,7 @@
 ;; Author: Marvin Janssen
 ;; Depends-On: BDE001
 ;; Synopsis:
-;; This extension part of the core of ExecutorDAO. It allows governance token
+;; This extension part of the core of Bitcoin DAO. It allows governance token
 ;; holders to submit proposals when they hold at least n% percentage of the
 ;; token supply.
 ;; Description:
@@ -99,7 +99,7 @@
 		(try! (is-governance-token governance-token))
 		(asserts! (>= start-block-height (+ block-height (try! (get-parameter "minimum-proposal-start-delay")))) err-proposal-minimum-start-delay)
 		(asserts! (<= start-block-height (+ block-height (try! (get-parameter "maximum-proposal-start-delay")))) err-proposal-maximum-start-delay)
-		(asserts! (try! (contract-call? governance-token edg-has-percentage-balance tx-sender (try! (get-parameter "propose-factor")))) err-insufficient-balance)
+		(asserts! (try! (contract-call? governance-token bdg-has-percentage-balance tx-sender (try! (get-parameter "propose-factor")))) err-insufficient-balance)
 		(contract-call? .bde001-proposal-voting add-proposal
 			proposal
 			{

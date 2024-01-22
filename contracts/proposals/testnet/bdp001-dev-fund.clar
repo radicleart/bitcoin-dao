@@ -25,6 +25,6 @@
 			{who: 'ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG, start-height: block-height, allowance: u100}
 			{who: 'ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC, start-height: block-height, allowance: u20}
 		)))
-		(contract-call? .bde000-governance-token edg-mint dev-fund-amount .bde005-dev-fund)
+		(contract-call? .bde000-governance-token bdg-mint dev-fund-amount .bde005-dev-fund)
 	)
 )

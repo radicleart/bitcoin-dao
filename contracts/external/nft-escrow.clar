@@ -1,4 +1,4 @@
-;; An example external contract to show how the ExecutorDAO is able to
+;; An example external contract to show how the Bitcoin DAO is able to
 ;; add external contracts to an allowlist. These contracts may not be aware of the DAO. See
 ;; bdp003-allowlist-escrow-nft for more details.
 

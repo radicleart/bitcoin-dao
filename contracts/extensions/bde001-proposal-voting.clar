@@ -2,7 +2,7 @@
 ;; Author: Marvin Janssen
 ;; Depends-On: BDE000
 ;; Synopsis:
-;; This extension is part of the core of ExecutorDAO. It allows governance token
+;; This extension is part of the core of Bitcoin DAO. It allows governance token
 ;; holders to vote on and conclude proposals.
 ;; Description:
 ;; Once proposals are submitted, they are open for voting after a lead up time
@@ -115,7 +115,7 @@
 			)
 		)
 		(print {event: "vote", proposal: proposal, voter: tx-sender, for: for, amount: amount})
-		(contract-call? governance-token edg-lock amount tx-sender)
+		(contract-call? governance-token bdg-lock amount tx-sender)
 	)
 )
 
@@ -148,7 +148,7 @@
 		)
 		(asserts! (get concluded proposal-data) err-proposal-not-concluded)
 		(map-delete member-total-votes {proposal: proposal-principal, voter: tx-sender, governance-token: token-principal})
-		(contract-call? governance-token edg-unlock votes tx-sender)
+		(contract-call? governance-token bdg-unlock votes tx-sender)
 	)
 )
 

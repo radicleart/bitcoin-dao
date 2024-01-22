@@ -2,11 +2,11 @@
 ;; Author: Marvin Janssen
 ;; Depends-On: 
 ;; Synopsis:
-;; This extension defines the governance token of ExecutorDAO.
+;; This extension defines the governance token of Bitcoin DAO.
 ;; Description:
 ;; The governance token is a simple SIP010-compliant fungible token
 ;; with some added functions to make it easier to manage by
-;; ExecutorDAO proposals and extensions.
+;; Bitcoin DAO proposals and extensions.
 
 (impl-trait .governance-token-trait.governance-token-trait)
 (impl-trait .sip010-ft-trait.sip010-ft-trait)
@@ -15,11 +15,11 @@
 (define-constant err-unauthorised (err u3000))
 (define-constant err-not-token-owner (err u4))
 
-(define-fungible-token edg-token)
-(define-fungible-token edg-token-locked)
+(define-fungible-token bdg-token)
+(define-fungible-token bdg-token-locked)
 
-(define-data-var token-name (string-ascii 32) "ExecutorDAO Governance Token")
-(define-data-var token-symbol (string-ascii 10) "EDG")
+(define-data-var token-name (string-ascii 32) "Bitcoin DAO Governance Token")
+(define-data-var token-symbol (string-ascii 10) "BDG")
 (define-data-var token-uri (optional (string-utf8 256)) none)
 (define-data-var token-decimals uint u6)
 
@@ -33,40 +33,40 @@
 
 ;; governance-token-trait
 
-(define-public (edg-transfer (amount uint) (sender principal) (recipient principal))
+(define-public (bdg-transfer (amount uint) (sender principal) (recipient principal))
 	(begin
 		(try! (is-dao-or-extension))
-		(ft-transfer? edg-token amount sender recipient)
+		(ft-transfer? bdg-token amount sender recipient)
 	)
 )
 
-(define-public (edg-lock (amount uint) (owner principal))
+(define-public (bdg-lock (amount uint) (owner principal))
 	(begin
 		(try! (is-dao-or-extension))
-		(try! (ft-burn? edg-token amount owner))
-		(ft-mint? edg-token-locked amount owner)
+		(try! (ft-burn? bdg-token amount owner))
+		(ft-mint? bdg-token-locked amount owner)
 	)
 )
 
-(define-public (edg-unlock (amount uint) (owner principal))
+(define-public (bdg-unlock (amount uint) (owner principal))
 	(begin
 		(try! (is-dao-or-extension))
-		(try! (ft-burn? edg-token-locked amount owner))
-		(ft-mint? edg-token amount owner)
+		(try! (ft-burn? bdg-token-locked amount owner))
+		(ft-mint? bdg-token amount owner)
 	)
 )
 
-(define-public (edg-mint (amount uint) (recipient principal))
+(define-public (bdg-mint (amount uint) (recipient principal))
 	(begin
 		(try! (is-dao-or-extension))
-		(ft-mint? edg-token amount recipient)
+		(ft-mint? bdg-token amount recipient)
 	)
 )
 
-(define-public (edg-burn (amount uint) (owner principal))
+(define-public (bdg-burn (amount uint) (owner principal))
 	(begin
 		(try! (is-dao-or-extension))
-		(ft-burn? edg-token amount owner)
+		(ft-burn? bdg-token amount owner)
 		
 	)
 )
@@ -101,14 +101,14 @@
 	)
 )
 
-(define-private (edg-mint-many-iter (item {amount: uint, recipient: principal}))
-	(ft-mint? edg-token (get amount item) (get recipient item))
+(define-private (bdg-mint-many-iter (item {amount: uint, recipient: principal}))
+	(ft-mint? bdg-token (get amount item) (get recipient item))
 )
 
-(define-public (edg-mint-many (recipients (list 200 {amount: uint, recipient: principal})))
+(define-public (bdg-mint-many (recipients (list 200 {amount: uint, recipient: principal})))
 	(begin
 		(try! (is-dao-or-extension))
-		(ok (map edg-mint-many-iter recipients))
+		(ok (map bdg-mint-many-iter recipients))
 	)
 )
 
@@ -119,7 +119,7 @@
 (define-public (transfer (amount uint) (sender principal) (recipient principal) (memo (optional (buff 34))))
 	(begin
 		(asserts! (or (is-eq tx-sender sender) (is-eq contract-caller sender)) err-not-token-owner)
-		(ft-transfer? edg-token amount sender recipient)
+		(ft-transfer? bdg-token amount sender recipient)
 	)
 )
 
@@ -136,11 +136,11 @@
 )
 
 (define-read-only (get-balance (who principal))
-	(ok (+ (ft-get-balance edg-token who) (ft-get-balance edg-token-locked who)))
+	(ok (+ (ft-get-balance bdg-token who) (ft-get-balance bdg-token-locked who)))
 )
 
 (define-read-only (get-total-supply)
-	(ok (+ (ft-get-supply edg-token) (ft-get-supply edg-token-locked)))
+	(ok (+ (ft-get-supply bdg-token) (ft-get-supply bdg-token-locked)))
 )
 
 (define-read-only (get-token-uri)
@@ -149,16 +149,16 @@
 
 ;; governance-token-trait
 
-(define-read-only (edg-get-balance (who principal))
+(define-read-only (bdg-get-balance (who principal))
 	(get-balance who)
 )
 
-(define-read-only (edg-has-percentage-balance (who principal) (factor uint))
+(define-read-only (bdg-has-percentage-balance (who principal) (factor uint))
 	(ok (>= (* (unwrap-panic (get-balance who)) factor) (* (unwrap-panic (get-total-supply)) u1000)))
 )
 
-(define-read-only (edg-get-locked (owner principal))
-	(ok (ft-get-balance edg-token-locked owner))
+(define-read-only (bdg-get-locked (owner principal))
+	(ok (ft-get-balance bdg-token-locked owner))
 )
 
 ;; --- Extension callback

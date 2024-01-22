@@ -2,7 +2,7 @@
 ;; Author: Marvin Janssen & Mike Cohen
 ;; Depends-On: BDE001, BDE007
 ;; Synopsis:
-;; This extension part of the core of ExecutorDAO. It allows members to
+;; This extension part of the core of Bitcoin DAO. It allows members to
 ;; bring proposals to the voting phase by funding them with a preset amount
 ;; of tokens. 
 ;; Description:
@@ -41,7 +41,7 @@
 ;; --- Authorisation check
 
 (define-public (is-dao-or-extension)
-	(ok (asserts! (or (is-eq tx-sender .ecosystem-dao) (contract-call? .ecosystem-dao is-extension contract-caller)) err-unauthorised))
+	(ok (asserts! (or (is-eq tx-sender .bitcoin-dao) (contract-call? .bitcoin-dao is-extension contract-caller)) err-unauthorised))
 )
 
 ;; --- Internal DAO functions

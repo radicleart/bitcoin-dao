@@ -5,7 +5,7 @@ deployer=$(cat initial-allocations.json | jq ".[0].principal" -r)
 deploy_order=(
 	# traits
 	"traits/extension-trait.clar" "traits/governance-token-trait.clar" "traits/ownable-trait.clar" "traits/proposal-trait.clar" "traits/sip010-ft-trait.clar"
-	# ExecutorDAO
+	# Bitcoin DAO
 	"bitcoin-dao.clar"
 	# Extensions
 	"extensions/bde000-governance-token.clar" "extensions/bde001-proposal-voting.clar" "extensions/bde002-proposal-submission.clar" "extensions/bde003-emergency-proposals.clar" "extensions/bde004-emergency-execute.clar" "extensions/bde005-dev-fund.clar"

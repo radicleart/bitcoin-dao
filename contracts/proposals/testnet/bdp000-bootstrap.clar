@@ -17,10 +17,10 @@
 		(try! (contract-call? .bitcoin-dao set-extensions
 			(list
 				{extension: .bde000-governance-token, enabled: true}
-				{extension: .bde001-proposal-voting, enabled: true}
-				{extension: .bde002-proposal-submission, enabled: true}
 				{extension: .bde003-emergency-proposals, enabled: true}
 				{extension: .bde004-emergency-execute, enabled: true}
+				{extension: .bde007-snapshot-proposal-voting, enabled: true}
+				{extension: .bde008-flexible-funded-submission, enabled: true}
 			)
 		))
 
@@ -33,10 +33,10 @@
 		(try! (contract-call? .bde004-emergency-execute set-executive-team-member 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5 true))
 		(try! (contract-call? .bde004-emergency-execute set-executive-team-member 'ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG true))
 		(try! (contract-call? .bde004-emergency-execute set-executive-team-member 'ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC true))
-		(try! (contract-call? .bde004-emergency-execute set-signals-required u3)) ;; signal from 3 out of 4 team members requied.
+		(try! (contract-call? .bde004-emergency-execute set-signals-required u1)) ;; signal from 3 out of 4 team members requied.
 
 		;; Mint initial token supply.
-		(try! (contract-call? .bde000-governance-token edg-mint-many
+		(try! (contract-call? .bde000-governance-token bdg-mint-many
 			(list
 				{amount: u1000, recipient: sender}
 				{amount: u1000, recipient: 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5}
@@ -51,7 +51,7 @@
 			)
 		))
 
-		(print "ExecutorDAO has risen.")
+		(print "Bitcoin DAO has risen.")
 		(ok true)
 	)
 )
