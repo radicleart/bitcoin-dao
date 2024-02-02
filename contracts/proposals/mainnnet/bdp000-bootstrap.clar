@@ -1,13 +1,10 @@
 ;; Title: BDP000 Bootstrap
-;; Author: Marvin Janssen
+;; Author: Mike Cohen
 ;; Synopsis:
 ;; Boot proposal that sets the governance token, DAO parameters, and extensions, and
 ;; mints the initial governance tokens.
 ;; Description:
-;; Mints the initial supply of governance tokens and enables the the following 
-;; extensions: "BDE000 Governance Token", "BDE001 Proposal Voting",
-;; "BDE002 Proposal Submission", "BDE003 Emergency Proposals",
-;; "BDE004 Emergency Execute".
+;; Bootstraps bitcoin-dao for stacks ecosystem voting.
 
 (impl-trait .proposal-trait.proposal-trait)
 
