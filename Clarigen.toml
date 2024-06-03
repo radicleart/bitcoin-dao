@@ -6,7 +6,7 @@ clarinet = "./Clarinet.toml"
 # Comment or remove section to skip TypeScript types
 [types]
 # `output` should be a path to a single file
-output = "src/clarigen-types.ts"
+output = "tests/clarigen-types.ts"
 
 # You can also specify multiple output paths:
 # outputs = [
@@ -19,6 +19,8 @@ output = "src/clarigen-types.ts"
 # after = "npm run prettier -w ./src/clarigen-types.ts"
 # after = "echo 'yay'"
 
+after = "pnpm prettier --log-level error -w ./tests/clarigen-types.ts"
+
 # Set where you'd like generated contract docs
 # Generate docs by running `clarigen docs`
 [docs]
@@ -26,5 +28,4 @@ output = "src/clarigen-types.ts"
 output = "docs"
 
 # `docs.after` - script to run after docs are generated.
-# examples:
-# after = "npm run prettier -w ./docs"
+after = "pnpm prettier --log-level error -w ./docs"
