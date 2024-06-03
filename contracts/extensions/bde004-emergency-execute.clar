@@ -1,4 +1,4 @@
-;; Title: BDE004 Emergency Execute
+;; Title: BDE004 Core Execute
 ;; Author: Marvin Janssen
 ;; Depends-On: 
 ;; Synopsis:
@@ -8,7 +8,7 @@
 ;; An extension meant for the bootstrapping period of a DAO. It temporarily gives
 ;; some very trusted principals the ability to perform an "executive action";
 ;; meaning, they can skip the voting process to immediately executive a proposal.
-;; The Emergency Executive extension has a sunset period of ~1 month from deploy
+;; The Core Executive extension has a sunset period of ~1 month from deploy
 ;; time. Executive Team members, the parameters, and sunset period may be changed
 ;; by means of a future proposal.
 

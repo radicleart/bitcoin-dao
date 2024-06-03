@@ -11,8 +11,8 @@ export const charlie = accounts.wallet_3.address;
 export const governanceToken = contracts.bde000GovernanceToken;
 export const proposalVoting = contracts.bde001ProposalVoting;
 export const proposalSubmission = contracts.bde002ProposalSubmission;
-export const emergencyProposals = contracts.bde003EmergencyProposals;
-export const emergencyExecute = contracts.bde004EmergencyExecute;
+export const coreProposals = contracts.bde003CoreProposals;
+export const coreExecute = contracts.bde004CoreExecute;
 export const treasury = contracts.bde006Treasury;
 export const bitcoinDao = contracts.bitcoinDao;
 export const extensionTrait = contracts.extensionTrait;
@@ -26,8 +26,8 @@ export const errors = {
   governanceToken: _errors.bde000GovernanceToken,
   proposalVoting: _errors.bde001ProposalVoting,
   proposalSubmission: _errors.bde002ProposalSubmission,
-  emergencyProposals: _errors.bde003EmergencyProposals,
-  emergencyExecute: _errors.bde004EmergencyExecute,
+  coreProposals: _errors.bde003CoreProposals,
+  coreExecute: _errors.bde004CoreExecute,
   treasury: _errors.bde006Treasury,
   bitcoinDao: _errors.bitcoinDao,
 };
