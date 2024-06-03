@@ -1077,7 +1077,7 @@ export const contracts = {
     clarity_version: "Clarity2",
     contractName: "bde002-proposal-submission",
   },
-  bde003EmergencyProposals: {
+  bde003CoreProposals: {
     functions: {
       callback: {
         name: "callback",
@@ -1094,8 +1094,8 @@ export const contracts = {
         ],
         Response<boolean, null>
       >,
-      emergencyPropose: {
-        name: "emergency-propose",
+      corePropose: {
+        name: "core-propose",
         access: "public",
         args: [{ name: "proposal", type: "trait_reference" }],
         outputs: { type: { response: { ok: "bool", error: "uint128" } } },
@@ -1109,8 +1109,8 @@ export const contracts = {
         args: [],
         outputs: { type: { response: { ok: "bool", error: "uint128" } } },
       } as TypedAbiFunction<[], Response<boolean, bigint>>,
-      setEmergencyProposalDuration: {
-        name: "set-emergency-proposal-duration",
+      setCoreProposalDuration: {
+        name: "set-core-proposal-duration",
         access: "public",
         args: [{ name: "duration", type: "uint128" }],
         outputs: { type: { response: { ok: "bool", error: "uint128" } } },
@@ -1118,8 +1118,8 @@ export const contracts = {
         [duration: TypedAbiArg<number | bigint, "duration">],
         Response<boolean, bigint>
       >,
-      setEmergencyTeamMember: {
-        name: "set-emergency-team-member",
+      setCoreTeamMember: {
+        name: "set-core-team-member",
         access: "public",
         args: [
           { name: "who", type: "principal" },
@@ -1133,8 +1133,8 @@ export const contracts = {
         ],
         Response<boolean, bigint>
       >,
-      setEmergencyTeamSunsetHeight: {
-        name: "set-emergency-team-sunset-height",
+      setCoreTeamSunsetHeight: {
+        name: "set-core-team-sunset-height",
         access: "public",
         args: [{ name: "height", type: "uint128" }],
         outputs: { type: { response: { ok: "bool", error: "uint128" } } },
@@ -1142,23 +1142,23 @@ export const contracts = {
         [height: TypedAbiArg<number | bigint, "height">],
         Response<boolean, bigint>
       >,
-      isEmergencyTeamMember: {
-        name: "is-emergency-team-member",
+      isCoreTeamMember: {
+        name: "is-core-team-member",
         access: "read_only",
         args: [{ name: "who", type: "principal" }],
         outputs: { type: "bool" },
       } as TypedAbiFunction<[who: TypedAbiArg<string, "who">], boolean>,
     },
     maps: {
-      emergencyTeam: {
-        name: "emergency-team",
+      coreTeam: {
+        name: "core-team",
         key: "principal",
         value: "bool",
       } as TypedAbiMap<string, boolean>,
     },
     variables: {
-      errNotEmergencyTeamMember: {
-        name: "err-not-emergency-team-member",
+      errNotCoreTeamMember: {
+        name: "err-not-core-team-member",
         type: {
           response: {
             ok: "none",
@@ -1197,21 +1197,21 @@ export const contracts = {
         },
         access: "constant",
       } as TypedAbiVariable<Response<null, bigint>>,
-      emergencyProposalDuration: {
-        name: "emergency-proposal-duration",
+      coreProposalDuration: {
+        name: "core-proposal-duration",
         type: "uint128",
         access: "variable",
       } as TypedAbiVariable<bigint>,
-      emergencyTeamSunsetHeight: {
-        name: "emergency-team-sunset-height",
+      coreTeamSunsetHeight: {
+        name: "core-team-sunset-height",
         type: "uint128",
         access: "variable",
       } as TypedAbiVariable<bigint>,
     },
     constants: {
-      emergencyProposalDuration: 144n,
-      emergencyTeamSunsetHeight: 13_157n,
-      errNotEmergencyTeamMember: {
+      coreProposalDuration: 144n,
+      coreTeamSunsetHeight: 13_157n,
+      errNotCoreTeamMember: {
         isOk: false,
         value: 3_001n,
       },
@@ -1232,9 +1232,9 @@ export const contracts = {
     fungible_tokens: [],
     epoch: "Epoch23",
     clarity_version: "Clarity2",
-    contractName: "bde003-emergency-proposals",
+    contractName: "bde003-core-proposals",
   },
-  bde004EmergencyExecute: {
+  bde004CoreExecute: {
     functions: {
       callback: {
         name: "callback",
@@ -1454,7 +1454,7 @@ export const contracts = {
     fungible_tokens: [],
     epoch: "Epoch23",
     clarity_version: "Clarity2",
-    contractName: "bde004-emergency-execute",
+    contractName: "bde004-core-execute",
   },
   bde006Treasury: {
     functions: {
@@ -2194,10 +2194,10 @@ export const identifiers = {
     "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde001-proposal-voting",
   bde002ProposalSubmission:
     "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde002-proposal-submission",
-  bde003EmergencyProposals:
-    "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde003-emergency-proposals",
-  bde004EmergencyExecute:
-    "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde004-emergency-execute",
+  bde003CoreProposals:
+    "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde003-core-proposals",
+  bde004CoreExecute:
+    "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde004-core-execute",
   bde006Treasury: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde006-treasury",
   bitcoinDao: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bitcoin-dao",
   extensionTrait: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.extension-trait",
@@ -2235,19 +2235,19 @@ export const deployments = {
     testnet: null,
     mainnet: null,
   },
-  bde003EmergencyProposals: {
+  bde003CoreProposals: {
     devnet:
-      "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde003-emergency-proposals",
+      "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde003-core-proposals",
     simnet:
-      "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde003-emergency-proposals",
+      "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde003-core-proposals",
     testnet: null,
     mainnet: null,
   },
-  bde004EmergencyExecute: {
+  bde004CoreExecute: {
     devnet:
-      "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde004-emergency-execute",
+      "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde004-core-execute",
     simnet:
-      "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde004-emergency-execute",
+      "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde004-core-execute",
     testnet: null,
     mainnet: null,
   },

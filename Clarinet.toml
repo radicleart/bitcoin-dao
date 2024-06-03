@@ -50,13 +50,13 @@ path = "contracts/extensions/bde002-proposal-submission.clar"
 clarity_version = 2
 epoch = 2.3
 
-[contracts.bde003-emergency-proposals]
-path = "contracts/extensions/bde003-emergency-proposals.clar"
+[contracts.bde003-core-proposals]
+path = "contracts/extensions/bde003-core-proposals.clar"
 clarity_version = 2
 epoch = 2.3
 
-[contracts.bde004-emergency-execute]
-path = "contracts/extensions/bde004-emergency-execute.clar"
+[contracts.bde004-core-execute]
+path = "contracts/extensions/bde004-core-execute.clar"
 clarity_version = 2
 epoch = 2.3
 

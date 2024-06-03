@@ -111,17 +111,17 @@ plan:
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
-            contract-name: bde003-emergency-proposals
+            contract-name: bde003-core-proposals
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 26980
-            path: contracts/extensions/bde003-emergency-proposals.clar
+            path: contracts/extensions/bde003-core-proposals.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
-            contract-name: bde004-emergency-execute
+            contract-name: bde004-core-execute
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 35690
-            path: contracts/extensions/bde004-emergency-execute.clar
+            path: contracts/extensions/bde004-core-execute.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:

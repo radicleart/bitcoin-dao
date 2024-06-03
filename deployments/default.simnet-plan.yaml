@@ -48,30 +48,6 @@ genesis:
 plan:
   batches:
     - id: 0
-      transactions: []
-      epoch: "2.0"
-    - id: 1
-      transactions: []
-      epoch: "2.05"
-    - id: 2
-      transactions: []
-      epoch: "2.1"
-    - id: 3
-      transactions: []
-      epoch: "2.1"
-    - id: 4
-      transactions: []
-      epoch: "2.1"
-    - id: 5
-      transactions: []
-      epoch: "2.1"
-    - id: 6
-      transactions: []
-      epoch: "2.1"
-    - id: 7
-      transactions: []
-      epoch: "2.1"
-    - id: 8
       transactions:
         - emulated-contract-publish:
             contract-name: extension-trait
@@ -114,14 +90,14 @@ plan:
             path: contracts/extensions/bde002-proposal-submission.clar
             clarity-version: 2
         - emulated-contract-publish:
-            contract-name: bde003-emergency-proposals
+            contract-name: bde003-core-proposals
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/extensions/bde003-emergency-proposals.clar
+            path: contracts/extensions/bde003-core-proposals.clar
             clarity-version: 2
         - emulated-contract-publish:
-            contract-name: bde004-emergency-execute
+            contract-name: bde004-core-execute
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/extensions/bde004-emergency-execute.clar
+            path: contracts/extensions/bde004-core-execute.clar
             clarity-version: 2
         - emulated-contract-publish:
             contract-name: bde006-treasury
@@ -133,43 +109,4 @@ plan:
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/traits/ownable-trait.clar
             clarity-version: 2
-      epoch: "2.3"
-    - id: 9
-      transactions: []
-      epoch: "2.3"
-    - id: 10
-      transactions: []
-      epoch: "2.3"
-    - id: 11
-      transactions: []
-      epoch: "2.3"
-    - id: 12
-      transactions: []
-      epoch: "2.3"
-    - id: 13
-      transactions: []
-      epoch: "2.3"
-    - id: 14
-      transactions: []
-      epoch: "2.3"
-    - id: 15
-      transactions: []
-      epoch: "2.3"
-    - id: 16
-      transactions: []
-      epoch: "2.3"
-    - id: 17
-      transactions: []
-      epoch: "2.3"
-    - id: 18
-      transactions: []
-      epoch: "2.3"
-    - id: 19
-      transactions: []
-      epoch: "2.3"
-    - id: 20
-      transactions: []
-      epoch: "2.3"
-    - id: 21
-      transactions: []
       epoch: "2.3"
