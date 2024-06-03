@@ -16,7 +16,7 @@
 (use-trait proposal-trait .proposal-trait.proposal-trait)
 
 (define-data-var emergency-proposal-duration uint u144) ;; ~1 day
-(define-data-var emergency-team-sunset-height uint (+ block-height u13140)) ;; ~3 months from deploy time
+(define-data-var emergency-team-sunset-height uint (+ burn-block-height u13140)) ;; ~3 months from deploy time
 
 (define-constant err-unauthorised (err u3000))
 (define-constant err-not-emergency-team-member (err u3001))
@@ -43,7 +43,7 @@
 (define-public (set-emergency-team-sunset-height (height uint))
 	(begin
 		(try! (is-dao-or-extension))
-		(asserts! (> height block-height) err-sunset-height-in-past)
+		(asserts! (> height burn-block-height) err-sunset-height-in-past)
 		(ok (var-set emergency-team-sunset-height height))
 	)
 )
@@ -64,11 +64,11 @@
 (define-public (emergency-propose (proposal <proposal-trait>))
 	(begin
 		(asserts! (is-emergency-team-member tx-sender) err-not-emergency-team-member)
-		(asserts! (< block-height (var-get emergency-team-sunset-height)) err-sunset-height-reached)
+		(asserts! (< burn-block-height (var-get emergency-team-sunset-height)) err-sunset-height-reached)
 		(contract-call? .bde001-proposal-voting add-proposal proposal
 			{
-				start-block-height: block-height,
-				end-block-height: (+ block-height (var-get emergency-proposal-duration)),
+				start-block-height: burn-block-height,
+				end-block-height: (+ burn-block-height (var-get emergency-proposal-duration)),
 				proposer: tx-sender
 			}
 		)

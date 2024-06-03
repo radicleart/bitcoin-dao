@@ -15,7 +15,7 @@
 (impl-trait .extension-trait.extension-trait)
 (use-trait proposal-trait .proposal-trait.proposal-trait)
 
-(define-data-var executive-team-sunset-height uint (+ block-height u4380)) ;; ~1 month from deploy time
+(define-data-var executive-team-sunset-height uint (+ burn-block-height u4380)) ;; ~1 month from deploy time
 
 (define-constant err-unauthorised (err u3000))
 (define-constant err-not-executive-team-member (err u3001))
@@ -40,7 +40,7 @@
 (define-public (set-executive-team-sunset-height (height uint))
 	(begin
 		(try! (is-dao-or-extension))
-		(asserts! (> height block-height) err-sunset-height-in-past)
+		(asserts! (> height burn-block-height) err-sunset-height-in-past)
 		(ok (var-set executive-team-sunset-height height))
 	)
 )
@@ -84,7 +84,7 @@
 			(signals (+ (get-signals proposal-principal) (if (has-signalled proposal-principal tx-sender) u0 u1)))
 		)
 		(asserts! (is-executive-team-member tx-sender) err-not-executive-team-member)
-		(asserts! (< block-height (var-get executive-team-sunset-height)) err-sunset-height-reached)
+		(asserts! (< burn-block-height (var-get executive-team-sunset-height)) err-sunset-height-reached)
 		(and (>= signals (var-get executive-signals-required))
 			(try! (contract-call? .bitcoin-dao execute proposal tx-sender))
 		)

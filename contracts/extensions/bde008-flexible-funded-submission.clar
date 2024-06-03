@@ -128,7 +128,7 @@
 		(asserts! (>= start-delay (try! (get-parameter "minimum-proposal-start-delay"))) err-proposal-minimum-start-delay)
 		(asserts! (>= duration (try! (get-parameter "minimum-proposal-duration"))) err-proposal-minimum-duration)
 		(map-set funded-proposals proposal-principal true)
-		(submit-proposal-for-vote proposal (+ block-height start-delay) duration custom-majority)
+		(submit-proposal-for-vote proposal (+ burn-block-height start-delay) duration custom-majority)
 	)
 )
 
