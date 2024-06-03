@@ -68,7 +68,7 @@
 			(entry (unwrap! (get-developer-allowance tx-sender) err-no-allowance))
 			(claim-count (get-developer-claim-count tx-sender))
 			(start-height (get start-height entry))
-			(max-claims (/ (- block-height start-height) one-month-time))
+			(max-claims (/ (- burn-block-height start-height) one-month-time))
 			(developer tx-sender)
 		)
 		(asserts! (< claim-count max-claims) err-already-claimed)

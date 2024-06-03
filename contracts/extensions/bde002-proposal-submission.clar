@@ -97,8 +97,8 @@
 (define-public (propose (proposal <proposal-trait>) (start-block-height uint) (governance-token <governance-token-trait>))
 	(begin
 		(try! (is-governance-token governance-token))
-		(asserts! (>= start-block-height (+ block-height (try! (get-parameter "minimum-proposal-start-delay")))) err-proposal-minimum-start-delay)
-		(asserts! (<= start-block-height (+ block-height (try! (get-parameter "maximum-proposal-start-delay")))) err-proposal-maximum-start-delay)
+		(asserts! (>= start-block-height (+ burn-block-height (try! (get-parameter "minimum-proposal-start-delay")))) err-proposal-minimum-start-delay)
+		(asserts! (<= start-block-height (+ burn-block-height (try! (get-parameter "maximum-proposal-start-delay")))) err-proposal-maximum-start-delay)
 		(asserts! (try! (contract-call? governance-token bdg-has-percentage-balance tx-sender (try! (get-parameter "propose-factor")))) err-insufficient-balance)
 		(contract-call? .bde001-proposal-voting add-proposal
 			proposal

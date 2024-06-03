@@ -100,8 +100,8 @@
 			(new-total-votes (+ (get-current-total-votes proposal tx-sender) amount))
 			(historical-values (unwrap! (get-historical-values (get start-block-height proposal-data) tx-sender) err-proposal-inactive))
 		)
-		(asserts! (>= block-height (get start-block-height proposal-data)) err-proposal-inactive)
-		(asserts! (< block-height (get end-block-height proposal-data)) err-proposal-inactive)
+		(asserts! (>= burn-block-height (get start-block-height proposal-data)) err-proposal-inactive)
+		(asserts! (< blocburn-blockk-height (get end-block-height proposal-data)) err-proposal-inactive)
 		(asserts!
 			(<= new-total-votes (get user-balance historical-values))
 			err-insufficient-voting-capacity
@@ -136,7 +136,7 @@
 			)
 		)
 		(asserts! (not (get concluded proposal-data)) err-proposal-already-concluded)
-		(asserts! (>= block-height (get end-block-height proposal-data)) err-end-block-height-not-reached)
+		(asserts! (>= burn-block-height (get end-block-height proposal-data)) err-end-block-height-not-reached)
 		(map-set proposals (contract-of proposal) (merge proposal-data {concluded: true, passed: passed}))
 		(print {event: "conclude", proposal: proposal, passed: passed})
 		(and passed (try! (contract-call? .bitcoin-dao execute proposal tx-sender)))
