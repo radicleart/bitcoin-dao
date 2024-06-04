@@ -41,6 +41,9 @@
 		(try! (contract-call? .bde000-governance-token bdg-mint-many
 			(list
 				{amount: u1000, recipient: sender}
+				{amount: u1000, recipient: 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5}
+				{amount: u1000, recipient: 'ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG}
+				{amount: u1000, recipient: 'ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC}
 				{amount: u1000000000, recipient: .bde006-treasury}
 			)
 		))
