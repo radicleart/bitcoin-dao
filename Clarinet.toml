@@ -8,59 +8,72 @@ cache_dir = '.cache'
 [contracts.proposal-trait]
 path = "contracts/traits/proposal-trait.clar"
 clarity_version = 2
-epoch = 2.3
+epoch = 2.5
 
 [contracts.ownable-trait]
 path = "contracts/traits/ownable-trait.clar"
 clarity_version = 2
-epoch = 2.3
+epoch = 2.5
 
 [contracts.sip010-ft-trait]
 path = "contracts/traits/sip010-ft-trait.clar"
 clarity_version = 2
-epoch = 2.3
+epoch = 2.5
 
 [contracts.extension-trait]
 path = "contracts/traits/extension-trait.clar"
 clarity_version = 2
-epoch = 2.3
+epoch = 2.5
 
 [contracts.governance-token-trait]
 path = "contracts/traits/governance-token-trait.clar"
 clarity_version = 2
-epoch = 2.3
+epoch = 2.5
 
 [contracts.bitcoin-dao]
 path = "contracts/bitcoin-dao.clar"
 clarity_version = 2
-epoch = 2.3
+epoch = 2.5
 
 [contracts.bde000-governance-token]
 path = "contracts/extensions/bde000-governance-token.clar"
 clarity_version = 2
-epoch = 2.3
+epoch = 2.5
 
 [contracts.bde001-proposal-voting]
 path = "contracts/extensions/bde001-proposal-voting.clar"
 clarity_version = 2
-epoch = 2.3
+epoch = 2.5
 
 [contracts.bde002-proposal-submission]
 path = "contracts/extensions/bde002-proposal-submission.clar"
 clarity_version = 2
-epoch = 2.3
+epoch = 2.5
 
 [contracts.bde003-core-proposals]
 path = "contracts/extensions/bde003-core-proposals.clar"
 clarity_version = 2
-epoch = 2.3
+epoch = 2.5
 
 [contracts.bde004-core-execute]
 path = "contracts/extensions/bde004-core-execute.clar"
 clarity_version = 2
-epoch = 2.3
+epoch = 2.5
 
 [contracts.bde006-treasury]
 path = "contracts/extensions/bde006-treasury.clar"
 clarity_version = 2
-epoch = 2.3
+epoch = 2.5
+
+[contracts.bdp000-bootstrap]
+path = "contracts/proposals/testnet/bdp000-bootstrap.clar"
+clarity_version = 2
+epoch = 2.5
+[contracts.bdp000-executive-team-sunset-height]
+path = "contracts/proposals/testnet/bdp000-executive-team-sunset-height.clar"
+clarity_version = 2
+epoch = 2.5
+[contracts.bdp000-core-team-sunset-height]
+path = "contracts/proposals/testnet/bdp000-core-team-sunset-height.clar"
+clarity_version = 2
+epoch = 2.5

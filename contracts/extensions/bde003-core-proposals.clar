@@ -18,10 +18,10 @@
 (define-data-var core-proposal-duration uint u144) ;; ~1 day
 (define-data-var core-team-sunset-height uint u0) ;; does not expire by default - can be changed by proposal
 
-(define-constant err-unauthorised (err u3000))
-(define-constant err-not-core-team-member (err u3001))
-(define-constant err-sunset-height-reached (err u3002))
-(define-constant err-sunset-height-in-past (err u3003))
+(define-constant err-unauthorised (err u3300))
+(define-constant err-not-core-team-member (err u3301))
+(define-constant err-sunset-height-reached (err u3302))
+(define-constant err-sunset-height-in-past (err u3303))
 
 (define-map core-team principal bool)
 

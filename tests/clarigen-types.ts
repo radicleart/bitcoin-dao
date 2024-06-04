@@ -401,7 +401,7 @@ export const contracts = {
     },
     non_fungible_tokens: [],
     fungible_tokens: [{ name: "bdg-token" }, { name: "bdg-token-locked" }],
-    epoch: "Epoch23",
+    epoch: "Epoch25",
     clarity_version: "Clarity2",
     contractName: "bde000-governance-token",
   },
@@ -762,54 +762,54 @@ export const contracts = {
     constants: {
       errDisabled: {
         isOk: false,
-        value: 3_010n,
+        value: 3_110n,
       },
       errEndBlockHeightNotReached: {
         isOk: false,
-        value: 3_009n,
+        value: 3_109n,
       },
       errNoVotesToReturn: {
         isOk: false,
-        value: 3_008n,
+        value: 3_108n,
       },
       errNotGovernanceToken: {
         isOk: false,
-        value: 3_001n,
+        value: 3_101n,
       },
       errProposalAlreadyConcluded: {
         isOk: false,
-        value: 3_005n,
+        value: 3_105n,
       },
       errProposalAlreadyExecuted: {
         isOk: false,
-        value: 3_002n,
+        value: 3_102n,
       },
       errProposalAlreadyExists: {
         isOk: false,
-        value: 3_003n,
+        value: 3_103n,
       },
       errProposalInactive: {
         isOk: false,
-        value: 3_006n,
+        value: 3_106n,
       },
       errProposalNotConcluded: {
         isOk: false,
-        value: 3_007n,
+        value: 3_107n,
       },
       errUnauthorised: {
         isOk: false,
-        value: 3_000n,
+        value: 3_100n,
       },
       errUnknownProposal: {
         isOk: false,
-        value: 3_004n,
+        value: 3_104n,
       },
       governanceTokenPrincipal:
         "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde000-governance-token",
     },
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch23",
+    epoch: "Epoch25",
     clarity_version: "Clarity2",
     contractName: "bde001-proposal-voting",
   },
@@ -1073,7 +1073,7 @@ export const contracts = {
     },
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch23",
+    epoch: "Epoch25",
     clarity_version: "Clarity2",
     contractName: "bde002-proposal-submission",
   },
@@ -1210,27 +1210,27 @@ export const contracts = {
     },
     constants: {
       coreProposalDuration: 144n,
-      coreTeamSunsetHeight: 13_157n,
+      coreTeamSunsetHeight: 0n,
       errNotCoreTeamMember: {
         isOk: false,
-        value: 3_001n,
+        value: 3_301n,
       },
       errSunsetHeightInPast: {
         isOk: false,
-        value: 3_003n,
+        value: 3_303n,
       },
       errSunsetHeightReached: {
         isOk: false,
-        value: 3_002n,
+        value: 3_302n,
       },
       errUnauthorised: {
         isOk: false,
-        value: 3_000n,
+        value: 3_300n,
       },
     },
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch23",
+    epoch: "Epoch25",
     clarity_version: "Clarity2",
     contractName: "bde003-core-proposals",
   },
@@ -1429,30 +1429,30 @@ export const contracts = {
     constants: {
       errAlreadyExecuted: {
         isOk: false,
-        value: 3_002n,
+        value: 3_402n,
       },
       errNotExecutiveTeamMember: {
         isOk: false,
-        value: 3_001n,
+        value: 3_401n,
       },
       errSunsetHeightInPast: {
         isOk: false,
-        value: 3_004n,
+        value: 3_404n,
       },
       errSunsetHeightReached: {
         isOk: false,
-        value: 3_003n,
+        value: 3_403n,
       },
       errUnauthorised: {
         isOk: false,
-        value: 3_000n,
+        value: 3_400n,
       },
       executiveSignalsRequired: 1n,
-      executiveTeamSunsetHeight: 4_400n,
+      executiveTeamSunsetHeight: 0n,
     },
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch23",
+    epoch: "Epoch25",
     clarity_version: "Clarity2",
     contractName: "bde004-core-execute",
   },
@@ -1866,9 +1866,72 @@ export const contracts = {
     },
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch23",
+    epoch: "Epoch25",
     clarity_version: "Clarity2",
     contractName: "bde006-treasury",
+  },
+  bdp000Bootstrap: {
+    functions: {
+      execute: {
+        name: "execute",
+        access: "public",
+        args: [{ name: "sender", type: "principal" }],
+        outputs: { type: { response: { ok: "bool", error: "uint128" } } },
+      } as TypedAbiFunction<
+        [sender: TypedAbiArg<string, "sender">],
+        Response<boolean, bigint>
+      >,
+    },
+    maps: {},
+    variables: {},
+    constants: {},
+    non_fungible_tokens: [],
+    fungible_tokens: [],
+    epoch: "Epoch25",
+    clarity_version: "Clarity2",
+    contractName: "bdp000-bootstrap",
+  },
+  bdp000CoreTeamSunsetHeight: {
+    functions: {
+      execute: {
+        name: "execute",
+        access: "public",
+        args: [{ name: "sender", type: "principal" }],
+        outputs: { type: { response: { ok: "bool", error: "uint128" } } },
+      } as TypedAbiFunction<
+        [sender: TypedAbiArg<string, "sender">],
+        Response<boolean, bigint>
+      >,
+    },
+    maps: {},
+    variables: {},
+    constants: {},
+    non_fungible_tokens: [],
+    fungible_tokens: [],
+    epoch: "Epoch25",
+    clarity_version: "Clarity2",
+    contractName: "bdp000-core-team-sunset-height",
+  },
+  bdp000ExecutiveTeamSunsetHeight: {
+    functions: {
+      execute: {
+        name: "execute",
+        access: "public",
+        args: [{ name: "sender", type: "principal" }],
+        outputs: { type: { response: { ok: "bool", error: "uint128" } } },
+      } as TypedAbiFunction<
+        [sender: TypedAbiArg<string, "sender">],
+        Response<boolean, bigint>
+      >,
+    },
+    maps: {},
+    variables: {},
+    constants: {},
+    non_fungible_tokens: [],
+    fungible_tokens: [],
+    epoch: "Epoch25",
+    clarity_version: "Clarity2",
+    contractName: "bdp000-executive-team-sunset-height",
   },
   bitcoinDao: {
     functions: {
@@ -2083,7 +2146,7 @@ export const contracts = {
     },
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch23",
+    epoch: "Epoch25",
     clarity_version: "Clarity2",
     contractName: "bitcoin-dao",
   },
@@ -2094,7 +2157,7 @@ export const contracts = {
     constants: {},
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch23",
+    epoch: "Epoch25",
     clarity_version: "Clarity2",
     contractName: "extension-trait",
   },
@@ -2105,7 +2168,7 @@ export const contracts = {
     constants: {},
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch23",
+    epoch: "Epoch25",
     clarity_version: "Clarity2",
     contractName: "governance-token-trait",
   },
@@ -2116,7 +2179,7 @@ export const contracts = {
     constants: {},
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch23",
+    epoch: "Epoch25",
     clarity_version: "Clarity2",
     contractName: "ownable-trait",
   },
@@ -2127,7 +2190,7 @@ export const contracts = {
     constants: {},
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch23",
+    epoch: "Epoch25",
     clarity_version: "Clarity2",
     contractName: "proposal-trait",
   },
@@ -2138,7 +2201,7 @@ export const contracts = {
     constants: {},
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch23",
+    epoch: "Epoch25",
     clarity_version: "Clarity2",
     contractName: "sip010-ft-trait",
   },
@@ -2199,6 +2262,11 @@ export const identifiers = {
   bde004CoreExecute:
     "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde004-core-execute",
   bde006Treasury: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde006-treasury",
+  bdp000Bootstrap: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp000-bootstrap",
+  bdp000CoreTeamSunsetHeight:
+    "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp000-core-team-sunset-height",
+  bdp000ExecutiveTeamSunsetHeight:
+    "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp000-executive-team-sunset-height",
   bitcoinDao: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bitcoin-dao",
   extensionTrait: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.extension-trait",
   governanceTokenTrait:
@@ -2236,24 +2304,42 @@ export const deployments = {
     mainnet: null,
   },
   bde003CoreProposals: {
-    devnet:
-      "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde003-core-proposals",
-    simnet:
-      "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde003-core-proposals",
+    devnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde003-core-proposals",
+    simnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde003-core-proposals",
     testnet: null,
     mainnet: null,
   },
   bde004CoreExecute: {
-    devnet:
-      "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde004-core-execute",
-    simnet:
-      "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde004-core-execute",
+    devnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde004-core-execute",
+    simnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde004-core-execute",
     testnet: null,
     mainnet: null,
   },
   bde006Treasury: {
     devnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde006-treasury",
     simnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde006-treasury",
+    testnet: null,
+    mainnet: null,
+  },
+  bdp000Bootstrap: {
+    devnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp000-bootstrap",
+    simnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp000-bootstrap",
+    testnet: null,
+    mainnet: null,
+  },
+  bdp000CoreTeamSunsetHeight: {
+    devnet:
+      "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp000-core-team-sunset-height",
+    simnet:
+      "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp000-core-team-sunset-height",
+    testnet: null,
+    mainnet: null,
+  },
+  bdp000ExecutiveTeamSunsetHeight: {
+    devnet:
+      "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp000-executive-team-sunset-height",
+    simnet:
+      "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp000-executive-team-sunset-height",
     testnet: null,
     mainnet: null,
   },

@@ -17,11 +17,11 @@
 
 (define-data-var executive-team-sunset-height uint u0) ;; does not expire by default - can be changed by proposal
 
-(define-constant err-unauthorised (err u3000))
-(define-constant err-not-executive-team-member (err u3001))
-(define-constant err-already-executed (err u3002))
-(define-constant err-sunset-height-reached (err u3003))
-(define-constant err-sunset-height-in-past (err u3004))
+(define-constant err-unauthorised (err u3400))
+(define-constant err-not-executive-team-member (err u3401))
+(define-constant err-already-executed (err u3402))
+(define-constant err-sunset-height-reached (err u3403))
+(define-constant err-sunset-height-in-past (err u3404))
 
 (define-map executive-team principal bool)
 (define-map executive-action-signals {proposal: principal, team-member: principal} bool)

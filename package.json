@@ -6,6 +6,8 @@
   "private": true,
   "scripts": {
     "test": "vitest run",
+    "watch": "vitest watch",
+    "watch:clar": "npx clarigen --watch",
     "test:report": "vitest run -- --coverage --costs",
     "test:watch": "chokidar \"tests/**/*.ts\" \"contracts/**/*.clar\" -c \"npm run test:report\""
   },
