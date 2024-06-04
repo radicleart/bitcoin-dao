@@ -20,6 +20,13 @@ import { vitestSetupFilePath, getClarinetVitestsArgv } from "@hirosystems/clarin
 
 export default defineConfig({
   test: {
+    reporters: ['default', 'json', 'junit'], // add or remove reporters as needed
+    outputFile: {
+      json: 'reports/report.json',
+      junit: 'reports/report.xml',
+    },
+    silent: false, // if true, suppresses all output
+    watch: true, // enables watch mode
     environment: "clarinet", // use vitest-environment-clarinet
     pool: "forks",
     poolOptions: {
