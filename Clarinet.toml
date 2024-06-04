@@ -30,6 +30,16 @@ path = "contracts/traits/governance-token-trait.clar"
 clarity_version = 2
 epoch = 2.5
 
+[contracts.payment-gateway-trait]
+path = "contracts/traits/payment-gateway-trait.clar"
+clarity_version = 2
+epoch = 2.5
+
+[contracts.resource-provider-trait]
+path = "contracts/traits/resource-provider-trait.clar"
+clarity_version = 2
+epoch = 2.5
+
 [contracts.bitcoin-dao]
 path = "contracts/bitcoin-dao.clar"
 clarity_version = 2
@@ -62,6 +72,11 @@ epoch = 2.5
 
 [contracts.bde006-treasury]
 path = "contracts/extensions/bde006-treasury.clar"
+clarity_version = 2
+epoch = 2.5
+
+[contracts.bde020-resource-payments-manager]
+path = "contracts/extensions/bde020-resource-payments-manager.clar"
 clarity_version = 2
 epoch = 2.5
 

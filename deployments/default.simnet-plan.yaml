@@ -105,6 +105,21 @@ plan:
             path: contracts/extensions/bde006-treasury.clar
             clarity-version: 2
         - emulated-contract-publish:
+            contract-name: payment-gateway-trait
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/traits/payment-gateway-trait.clar
+            clarity-version: 2
+        - emulated-contract-publish:
+            contract-name: resource-provider-trait
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/traits/resource-provider-trait.clar
+            clarity-version: 2
+        - emulated-contract-publish:
+            contract-name: bde020-resource-payments-manager
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/extensions/bde020-resource-payments-manager.clar
+            clarity-version: 2
+        - emulated-contract-publish:
             contract-name: bdp000-bootstrap
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/proposals/testnet/bdp000-bootstrap.clar

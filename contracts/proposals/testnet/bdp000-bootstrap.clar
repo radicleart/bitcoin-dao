@@ -21,6 +21,7 @@
 				{extension: .bde002-proposal-submission, enabled: true}
 				{extension: .bde003-core-proposals, enabled: true}
 				{extension: .bde004-core-execute, enabled: true}
+				{extension: .bde020-resource-manager, enabled: true}
 			)
 		))
 
