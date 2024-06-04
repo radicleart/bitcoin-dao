@@ -1,57 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="24" failures="0" errors="0" time="2.595">
-    <testsuite name="tests/bde003-core-proposals.test.ts" timestamp="2024-06-04T15:57:30.504Z" hostname="mikes-macbook" tests="9" failures="0" errors="0" skipped="0" time="0.223">
-        <testcase classname="tests/bde003-core-proposals.test.ts" name="bde003-core-proposals sunset tests &gt; construct - bootstrap proposal sets core team" time="0.036">
+<testsuites name="vitest tests" tests="2" failures="0" errors="0" time="1190.003">
+    <testsuite name="tests/bde020-resource-payments-manager.test.ts" timestamp="2024-06-04T16:38:56.270Z" hostname="mikes-macbook" tests="2" failures="0" errors="0" skipped="0" time="0.115">
+        <testcase classname="tests/bde020-resource-payments-manager.test.ts" name="bde020-resource-payments-manager setup &gt; construct - bootstrap proposal sets resource manager extensions" time="0.059">
         </testcase>
-        <testcase classname="tests/bde003-core-proposals.test.ts" name="bde003-core-proposals sunset tests &gt; core-propose - core proposals can only be proposed by a core team member" time="0.017">
-        </testcase>
-        <testcase classname="tests/bde003-core-proposals.test.ts" name="bde003-core-proposals sunset tests &gt; core-propose - sunset height is 0 by default" time="0.017">
-        </testcase>
-        <testcase classname="tests/bde003-core-proposals.test.ts" name="bde003-core-proposals sunset tests &gt; core-propose - can only be proposed by a core team member" time="0.024">
-        </testcase>
-        <testcase classname="tests/bde003-core-proposals.test.ts" name="bde003-core-proposals sunset tests &gt; core-propose - can only be proposed by core team member" time="0.022">
-        </testcase>
-        <testcase classname="tests/bde003-core-proposals.test.ts" name="bde003-core-proposals sunset tests &gt; core-propose - cannot be proposed twice by the same team member" time="0.022">
-        </testcase>
-        <testcase classname="tests/bde003-core-proposals.test.ts" name="bde003-core-proposals sunset tests &gt; core-propose - cannot propose an already executed proposal" time="0.023">
-        </testcase>
-        <testcase classname="tests/bde003-core-proposals.test.ts" name="bde003-core-proposals sunset tests &gt; core-propose - can set new sunset height" time="0.031">
-        </testcase>
-        <testcase classname="tests/bde003-core-proposals.test.ts" name="bde003-core-proposals sunset tests &gt; core-propose - cannot execute proposals after sunset" time="0.029">
-        </testcase>
-    </testsuite>
-    <testsuite name="tests/bde004-core-execute.test.ts" timestamp="2024-06-04T15:57:30.509Z" hostname="mikes-macbook" tests="9" failures="0" errors="0" skipped="0" time="0.168">
-        <testcase classname="tests/bde004-core-execute.test.ts" name="bde004-core-execute sunset tests &gt; construct - bootstrap proposal sets executive core team" time="0.02">
-        </testcase>
-        <testcase classname="tests/bde004-core-execute.test.ts" name="bde004-core-execute sunset tests &gt; executive-action - can only be signalled by a core executive team member" time="0.017">
-        </testcase>
-        <testcase classname="tests/bde004-core-execute.test.ts" name="bde004-core-execute sunset tests &gt; executive-action - sunset height is 0 by default" time="0.016">
-        </testcase>
-        <testcase classname="tests/bde004-core-execute.test.ts" name="bde004-core-execute sunset tests &gt; executive-action - can only be signalled by a core executive team member" time="0.02">
-        </testcase>
-        <testcase classname="tests/bde004-core-execute.test.ts" name="bde004-core-execute sunset tests &gt; executive-action - can only be signalled by executive team member" time="0.018">
-        </testcase>
-        <testcase classname="tests/bde004-core-execute.test.ts" name="bde004-core-execute sunset tests &gt; executive-action - cannot be signalled twice by the same team member" time="0.019">
-        </testcase>
-        <testcase classname="tests/bde004-core-execute.test.ts" name="bde004-core-execute sunset tests &gt; executive-action - cannot execute an already executed proposal" time="0.019">
-        </testcase>
-        <testcase classname="tests/bde004-core-execute.test.ts" name="bde004-core-execute sunset tests &gt; executive-action - can set new sunset height" time="0.019">
-        </testcase>
-        <testcase classname="tests/bde004-core-execute.test.ts" name="bde004-core-execute sunset tests &gt; executive-action - cannot execute proposals after sunset" time="0.02">
-        </testcase>
-    </testsuite>
-    <testsuite name="tests/bitcoin-dao.test.ts" timestamp="2024-06-04T15:57:30.513Z" hostname="mikes-macbook" tests="6" failures="0" errors="0" skipped="0" time="0.068">
-        <testcase classname="tests/bitcoin-dao.test.ts" name="BitcoinDAO error tests &gt; execute cannot be called by non dao principal" time="0.009">
-        </testcase>
-        <testcase classname="tests/bitcoin-dao.test.ts" name="BitcoinDAO error tests &gt; request-extension-callback cannot be called by unapproved extensions" time="0.008">
-        </testcase>
-        <testcase classname="tests/bitcoin-dao.test.ts" name="BitcoinDAO error tests &gt; construct can only be called by contract deployer" time="0.008">
-        </testcase>
-        <testcase classname="tests/bitcoin-dao.test.ts" name="BitcoinDAO error tests &gt; isExtension returns false" time="0.008">
-        </testcase>
-        <testcase classname="tests/bitcoin-dao.test.ts" name="BitcoinDAO construction tests &gt; construct sets deployer to self" time="0.016">
-        </testcase>
-        <testcase classname="tests/bitcoin-dao.test.ts" name="BitcoinDAO construction tests &gt; construct executes and mints governance token" time="0.019">
+        <testcase classname="tests/bde020-resource-payments-manager.test.ts" name="bde020-resource-payments-manager managing resources &gt; construct - bootstrap proposal sets resource manager extensions" time="0.053">
         </testcase>
     </testsuite>
 </testsuites>
