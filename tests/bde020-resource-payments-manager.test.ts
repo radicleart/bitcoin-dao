@@ -1,5 +1,5 @@
 import { test, expect, describe } from "vitest";
-import { bitcoinDao, coreProposals, governanceToken, resourceManager, treasury } from "./helpers";
+import { bitcoinDao, constructDao, coreProposals, governanceToken, resourceManager, treasury } from "./helpers";
 import { rov, txOk } from '@clarigen/test';
 
 const accounts = simnet.getAccounts();
@@ -17,11 +17,7 @@ const bob = accounts.get("wallet_2")!;
 describe("bde020-resource-payments-manager setup", () => {
 
   test("construct - bootstrap proposal sets resource manager extensions", async () => {
-    const proposal = simnet.deployer + '.' + 'bdp000-bootstrap'
-    const response = txOk(bitcoinDao.construct(proposal), simnet.deployer);
-    expect(response.value).toBeTruthy()
-    
-    //expect(rov(bitcoinDao.isExtension(res))).toBe(true);
+    constructDao()
     expect(rov(bitcoinDao.isExtension(treasury.identifier))).toBe(true);
     expect(rov(bitcoinDao.isExtension(governanceToken.identifier))).toBe(true);
     expect(rov(bitcoinDao.isExtension(resourceManager.identifier))).toBe(true);
@@ -35,10 +31,8 @@ describe("bde020-resource-payments-manager setup", () => {
  */
 describe("bde020-resource-payments-manager managing resources", () => {
 
-  test("construct - bootstrap proposal sets resource manager extensions", async () => {
-    const proposal = simnet.deployer + '.' + 'bdp000-bootstrap'
-    const response = txOk(bitcoinDao.construct(proposal), simnet.deployer);
-    expect(response.value).toBeTruthy()
+  test("add-resource - can only be added by the dao", async () => {
+    constructDao()
     
     expect(rov(coreProposals.isCoreTeamMember(alice))).toBe(true);
     expect(rov(coreProposals.isCoreTeamMember(bob))).toBe(false);

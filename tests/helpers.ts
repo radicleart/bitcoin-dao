@@ -1,5 +1,7 @@
+import { rov, txOk } from "@clarigen/test";
 import { project, accounts } from "./clarigen-types";
 import { projectFactory, projectErrors } from "@clarigen/core";
+import { expect } from "vitest";
 
 export const contracts = projectFactory(project, "simnet");
 
@@ -35,3 +37,18 @@ export const errors = {
   bitcoinDao: _errors.bitcoinDao,
 };
 
+export function constructDao() {
+  const proposal = simnet.deployer + '.' + 'bdp000-bootstrap'
+  const response = txOk(bitcoinDao.construct(proposal), simnet.deployer);
+  expect(response.value).toBeTruthy()
+  return proposal;
+}
+export function passProposalBySignals(contractName:string) {
+  const proposal = simnet.deployer + '.' + contractName
+  const response2 = txOk(coreExecute.executiveAction(proposal), alice);
+  expect(response2.value).toBe(1n)
+  const response3 = txOk(coreExecute.executiveAction(proposal), bob);
+  expect(response3.value).toBe(2n)
+  expect(rov(bitcoinDao.executedAt(proposal))).toBeGreaterThan(0);
+
+}

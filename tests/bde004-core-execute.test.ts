@@ -1,7 +1,6 @@
 import { test, expect, describe } from "vitest";
-import { bitcoinDao, coreExecute, errors, governanceToken } from "./helpers";
-import { roOk, rov, txErr, txOk, varGet } from '@clarigen/test';
-import util from 'util'
+import { constructDao, coreExecute, errors } from "./helpers";
+import { rov, txErr, txOk, varGet } from '@clarigen/test';
 
 const accounts = simnet.getAccounts();
 const alice = accounts.get("wallet_1")!;
@@ -17,10 +16,7 @@ const aria = accounts.get("wallet_4")!;
 describe("bde004-core-execute sunset tests", () => {
 
   test("construct - bootstrap proposal sets executive core team", async () => {
-    const proposal = simnet.deployer + '.' + 'bdp000-bootstrap'
-    const response = txOk(bitcoinDao.construct(proposal), simnet.deployer);
-    expect(response.value).toBeTruthy()
-    
+    constructDao()
     //console.log('response', util.inspect(response, false, null, true /* enable colors */));
     const signals = rov(coreExecute.getSignalsRequired());
     expect(Number(signals)).toEqual(2);
@@ -32,29 +28,20 @@ describe("bde004-core-execute sunset tests", () => {
   });
 
   test("executive-action - can only be signalled by a core executive team member", async () => {
-    const proposal = simnet.deployer + '.' + 'bdp000-bootstrap'
-    const response = txOk(bitcoinDao.construct(proposal), simnet.deployer);
-    expect(response.value).toBeTruthy()
-    
+    const proposal = constructDao()
     //console.log('response', util.inspect(response, false, null, true /* enable colors */));
     const response1 = txErr(coreExecute.executiveAction(proposal), aria);
     expect(response1.value).toBe(errors.coreExecute.errNotExecutiveTeamMember)
   });
 
   test("executive-action - sunset height is 0 by default", async () => {
-    const proposal = simnet.deployer + '.' + 'bdp000-bootstrap'
-    const response = txOk(bitcoinDao.construct(proposal), simnet.deployer);
-    expect(response.value).toBeTruthy()
-    
-
+    constructDao()
     const height = await varGet(coreExecute.identifier, coreExecute.variables.executiveTeamSunsetHeight);
     expect(height).toBe(0n)
   });
 
   test("executive-action - can only be signalled by a core executive team member", async () => {
-    const proposal = simnet.deployer + '.' + 'bdp000-bootstrap'
-    const response = txOk(bitcoinDao.construct(proposal), simnet.deployer);
-    expect(response.value).toBeTruthy()
+    const proposal = constructDao()
     
     //console.log('response', util.inspect(response, false, null, true /* enable colors */));
     const response1 = txErr(coreExecute.executiveAction(proposal), aria);
@@ -65,9 +52,7 @@ describe("bde004-core-execute sunset tests", () => {
   });
 
   test("executive-action - can only be signalled by executive team member", async () => {
-    const proposal = simnet.deployer + '.' + 'bdp000-bootstrap'
-    const response = txOk(bitcoinDao.construct(proposal), simnet.deployer);
-    expect(response.value).toBeTruthy()
+    const proposal = constructDao()
     
     //console.log('response', util.inspect(response, false, null, true /* enable colors */));
     const response1 = txErr(coreExecute.executiveAction(proposal), aria);
@@ -78,9 +63,7 @@ describe("bde004-core-execute sunset tests", () => {
   });
 
   test("executive-action - cannot be signalled twice by the same team member", async () => {
-    const proposal = simnet.deployer + '.' + 'bdp000-bootstrap'
-    const response = txOk(bitcoinDao.construct(proposal), simnet.deployer);
-    expect(response.value).toBeTruthy()
+    const proposal = constructDao()
     
     const response2 = txOk(coreExecute.executiveAction(proposal), alice);
     expect(response2.value).toBe(1n)
@@ -90,9 +73,7 @@ describe("bde004-core-execute sunset tests", () => {
   });
 
   test("executive-action - cannot execute an already executed proposal", async () => {
-    const proposal = simnet.deployer + '.' + 'bdp000-bootstrap'
-    const response = txOk(bitcoinDao.construct(proposal), simnet.deployer);
-    expect(response.value).toBeTruthy()
+    const proposal = constructDao()
     
     const response2 = txOk(coreExecute.executiveAction(proposal), alice);
     expect(response2.value).toBe(1n)
@@ -102,22 +83,17 @@ describe("bde004-core-execute sunset tests", () => {
   });
 
   test("executive-action - can set new sunset height", async () => {
-    const proposal = simnet.deployer + '.' + 'bdp000-bootstrap'
-    const response = txOk(bitcoinDao.construct(proposal), simnet.deployer);
-    expect(response.value).toBeTruthy()
+    constructDao()
     
     const proposal1 = simnet.deployer + '.' + 'bdp000-executive-team-sunset-height'
     const response2 = txOk(coreExecute.executiveAction(proposal1), alice);
     expect(response2.value).toBe(1n)
-
     const response3 = txOk(coreExecute.executiveAction(proposal1), bob);
     expect(response3.value).toBe(2n)
   });
 
   test("executive-action - cannot execute proposals after sunset", async () => {
-    const proposal = simnet.deployer + '.' + 'bdp000-bootstrap'
-    const response1 = txOk(bitcoinDao.construct(proposal), simnet.deployer);
-    expect(response1.value).toBeTruthy()
+    constructDao()
     
     const proposal1 = simnet.deployer + '.' + 'bdp000-executive-team-sunset-height'
     let responseOk = txOk(coreExecute.executiveAction(proposal1), alice);
