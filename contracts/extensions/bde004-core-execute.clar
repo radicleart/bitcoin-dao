@@ -8,20 +8,20 @@
 ;; An extension meant for the bootstrapping period of a DAO. It temporarily gives
 ;; some very trusted principals the ability to perform an "executive action";
 ;; meaning, they can skip the voting process to immediately executive a proposal.
-;; The Core execute extension has a sunset period of ~1 month from deploy
-;; time. The core executive team, parameters, and sunset period may be changed
+;; The Core execute extension has an optional sunset period of ~1 month from deploy
+;; time, set it to 0 to disable. The core executive team, parameters, and sunset period may be changed
 ;; by means of a future proposal.
 
 (impl-trait .extension-trait.extension-trait)
 (use-trait proposal-trait .proposal-trait.proposal-trait)
 
-(define-data-var executive-team-sunset-height uint (+ burn-block-height u4380)) ;; ~1 month from deploy time
+(define-data-var executive-team-sunset-height uint u0) ;; does not expire by default - can be changed by proposal
 
-(define-constant err-unauthorised (err u3000))
-(define-constant err-not-executive-team-member (err u3001))
-(define-constant err-already-executed (err u3002))
-(define-constant err-sunset-height-reached (err u3003))
-(define-constant err-sunset-height-in-past (err u3004))
+(define-constant err-unauthorised (err u3400))
+(define-constant err-not-executive-team-member (err u3401))
+(define-constant err-already-executed (err u3402))
+(define-constant err-sunset-height-reached (err u3403))
+(define-constant err-sunset-height-in-past (err u3404))
 
 (define-map executive-team principal bool)
 (define-map executive-action-signals {proposal: principal, team-member: principal} bool)
@@ -84,7 +84,7 @@
 			(signals (+ (get-signals proposal-principal) (if (has-signalled proposal-principal tx-sender) u0 u1)))
 		)
 		(asserts! (is-executive-team-member tx-sender) err-not-executive-team-member)
-		(asserts! (< burn-block-height (var-get executive-team-sunset-height)) err-sunset-height-reached)
+		(asserts! (or (is-eq (var-get executive-team-sunset-height) u0) (< burn-block-height (var-get executive-team-sunset-height))) err-sunset-height-reached)
 		(and (>= signals (var-get executive-signals-required))
 			(try! (contract-call? .bitcoin-dao execute proposal tx-sender))
 		)

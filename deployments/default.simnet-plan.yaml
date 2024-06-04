@@ -105,8 +105,23 @@ plan:
             path: contracts/extensions/bde006-treasury.clar
             clarity-version: 2
         - emulated-contract-publish:
+            contract-name: bdp000-bootstrap
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/proposals/testnet/bdp000-bootstrap.clar
+            clarity-version: 2
+        - emulated-contract-publish:
+            contract-name: bdp000-core-team-sunset-height
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/proposals/testnet/bdp000-core-team-sunset-height.clar
+            clarity-version: 2
+        - emulated-contract-publish:
+            contract-name: bdp000-executive-team-sunset-height
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/proposals/testnet/bdp000-executive-team-sunset-height.clar
+            clarity-version: 2
+        - emulated-contract-publish:
             contract-name: ownable-trait
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/traits/ownable-trait.clar
             clarity-version: 2
-      epoch: "2.3"
+      epoch: "2.5"

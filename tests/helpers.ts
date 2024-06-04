@@ -16,6 +16,7 @@ export const coreExecute = contracts.bde004CoreExecute;
 export const treasury = contracts.bde006Treasury;
 export const bitcoinDao = contracts.bitcoinDao;
 export const extensionTrait = contracts.extensionTrait;
+export const proposalTrait = contracts.proposalTrait;
 export const governanceTokenTrait = contracts.governanceTokenTrait;
 export const ownableTrait = contracts.ownableTrait;
 export const controllerId = `${accounts.deployer.address}.controller`;

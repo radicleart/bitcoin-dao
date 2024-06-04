@@ -1,5 +1,5 @@
-;; Title: BDP000 Bootstrap
-;; Author: Marvin Janssen
+;; Title: BDP000 Unit Tests
+;; Author: Mike Cohen
 ;; Synopsis:
 ;; Boot proposal that sets the governance token, DAO parameters, and extensions, and
 ;; mints the initial governance tokens.
@@ -17,10 +17,10 @@
 		(try! (contract-call? .bitcoin-dao set-extensions
 			(list
 				{extension: .bde000-governance-token, enabled: true}
+				{extension: .bde001-proposal-voting, enabled: true}
+				{extension: .bde002-proposal-submission, enabled: true}
 				{extension: .bde003-core-proposals, enabled: true}
 				{extension: .bde004-core-execute, enabled: true}
-				{extension: .bde007-snapshot-proposal-voting, enabled: true}
-				{extension: .bde008-flexible-funded-submission, enabled: true}
 			)
 		))
 
@@ -33,7 +33,7 @@
 		(try! (contract-call? .bde004-core-execute set-executive-team-member 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5 true))
 		(try! (contract-call? .bde004-core-execute set-executive-team-member 'ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG true))
 		(try! (contract-call? .bde004-core-execute set-executive-team-member 'ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC true))
-		(try! (contract-call? .bde004-core-execute set-signals-required u1)) ;; signal from 3 out of 4 team members requied.
+		(try! (contract-call? .bde004-core-execute set-signals-required u2)) ;; signal from 3 out of 4 team members requied.
 
 		;; Mint initial token supply.
 		(try! (contract-call? .bde000-governance-token bdg-mint-many
