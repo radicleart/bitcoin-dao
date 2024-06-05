@@ -75,8 +75,8 @@ path = "contracts/extensions/bde006-treasury.clar"
 clarity_version = 2
 epoch = 2.5
 
-[contracts.bde020-resource-payments-manager]
-path = "contracts/extensions/bde020-resource-payments-manager.clar"
+[contracts.bde020-resource-manager]
+path = "contracts/extensions/bde020-resource-manager.clar"
 clarity_version = 2
 epoch = 2.5
 
@@ -90,5 +90,9 @@ clarity_version = 2
 epoch = 2.5
 [contracts.bdp000-core-team-sunset-height]
 path = "contracts/proposals/testnet/bdp000-core-team-sunset-height.clar"
+clarity_version = 2
+epoch = 2.5
+[contracts.bdp000-add-resource]
+path = "contracts/proposals/testnet/resources/bdp000-add-resource.clar"
 clarity_version = 2
 epoch = 2.5

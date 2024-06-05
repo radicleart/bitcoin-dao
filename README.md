@@ -12,7 +12,7 @@ Bitcoin DAO will launch with the following additional features;
 - bde003-core-proposals
 - bde004-core-execute
 - bde006-treasury
-- bde020-resource-payments-manager
+- bde020-resource-manager
 
 ## Clarigen
 

@@ -115,9 +115,14 @@ plan:
             path: contracts/traits/resource-provider-trait.clar
             clarity-version: 2
         - emulated-contract-publish:
-            contract-name: bde020-resource-payments-manager
+            contract-name: bde020-resource-manager
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/extensions/bde020-resource-payments-manager.clar
+            path: contracts/extensions/bde020-resource-manager.clar
+            clarity-version: 2
+        - emulated-contract-publish:
+            contract-name: bdp000-add-resource
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/proposals/testnet/resources/bdp000-add-resource.clar
             clarity-version: 2
         - emulated-contract-publish:
             contract-name: bdp000-bootstrap

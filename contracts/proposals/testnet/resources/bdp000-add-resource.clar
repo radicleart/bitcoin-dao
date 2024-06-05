@@ -8,7 +8,7 @@
 (define-public (execute (sender principal))
 	(begin
 
-		(try! (contract-call? .bde003-core-proposals set-core-team-sunset-height (+ burn-block-height u10)))
+		(try! (contract-call? .bde020-resource-manager add-resource u"edg-token-mint" u"Resource mints 10 EDG to recipient" u100))
 
 		(ok true)
 	)

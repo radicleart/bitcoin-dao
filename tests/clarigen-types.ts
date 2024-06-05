@@ -1870,7 +1870,7 @@ export const contracts = {
     clarity_version: "Clarity2",
     contractName: "bde006-treasury",
   },
-  bde020ResourcePaymentsManager: {
+  bde020ResourceManager: {
     functions: {
       getOrCreateUser: {
         name: "get-or-create-user",
@@ -2562,7 +2562,7 @@ export const contracts = {
         value: 1_009n,
       },
       oNE_8: 100_000_000n,
-      SELF: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde020ResourcePaymentsManager-vars",
+      SELF: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde020ResourceManager-vars",
       invoiceCount: 0n,
       resourceCount: 0n,
       totalRevenue: 0n,
@@ -2572,7 +2572,28 @@ export const contracts = {
     fungible_tokens: [],
     epoch: "Epoch25",
     clarity_version: "Clarity2",
-    contractName: "bde020-resource-payments-manager",
+    contractName: "bde020-resource-manager",
+  },
+  bdp000AddResource: {
+    functions: {
+      execute: {
+        name: "execute",
+        access: "public",
+        args: [{ name: "sender", type: "principal" }],
+        outputs: { type: { response: { ok: "bool", error: "uint128" } } },
+      } as TypedAbiFunction<
+        [sender: TypedAbiArg<string, "sender">],
+        Response<boolean, bigint>
+      >,
+    },
+    maps: {},
+    variables: {},
+    constants: {},
+    non_fungible_tokens: [],
+    fungible_tokens: [],
+    epoch: "Epoch25",
+    clarity_version: "Clarity2",
+    contractName: "bdp000-add-resource",
   },
   bdp000Bootstrap: {
     functions: {
@@ -2988,8 +3009,10 @@ export const identifiers = {
   bde004CoreExecute:
     "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde004-core-execute",
   bde006Treasury: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde006-treasury",
-  bde020ResourcePaymentsManager:
-    "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde020-resource-payments-manager",
+  bde020ResourceManager:
+    "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde020-resource-manager",
+  bdp000AddResource:
+    "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp000-add-resource",
   bdp000Bootstrap: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp000-bootstrap",
   bdp000CoreTeamSunsetHeight:
     "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp000-core-team-sunset-height",
@@ -3053,11 +3076,15 @@ export const deployments = {
     testnet: null,
     mainnet: null,
   },
-  bde020ResourcePaymentsManager: {
-    devnet:
-      "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde020-resource-payments-manager",
-    simnet:
-      "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde020-resource-payments-manager",
+  bde020ResourceManager: {
+    devnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde020-resource-manager",
+    simnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde020-resource-manager",
+    testnet: null,
+    mainnet: null,
+  },
+  bdp000AddResource: {
+    devnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp000-add-resource",
+    simnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp000-add-resource",
     testnet: null,
     mainnet: null,
   },
