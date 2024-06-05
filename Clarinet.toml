@@ -30,6 +30,16 @@ path = "contracts/traits/governance-token-trait.clar"
 clarity_version = 2
 epoch = 2.5
 
+[contracts.payment-gateway-trait]
+path = "contracts/traits/payment-gateway-trait.clar"
+clarity_version = 2
+epoch = 2.5
+
+[contracts.resource-provider-trait]
+path = "contracts/traits/resource-provider-trait.clar"
+clarity_version = 2
+epoch = 2.5
+
 [contracts.bitcoin-dao]
 path = "contracts/bitcoin-dao.clar"
 clarity_version = 2
@@ -65,6 +75,11 @@ path = "contracts/extensions/bde006-treasury.clar"
 clarity_version = 2
 epoch = 2.5
 
+[contracts.bde020-resource-manager]
+path = "contracts/extensions/bde020-resource-manager.clar"
+clarity_version = 2
+epoch = 2.5
+
 [contracts.bdp000-bootstrap]
 path = "contracts/proposals/testnet/bdp000-bootstrap.clar"
 clarity_version = 2
@@ -75,5 +90,9 @@ clarity_version = 2
 epoch = 2.5
 [contracts.bdp000-core-team-sunset-height]
 path = "contracts/proposals/testnet/bdp000-core-team-sunset-height.clar"
+clarity_version = 2
+epoch = 2.5
+[contracts.bdp000-add-resource]
+path = "contracts/proposals/testnet/resources/bdp000-add-resource.clar"
 clarity_version = 2
 epoch = 2.5

@@ -1870,6 +1870,731 @@ export const contracts = {
     clarity_version: "Clarity2",
     contractName: "bde006-treasury",
   },
+  bde020ResourceManager: {
+    functions: {
+      getOrCreateUser: {
+        name: "get-or-create-user",
+        access: "private",
+        args: [{ name: "address", type: "principal" }],
+        outputs: { type: { response: { ok: "uint128", error: "uint128" } } },
+      } as TypedAbiFunction<
+        [address: TypedAbiArg<string, "address">],
+        Response<bigint, bigint>
+      >,
+      addResource: {
+        name: "add-resource",
+        access: "public",
+        args: [
+          { name: "name", type: { "string-utf8": { length: 50 } } },
+          { name: "description", type: { "string-utf8": { length: 255 } } },
+          { name: "price", type: "uint128" },
+        ],
+        outputs: { type: { response: { ok: "uint128", error: "uint128" } } },
+      } as TypedAbiFunction<
+        [
+          name: TypedAbiArg<string, "name">,
+          description: TypedAbiArg<string, "description">,
+          price: TypedAbiArg<number | bigint, "price">,
+        ],
+        Response<bigint, bigint>
+      >,
+      callback: {
+        name: "callback",
+        access: "public",
+        args: [
+          { name: "sender", type: "principal" },
+          { name: "memo", type: { buffer: { length: 34 } } },
+        ],
+        outputs: { type: { response: { ok: "bool", error: "none" } } },
+      } as TypedAbiFunction<
+        [
+          sender: TypedAbiArg<string, "sender">,
+          memo: TypedAbiArg<Uint8Array, "memo">,
+        ],
+        Response<boolean, null>
+      >,
+      isDaoOrExtension: {
+        name: "is-dao-or-extension",
+        access: "public",
+        args: [],
+        outputs: { type: { response: { ok: "bool", error: "uint128" } } },
+      } as TypedAbiFunction<[], Response<boolean, bigint>>,
+      payInvoice: {
+        name: "pay-invoice",
+        access: "public",
+        args: [
+          { name: "resourceIndex", type: "uint128" },
+          { name: "memo", type: { optional: { buffer: { length: 34 } } } },
+        ],
+        outputs: { type: { response: { ok: "uint128", error: "uint128" } } },
+      } as TypedAbiFunction<
+        [
+          resourceIndex: TypedAbiArg<number | bigint, "resourceIndex">,
+          memo: TypedAbiArg<Uint8Array | null, "memo">,
+        ],
+        Response<bigint, bigint>
+      >,
+      payInvoiceByResourceName: {
+        name: "pay-invoice-by-resource-name",
+        access: "public",
+        args: [
+          { name: "name", type: { "string-utf8": { length: 50 } } },
+          { name: "memo", type: { optional: { buffer: { length: 34 } } } },
+        ],
+        outputs: { type: { response: { ok: "uint128", error: "uint128" } } },
+      } as TypedAbiFunction<
+        [
+          name: TypedAbiArg<string, "name">,
+          memo: TypedAbiArg<Uint8Array | null, "memo">,
+        ],
+        Response<bigint, bigint>
+      >,
+      toggleResource: {
+        name: "toggle-resource",
+        access: "public",
+        args: [{ name: "index", type: "uint128" }],
+        outputs: { type: { response: { ok: "bool", error: "uint128" } } },
+      } as TypedAbiFunction<
+        [index: TypedAbiArg<number | bigint, "index">],
+        Response<boolean, bigint>
+      >,
+      toggleResourceByName: {
+        name: "toggle-resource-by-name",
+        access: "public",
+        args: [{ name: "name", type: { "string-utf8": { length: 50 } } }],
+        outputs: { type: { response: { ok: "bool", error: "uint128" } } },
+      } as TypedAbiFunction<
+        [name: TypedAbiArg<string, "name">],
+        Response<boolean, bigint>
+      >,
+      getInvoice: {
+        name: "get-invoice",
+        access: "read_only",
+        args: [{ name: "index", type: "uint128" }],
+        outputs: {
+          type: {
+            optional: {
+              tuple: [
+                { name: "amount", type: "uint128" },
+                { name: "createdAt", type: "uint128" },
+                { name: "resourceIndex", type: "uint128" },
+                {
+                  name: "resourceName",
+                  type: { "string-utf8": { length: 50 } },
+                },
+                { name: "userIndex", type: "uint128" },
+              ],
+            },
+          },
+        },
+      } as TypedAbiFunction<
+        [index: TypedAbiArg<number | bigint, "index">],
+        {
+          amount: bigint;
+          createdAt: bigint;
+          resourceIndex: bigint;
+          resourceName: string;
+          userIndex: bigint;
+        } | null
+      >,
+      getRecentPayment: {
+        name: "get-recent-payment",
+        access: "read_only",
+        args: [
+          { name: "resourceIndex", type: "uint128" },
+          { name: "userIndex", type: "uint128" },
+        ],
+        outputs: { type: { optional: "uint128" } },
+      } as TypedAbiFunction<
+        [
+          resourceIndex: TypedAbiArg<number | bigint, "resourceIndex">,
+          userIndex: TypedAbiArg<number | bigint, "userIndex">,
+        ],
+        bigint | null
+      >,
+      getRecentPaymentData: {
+        name: "get-recent-payment-data",
+        access: "read_only",
+        args: [
+          { name: "resourceIndex", type: "uint128" },
+          { name: "userIndex", type: "uint128" },
+        ],
+        outputs: {
+          type: {
+            optional: {
+              tuple: [
+                { name: "amount", type: "uint128" },
+                { name: "createdAt", type: "uint128" },
+                { name: "resourceIndex", type: "uint128" },
+                {
+                  name: "resourceName",
+                  type: { "string-utf8": { length: 50 } },
+                },
+                { name: "userIndex", type: "uint128" },
+              ],
+            },
+          },
+        },
+      } as TypedAbiFunction<
+        [
+          resourceIndex: TypedAbiArg<number | bigint, "resourceIndex">,
+          userIndex: TypedAbiArg<number | bigint, "userIndex">,
+        ],
+        {
+          amount: bigint;
+          createdAt: bigint;
+          resourceIndex: bigint;
+          resourceName: string;
+          userIndex: bigint;
+        } | null
+      >,
+      getRecentPaymentDataByAddress: {
+        name: "get-recent-payment-data-by-address",
+        access: "read_only",
+        args: [
+          { name: "name", type: { "string-utf8": { length: 50 } } },
+          { name: "user", type: "principal" },
+        ],
+        outputs: {
+          type: {
+            optional: {
+              tuple: [
+                { name: "amount", type: "uint128" },
+                { name: "createdAt", type: "uint128" },
+                { name: "resourceIndex", type: "uint128" },
+                {
+                  name: "resourceName",
+                  type: { "string-utf8": { length: 50 } },
+                },
+                { name: "userIndex", type: "uint128" },
+              ],
+            },
+          },
+        },
+      } as TypedAbiFunction<
+        [name: TypedAbiArg<string, "name">, user: TypedAbiArg<string, "user">],
+        {
+          amount: bigint;
+          createdAt: bigint;
+          resourceIndex: bigint;
+          resourceName: string;
+          userIndex: bigint;
+        } | null
+      >,
+      getResource: {
+        name: "get-resource",
+        access: "read_only",
+        args: [{ name: "index", type: "uint128" }],
+        outputs: {
+          type: {
+            optional: {
+              tuple: [
+                { name: "createdAt", type: "uint128" },
+                {
+                  name: "description",
+                  type: { "string-utf8": { length: 255 } },
+                },
+                { name: "enabled", type: "bool" },
+                { name: "name", type: { "string-utf8": { length: 50 } } },
+                { name: "price", type: "uint128" },
+                { name: "totalSpent", type: "uint128" },
+                { name: "totalUsed", type: "uint128" },
+              ],
+            },
+          },
+        },
+      } as TypedAbiFunction<
+        [index: TypedAbiArg<number | bigint, "index">],
+        {
+          createdAt: bigint;
+          description: string;
+          enabled: boolean;
+          name: string;
+          price: bigint;
+          totalSpent: bigint;
+          totalUsed: bigint;
+        } | null
+      >,
+      getResourceByName: {
+        name: "get-resource-by-name",
+        access: "read_only",
+        args: [{ name: "name", type: { "string-utf8": { length: 50 } } }],
+        outputs: {
+          type: {
+            optional: {
+              tuple: [
+                { name: "createdAt", type: "uint128" },
+                {
+                  name: "description",
+                  type: { "string-utf8": { length: 255 } },
+                },
+                { name: "enabled", type: "bool" },
+                { name: "name", type: { "string-utf8": { length: 50 } } },
+                { name: "price", type: "uint128" },
+                { name: "totalSpent", type: "uint128" },
+                { name: "totalUsed", type: "uint128" },
+              ],
+            },
+          },
+        },
+      } as TypedAbiFunction<
+        [name: TypedAbiArg<string, "name">],
+        {
+          createdAt: bigint;
+          description: string;
+          enabled: boolean;
+          name: string;
+          price: bigint;
+          totalSpent: bigint;
+          totalUsed: bigint;
+        } | null
+      >,
+      getResourceIndex: {
+        name: "get-resource-index",
+        access: "read_only",
+        args: [{ name: "name", type: { "string-utf8": { length: 50 } } }],
+        outputs: { type: { optional: "uint128" } },
+      } as TypedAbiFunction<[name: TypedAbiArg<string, "name">], bigint | null>,
+      getTotalInvoices: {
+        name: "get-total-invoices",
+        access: "read_only",
+        args: [],
+        outputs: { type: "uint128" },
+      } as TypedAbiFunction<[], bigint>,
+      getTotalResources: {
+        name: "get-total-resources",
+        access: "read_only",
+        args: [],
+        outputs: { type: "uint128" },
+      } as TypedAbiFunction<[], bigint>,
+      getTotalRevenue: {
+        name: "get-total-revenue",
+        access: "read_only",
+        args: [],
+        outputs: { type: "uint128" },
+      } as TypedAbiFunction<[], bigint>,
+      getTotalUsers: {
+        name: "get-total-users",
+        access: "read_only",
+        args: [],
+        outputs: { type: "uint128" },
+      } as TypedAbiFunction<[], bigint>,
+      getUserData: {
+        name: "get-user-data",
+        access: "read_only",
+        args: [{ name: "index", type: "uint128" }],
+        outputs: {
+          type: {
+            optional: {
+              tuple: [
+                { name: "address", type: "principal" },
+                { name: "totalSpent", type: "uint128" },
+                { name: "totalUsed", type: "uint128" },
+              ],
+            },
+          },
+        },
+      } as TypedAbiFunction<
+        [index: TypedAbiArg<number | bigint, "index">],
+        {
+          address: string;
+          totalSpent: bigint;
+          totalUsed: bigint;
+        } | null
+      >,
+      getUserDataByAddress: {
+        name: "get-user-data-by-address",
+        access: "read_only",
+        args: [{ name: "user", type: "principal" }],
+        outputs: {
+          type: {
+            optional: {
+              tuple: [
+                { name: "address", type: "principal" },
+                { name: "totalSpent", type: "uint128" },
+                { name: "totalUsed", type: "uint128" },
+              ],
+            },
+          },
+        },
+      } as TypedAbiFunction<
+        [user: TypedAbiArg<string, "user">],
+        {
+          address: string;
+          totalSpent: bigint;
+          totalUsed: bigint;
+        } | null
+      >,
+      getUserIndex: {
+        name: "get-user-index",
+        access: "read_only",
+        args: [{ name: "user", type: "principal" }],
+        outputs: { type: { optional: "uint128" } },
+      } as TypedAbiFunction<[user: TypedAbiArg<string, "user">], bigint | null>,
+    },
+    maps: {
+      invoiceData: {
+        name: "InvoiceData",
+        key: "uint128",
+        value: {
+          tuple: [
+            { name: "amount", type: "uint128" },
+            { name: "createdAt", type: "uint128" },
+            { name: "resourceIndex", type: "uint128" },
+            { name: "resourceName", type: { "string-utf8": { length: 50 } } },
+            { name: "userIndex", type: "uint128" },
+          ],
+        },
+      } as TypedAbiMap<
+        number | bigint,
+        {
+          amount: bigint;
+          createdAt: bigint;
+          resourceIndex: bigint;
+          resourceName: string;
+          userIndex: bigint;
+        }
+      >,
+      recentPayments: {
+        name: "RecentPayments",
+        key: {
+          tuple: [
+            { name: "resourceIndex", type: "uint128" },
+            { name: "userIndex", type: "uint128" },
+          ],
+        },
+        value: "uint128",
+      } as TypedAbiMap<
+        {
+          resourceIndex: number | bigint;
+          userIndex: number | bigint;
+        },
+        bigint
+      >,
+      resourceData: {
+        name: "ResourceData",
+        key: "uint128",
+        value: {
+          tuple: [
+            { name: "createdAt", type: "uint128" },
+            { name: "description", type: { "string-utf8": { length: 255 } } },
+            { name: "enabled", type: "bool" },
+            { name: "name", type: { "string-utf8": { length: 50 } } },
+            { name: "price", type: "uint128" },
+            { name: "totalSpent", type: "uint128" },
+            { name: "totalUsed", type: "uint128" },
+          ],
+        },
+      } as TypedAbiMap<
+        number | bigint,
+        {
+          createdAt: bigint;
+          description: string;
+          enabled: boolean;
+          name: string;
+          price: bigint;
+          totalSpent: bigint;
+          totalUsed: bigint;
+        }
+      >,
+      resourceIndexes: {
+        name: "ResourceIndexes",
+        key: { "string-utf8": { length: 50 } },
+        value: "uint128",
+      } as TypedAbiMap<string, bigint>,
+      userData: {
+        name: "UserData",
+        key: "uint128",
+        value: {
+          tuple: [
+            { name: "address", type: "principal" },
+            { name: "totalSpent", type: "uint128" },
+            { name: "totalUsed", type: "uint128" },
+          ],
+        },
+      } as TypedAbiMap<
+        number | bigint,
+        {
+          address: string;
+          totalSpent: bigint;
+          totalUsed: bigint;
+        }
+      >,
+      userIndexes: {
+        name: "UserIndexes",
+        key: "principal",
+        value: "uint128",
+      } as TypedAbiMap<string, bigint>,
+    },
+    variables: {
+      DEPLOYER: {
+        name: "DEPLOYER",
+        type: "principal",
+        access: "constant",
+      } as TypedAbiVariable<string>,
+      ERR_DELETING_RESOURCE_DATA: {
+        name: "ERR_DELETING_RESOURCE_DATA",
+        type: {
+          response: {
+            ok: "none",
+            error: "uint128",
+          },
+        },
+        access: "constant",
+      } as TypedAbiVariable<Response<null, bigint>>,
+      ERR_INVALID_PARAMS: {
+        name: "ERR_INVALID_PARAMS",
+        type: {
+          response: {
+            ok: "none",
+            error: "uint128",
+          },
+        },
+        access: "constant",
+      } as TypedAbiVariable<Response<null, bigint>>,
+      ERR_INVOICE_ALREADY_PAID: {
+        name: "ERR_INVOICE_ALREADY_PAID",
+        type: {
+          response: {
+            ok: "none",
+            error: "uint128",
+          },
+        },
+        access: "constant",
+      } as TypedAbiVariable<Response<null, bigint>>,
+      ERR_INVOICE_NOT_FOUND: {
+        name: "ERR_INVOICE_NOT_FOUND",
+        type: {
+          response: {
+            ok: "none",
+            error: "uint128",
+          },
+        },
+        access: "constant",
+      } as TypedAbiVariable<Response<null, bigint>>,
+      ERR_NAME_ALREADY_USED: {
+        name: "ERR_NAME_ALREADY_USED",
+        type: {
+          response: {
+            ok: "none",
+            error: "uint128",
+          },
+        },
+        access: "constant",
+      } as TypedAbiVariable<Response<null, bigint>>,
+      ERR_RECENT_PAYMENT_NOT_FOUND: {
+        name: "ERR_RECENT_PAYMENT_NOT_FOUND",
+        type: {
+          response: {
+            ok: "none",
+            error: "uint128",
+          },
+        },
+        access: "constant",
+      } as TypedAbiVariable<Response<null, bigint>>,
+      ERR_RESOURCE_NOT_ENABLED: {
+        name: "ERR_RESOURCE_NOT_ENABLED",
+        type: {
+          response: {
+            ok: "none",
+            error: "uint128",
+          },
+        },
+        access: "constant",
+      } as TypedAbiVariable<Response<null, bigint>>,
+      ERR_RESOURCE_NOT_FOUND: {
+        name: "ERR_RESOURCE_NOT_FOUND",
+        type: {
+          response: {
+            ok: "none",
+            error: "uint128",
+          },
+        },
+        access: "constant",
+      } as TypedAbiVariable<Response<null, bigint>>,
+      ERR_SAVING_INVOICE_DATA: {
+        name: "ERR_SAVING_INVOICE_DATA",
+        type: {
+          response: {
+            ok: "none",
+            error: "uint128",
+          },
+        },
+        access: "constant",
+      } as TypedAbiVariable<Response<null, bigint>>,
+      ERR_SAVING_RESOURCE_DATA: {
+        name: "ERR_SAVING_RESOURCE_DATA",
+        type: {
+          response: {
+            ok: "none",
+            error: "uint128",
+          },
+        },
+        access: "constant",
+      } as TypedAbiVariable<Response<null, bigint>>,
+      ERR_SAVING_USER_DATA: {
+        name: "ERR_SAVING_USER_DATA",
+        type: {
+          response: {
+            ok: "none",
+            error: "uint128",
+          },
+        },
+        access: "constant",
+      } as TypedAbiVariable<Response<null, bigint>>,
+      ERR_UNAUTHORIZED: {
+        name: "ERR_UNAUTHORIZED",
+        type: {
+          response: {
+            ok: "none",
+            error: "uint128",
+          },
+        },
+        access: "constant",
+      } as TypedAbiVariable<Response<null, bigint>>,
+      ERR_USER_ALREADY_EXISTS: {
+        name: "ERR_USER_ALREADY_EXISTS",
+        type: {
+          response: {
+            ok: "none",
+            error: "uint128",
+          },
+        },
+        access: "constant",
+      } as TypedAbiVariable<Response<null, bigint>>,
+      ERR_USER_NOT_FOUND: {
+        name: "ERR_USER_NOT_FOUND",
+        type: {
+          response: {
+            ok: "none",
+            error: "uint128",
+          },
+        },
+        access: "constant",
+      } as TypedAbiVariable<Response<null, bigint>>,
+      oNE_8: {
+        name: "ONE_8",
+        type: "uint128",
+        access: "constant",
+      } as TypedAbiVariable<bigint>,
+      SELF: {
+        name: "SELF",
+        type: "principal",
+        access: "constant",
+      } as TypedAbiVariable<string>,
+      invoiceCount: {
+        name: "invoiceCount",
+        type: "uint128",
+        access: "variable",
+      } as TypedAbiVariable<bigint>,
+      resourceCount: {
+        name: "resourceCount",
+        type: "uint128",
+        access: "variable",
+      } as TypedAbiVariable<bigint>,
+      totalRevenue: {
+        name: "totalRevenue",
+        type: "uint128",
+        access: "variable",
+      } as TypedAbiVariable<bigint>,
+      userCount: {
+        name: "userCount",
+        type: "uint128",
+        access: "variable",
+      } as TypedAbiVariable<bigint>,
+    },
+    constants: {
+      DEPLOYER: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM",
+      ERR_DELETING_RESOURCE_DATA: {
+        isOk: false,
+        value: 1_004n,
+      },
+      ERR_INVALID_PARAMS: {
+        isOk: false,
+        value: 1_001n,
+      },
+      ERR_INVOICE_ALREADY_PAID: {
+        isOk: false,
+        value: 1_010n,
+      },
+      ERR_INVOICE_NOT_FOUND: {
+        isOk: false,
+        value: 1_012n,
+      },
+      ERR_NAME_ALREADY_USED: {
+        isOk: false,
+        value: 1_002n,
+      },
+      ERR_RECENT_PAYMENT_NOT_FOUND: {
+        isOk: false,
+        value: 1_013n,
+      },
+      ERR_RESOURCE_NOT_ENABLED: {
+        isOk: false,
+        value: 1_006n,
+      },
+      ERR_RESOURCE_NOT_FOUND: {
+        isOk: false,
+        value: 1_005n,
+      },
+      ERR_SAVING_INVOICE_DATA: {
+        isOk: false,
+        value: 1_011n,
+      },
+      ERR_SAVING_RESOURCE_DATA: {
+        isOk: false,
+        value: 1_003n,
+      },
+      ERR_SAVING_USER_DATA: {
+        isOk: false,
+        value: 1_008n,
+      },
+      ERR_UNAUTHORIZED: {
+        isOk: false,
+        value: 1_000n,
+      },
+      ERR_USER_ALREADY_EXISTS: {
+        isOk: false,
+        value: 1_007n,
+      },
+      ERR_USER_NOT_FOUND: {
+        isOk: false,
+        value: 1_009n,
+      },
+      oNE_8: 100_000_000n,
+      SELF: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde020ResourceManager-vars",
+      invoiceCount: 0n,
+      resourceCount: 0n,
+      totalRevenue: 0n,
+      userCount: 0n,
+    },
+    non_fungible_tokens: [],
+    fungible_tokens: [],
+    epoch: "Epoch25",
+    clarity_version: "Clarity2",
+    contractName: "bde020-resource-manager",
+  },
+  bdp000AddResource: {
+    functions: {
+      execute: {
+        name: "execute",
+        access: "public",
+        args: [{ name: "sender", type: "principal" }],
+        outputs: { type: { response: { ok: "bool", error: "uint128" } } },
+      } as TypedAbiFunction<
+        [sender: TypedAbiArg<string, "sender">],
+        Response<boolean, bigint>
+      >,
+    },
+    maps: {},
+    variables: {},
+    constants: {},
+    non_fungible_tokens: [],
+    fungible_tokens: [],
+    epoch: "Epoch25",
+    clarity_version: "Clarity2",
+    contractName: "bdp000-add-resource",
+  },
   bdp000Bootstrap: {
     functions: {
       execute: {
@@ -2183,6 +2908,17 @@ export const contracts = {
     clarity_version: "Clarity2",
     contractName: "ownable-trait",
   },
+  paymentGatewayTrait: {
+    functions: {},
+    maps: {},
+    variables: {},
+    constants: {},
+    non_fungible_tokens: [],
+    fungible_tokens: [],
+    epoch: "Epoch25",
+    clarity_version: "Clarity2",
+    contractName: "payment-gateway-trait",
+  },
   proposalTrait: {
     functions: {},
     maps: {},
@@ -2193,6 +2929,17 @@ export const contracts = {
     epoch: "Epoch25",
     clarity_version: "Clarity2",
     contractName: "proposal-trait",
+  },
+  resourceProviderTrait: {
+    functions: {},
+    maps: {},
+    variables: {},
+    constants: {},
+    non_fungible_tokens: [],
+    fungible_tokens: [],
+    epoch: "Epoch25",
+    clarity_version: "Clarity2",
+    contractName: "resource-provider-trait",
   },
   sip010FtTrait: {
     functions: {},
@@ -2262,6 +3009,10 @@ export const identifiers = {
   bde004CoreExecute:
     "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde004-core-execute",
   bde006Treasury: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde006-treasury",
+  bde020ResourceManager:
+    "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde020-resource-manager",
+  bdp000AddResource:
+    "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp000-add-resource",
   bdp000Bootstrap: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp000-bootstrap",
   bdp000CoreTeamSunsetHeight:
     "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp000-core-team-sunset-height",
@@ -2272,7 +3023,11 @@ export const identifiers = {
   governanceTokenTrait:
     "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.governance-token-trait",
   ownableTrait: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.ownable-trait",
+  paymentGatewayTrait:
+    "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.payment-gateway-trait",
   proposalTrait: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.proposal-trait",
+  resourceProviderTrait:
+    "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.resource-provider-trait",
   sip010FtTrait: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sip010-ft-trait",
 } as const;
 
@@ -2318,6 +3073,18 @@ export const deployments = {
   bde006Treasury: {
     devnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde006-treasury",
     simnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde006-treasury",
+    testnet: null,
+    mainnet: null,
+  },
+  bde020ResourceManager: {
+    devnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde020-resource-manager",
+    simnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde020-resource-manager",
+    testnet: null,
+    mainnet: null,
+  },
+  bdp000AddResource: {
+    devnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp000-add-resource",
+    simnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bdp000-add-resource",
     testnet: null,
     mainnet: null,
   },
@@ -2367,9 +3134,21 @@ export const deployments = {
     testnet: null,
     mainnet: null,
   },
+  paymentGatewayTrait: {
+    devnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.payment-gateway-trait",
+    simnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.payment-gateway-trait",
+    testnet: null,
+    mainnet: null,
+  },
   proposalTrait: {
     devnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.proposal-trait",
     simnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.proposal-trait",
+    testnet: null,
+    mainnet: null,
+  },
+  resourceProviderTrait: {
+    devnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.resource-provider-trait",
+    simnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.resource-provider-trait",
     testnet: null,
     mainnet: null,
   },

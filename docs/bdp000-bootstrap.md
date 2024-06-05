@@ -1,16 +1,53 @@
-;; Title: BDP000 Unit Tests
-;; Author: Mike Cohen
-;; Synopsis:
-;; Boot proposal that sets the governance token, DAO parameters, and extensions, and
-;; mints the initial governance tokens.
-;; Description:
-;; Mints the initial supply of governance tokens and enables the the following 
-;; extensions: "BDE000 Governance Token", "BDE001 Proposal Voting",
-;; "BDE002 Proposal Submission", "BDE003 Core Proposals",
-;; "BDE004 Core Execute".
+# bdp000-bootstrap
 
-(impl-trait .proposal-trait.proposal-trait)
+[`bdp000-bootstrap.clar`](../contracts/proposals/testnet/bdp000-bootstrap.clar)
 
+Title: BDP000 Unit Tests
+
+Author: Mike Cohen
+
+Synopsis:
+
+Boot proposal that sets the governance token, DAO parameters, and extensions, and
+
+mints the initial governance tokens.
+
+Description:
+
+Mints the initial supply of governance tokens and enables the the following
+
+extensions: "BDE000 Governance Token", "BDE001 Proposal Voting",
+
+"BDE002 Proposal Submission", "BDE003 Core Proposals",
+
+"BDE004 Core Execute".
+
+**Public functions:**
+
+- [`execute`](#execute)
+
+**Read-only functions:**
+
+**Private functions:**
+
+**Maps**
+
+**Variables**
+
+**Constants**
+
+## Functions
+
+### execute
+
+[View in file](../contracts/proposals/testnet/bdp000-bootstrap.clar#L14)
+
+`(define-public (execute ((sender principal)) (response bool uint))`
+
+<details>
+  <summary>Source code:</summary>
+
+```clarity
 (define-public (execute (sender principal))
 	(begin
 		;; Enable genesis extensions.
@@ -52,3 +89,18 @@
 		(ok true)
 	)
 )
+```
+
+</details>
+
+**Parameters:**
+
+| Name   | Type      |
+| ------ | --------- |
+| sender | principal |
+
+## Maps
+
+## Variables
+
+## Constants

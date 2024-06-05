@@ -1,13 +1,10 @@
 import { test, expect, describe } from "vitest";
-import { bitcoinDao, coreProposals, errors, governanceToken, proposalVoting } from "./helpers";
+import { constructDao, coreProposals, errors, governanceToken, proposalVoting } from "./helpers";
 import { rov, txErr, txOk, varGet } from '@clarigen/test';
-import util from 'util'
-import { Cl, trueCV } from "@stacks/transactions";
 
 const accounts = simnet.getAccounts();
 const alice = accounts.get("wallet_1")!;
 const bob = accounts.get("wallet_2")!;
-const charlie = accounts.get("wallet_3")!;
 const aria = accounts.get("wallet_4")!;
 
 /*
@@ -18,9 +15,7 @@ const aria = accounts.get("wallet_4")!;
 describe("bde003-core-proposals sunset tests", () => {
 
   test("construct - bootstrap proposal sets core team", async () => {
-    const proposal = simnet.deployer + '.' + 'bdp000-bootstrap'
-    const response = txOk(bitcoinDao.construct(proposal), simnet.deployer);
-    expect(response.value).toBeTruthy()
+    constructDao()
     
     //console.log('response', util.inspect(response, false, null, true /* enable colors */));
     expect(rov(coreProposals.isCoreTeamMember(simnet.deployer))).toBe(true);
@@ -29,9 +24,7 @@ describe("bde003-core-proposals sunset tests", () => {
   });
 
   test("core-propose - core proposals can only be proposed by a core team member", async () => {
-    const proposal = simnet.deployer + '.' + 'bdp000-bootstrap'
-    const response = txOk(bitcoinDao.construct(proposal), simnet.deployer);
-    expect(response.value).toBeTruthy()
+    const proposal = constructDao()
     
     //console.log('response', util.inspect(response, false, null, true /* enable colors */));
     const response1 = txErr(coreProposals.corePropose(proposal), bob);
@@ -39,17 +32,13 @@ describe("bde003-core-proposals sunset tests", () => {
   });
 
   test("core-propose - sunset height is 0 by default", async () => {
-    const proposal = simnet.deployer + '.' + 'bdp000-bootstrap'
-    const response = txOk(bitcoinDao.construct(proposal), simnet.deployer);
-    expect(response.value).toBeTruthy()
+    constructDao()
     const height = await varGet(coreProposals.identifier, coreProposals.variables.coreTeamSunsetHeight);
     expect(height).toBe(0n)
   });
 
   test("core-propose - can only be proposed by a core team member", async () => {
-    const proposal = simnet.deployer + '.' + 'bdp000-bootstrap'
-    const response = txOk(bitcoinDao.construct(proposal), simnet.deployer);
-    expect(response.value).toBeTruthy()
+    const proposal = constructDao()
 
     //console.log('response', util.inspect(response, false, null, true /* enable colors */));
     const response1 = txErr(coreProposals.corePropose(proposal), aria);
@@ -61,9 +50,7 @@ describe("bde003-core-proposals sunset tests", () => {
   });
 
   test("core-propose - can only be proposed by core team member", async () => {
-    const proposal = simnet.deployer + '.' + 'bdp000-bootstrap'
-    const response = txOk(bitcoinDao.construct(proposal), simnet.deployer);
-    expect(response.value).toBeTruthy()
+    constructDao()
     
     const proposal1 = simnet.deployer + '.' + 'bdp000-core-team-sunset-height'
     //console.log('response', util.inspect(response, false, null, true /* enable colors */));
@@ -75,9 +62,7 @@ describe("bde003-core-proposals sunset tests", () => {
   });
 
   test("core-propose - cannot be proposed twice by the same team member", async () => {
-    const proposal = simnet.deployer + '.' + 'bdp000-bootstrap'
-    const response = txOk(bitcoinDao.construct(proposal), simnet.deployer);
-    expect(response.value).toBeTruthy()
+    constructDao()
     
     const proposal1 = simnet.deployer + '.' + 'bdp000-core-team-sunset-height'
     const response2 = txOk(coreProposals.corePropose(proposal1), alice);
@@ -88,9 +73,7 @@ describe("bde003-core-proposals sunset tests", () => {
   });
 
   test("core-propose - cannot propose an already executed proposal", async () => {
-    const proposal = simnet.deployer + '.' + 'bdp000-bootstrap'
-    const response = txOk(bitcoinDao.construct(proposal), simnet.deployer);
-    expect(response.value).toBeTruthy()
+    constructDao()
     
     const proposal1 = simnet.deployer + '.' + 'bdp000-core-team-sunset-height'
     const response2 = txOk(coreProposals.corePropose(proposal1), alice);
@@ -101,9 +84,7 @@ describe("bde003-core-proposals sunset tests", () => {
   });
 
   test("core-propose - can set new sunset height", async () => {
-    const proposal = simnet.deployer + '.' + 'bdp000-bootstrap'
-    const response = txOk(bitcoinDao.construct(proposal), simnet.deployer);
-    expect(response.value).toBeTruthy()
+    constructDao()
     
     const proposal1 = simnet.deployer + '.' + 'bdp000-core-team-sunset-height'
     const response2 = txOk(coreProposals.corePropose(proposal1), alice);
@@ -125,13 +106,11 @@ describe("bde003-core-proposals sunset tests", () => {
   });
 
   test("core-propose - cannot execute proposals after sunset", async () => {
-    const proposal = simnet.deployer + '.' + 'bdp000-bootstrap'
-    let response = txOk(bitcoinDao.construct(proposal), simnet.deployer);
-    expect(response.value).toBeTruthy()
+    constructDao()
     
     // pass proposal to change sunset
     const proposal1 = simnet.deployer + '.' + 'bdp000-core-team-sunset-height'
-    response = txOk(coreProposals.corePropose(proposal1), alice);
+    let response = txOk(coreProposals.corePropose(proposal1), alice);
     expect(response.value).toBe(true)
     response = txOk(proposalVoting.vote(1000n, true, proposal1, governanceToken.identifier), bob);
     expect(response.value).toBe(true)

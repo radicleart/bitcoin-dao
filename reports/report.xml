@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="9" failures="0" errors="0" time="9008.839">
+    <testsuite name="tests/bde020-resource-manager.test.ts" timestamp="2024-06-05T10:12:40.865Z" hostname="mikes-macbook" tests="9" failures="0" errors="0" skipped="0" time="0.328">
+        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager setup &gt; construct - bootstrap proposal sets resource manager extensions" time="0.037">
+        </testcase>
+        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager managing resources &gt; add-resource - cannot be added by non dao principal" time="0.019">
+        </testcase>
+        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager managing resources &gt; add-resource - can only be added by the dao" time="0.048">
+        </testcase>
+        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager pay invoices &gt; pay-invoice - cannot be paid for resource id 0" time="0.027">
+        </testcase>
+        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager pay invoices &gt; pay-invoice - fails if user balance is below price" time="0.029">
+        </testcase>
+        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager pay invoices &gt; pay-invoice - succeeds if user balance has funds" time="0.029">
+        </testcase>
+        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager pay invoices &gt; pay-invoice - succeeds for two users 1 resource" time="0.033">
+        </testcase>
+        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager pay invoices &gt; pay-invoice - succeeds for one users twice for same resource" time="0.031">
+        </testcase>
+        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager pay invoices &gt; pay-invoice - fails for one user after they run out of funds" time="0.072">
+        </testcase>
+    </testsuite>
+</testsuites>
