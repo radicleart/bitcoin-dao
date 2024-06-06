@@ -8,52 +8,6 @@ plan:
   batches:
     - id: 0
       transactions:
-        - requirement-publish:
-            contract-id: SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-010-trait-ft-standard
-            remap-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            remap-principals:
-              SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 8400
-            path: ".cache/requirements/SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-010-trait-ft-standard.clar"
-            clarity-version: 1
-      epoch: "2.0"
-    - id: 1
-      transactions:
-        - requirement-publish:
-            contract-id: SP3JP0N1ZXGASRJ0F7QAHWFPGTVK9T2XNXDB908Z.extension-trait
-            remap-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            remap-principals:
-              SP3JP0N1ZXGASRJ0F7QAHWFPGTVK9T2XNXDB908Z: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 940
-            path: ".cache/requirements/SP3JP0N1ZXGASRJ0F7QAHWFPGTVK9T2XNXDB908Z.extension-trait.clar"
-            clarity-version: 1
-        - requirement-publish:
-            contract-id: SP3JP0N1ZXGASRJ0F7QAHWFPGTVK9T2XNXDB908Z.ownable-trait
-            remap-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            remap-principals:
-              SP3JP0N1ZXGASRJ0F7QAHWFPGTVK9T2XNXDB908Z: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 1440
-            path: ".cache/requirements/SP3JP0N1ZXGASRJ0F7QAHWFPGTVK9T2XNXDB908Z.ownable-trait.clar"
-            clarity-version: 1
-        - requirement-publish:
-            contract-id: SP3JP0N1ZXGASRJ0F7QAHWFPGTVK9T2XNXDB908Z.proposal-trait
-            remap-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            remap-principals:
-              SP3JP0N1ZXGASRJ0F7QAHWFPGTVK9T2XNXDB908Z: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 820
-            path: ".cache/requirements/SP3JP0N1ZXGASRJ0F7QAHWFPGTVK9T2XNXDB908Z.proposal-trait.clar"
-            clarity-version: 1
-        - requirement-publish:
-            contract-id: ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.sip-010-trait-ft-standard
-            remap-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            remap-principals:
-              ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 8390
-            path: ".cache/requirements/ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.sip-010-trait-ft-standard.clar"
-            clarity-version: 1
-      epoch: "2.05"
-    - id: 2
-      transactions:
         - contract-publish:
             contract-name: extension-trait
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
@@ -71,7 +25,7 @@ plan:
         - contract-publish:
             contract-name: bitcoin-dao
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 25470
+            cost: 27510
             path: contracts/bitcoin-dao.clar
             anchor-block-only: true
             clarity-version: 2
@@ -92,43 +46,92 @@ plan:
         - contract-publish:
             contract-name: bde000-governance-token
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 41990
+            cost: 42110
             path: contracts/extensions/bde000-governance-token.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: bde001-proposal-voting
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 63070
+            cost: 63220
             path: contracts/extensions/bde001-proposal-voting.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: bde002-proposal-submission
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 42860
+            cost: 42960
             path: contracts/extensions/bde002-proposal-submission.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: bde003-core-proposals
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 26980
+            cost: 26810
             path: contracts/extensions/bde003-core-proposals.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: bde004-core-execute
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 35690
+            cost: 36630
             path: contracts/extensions/bde004-core-execute.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
-            contract-name: bde005-dev-fund
+            contract-name: bde006-treasury
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 29240
-            path: contracts/extensions/bde005-dev-fund.clar
+            cost: 50370
+            path: contracts/extensions/bde006-treasury.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: payment-gateway-trait
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 3370
+            path: contracts/traits/payment-gateway-trait.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: resource-provider-trait
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 3830
+            path: contracts/traits/resource-provider-trait.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: bde020-resource-manager
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 114570
+            path: contracts/extensions/bde020-resource-manager.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: bdp000-add-resource
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 3380
+            path: contracts/proposals/testnet/resources/bdp000-add-resource.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: bdp000-bootstrap
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 26490
+            path: contracts/proposals/testnet/bdp000-bootstrap.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: bdp000-core-team-sunset-height
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 3160
+            path: contracts/proposals/testnet/bdp000-core-team-sunset-height.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: bdp000-executive-team-sunset-height
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 3190
+            path: contracts/proposals/testnet/bdp000-executive-team-sunset-height.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
@@ -138,11 +141,4 @@ plan:
             path: contracts/traits/ownable-trait.clar
             anchor-block-only: true
             clarity-version: 2
-        - contract-publish:
-            contract-name: nft-escrow
-            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 29330
-            path: contracts/external/nft-escrow.clar
-            anchor-block-only: true
-            clarity-version: 2
-      epoch: "2.3"
+      epoch: "2.5"

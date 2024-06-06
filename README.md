@@ -22,6 +22,15 @@ Project uses [Clarigen](https://www.clarigen.dev/docs/documentation). To keep th
 npx clarigen --watch
 ```
 
+## Running containers
+
+Two scripts wrap the clarinet tools for starting and stopping docker containers
+
+```bash
+bin/up.sh
+bin/down.sh
+```
+
 ## License
 
 MIT license, all good as long as the copyright and permission notice are included.
