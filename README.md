@@ -2,6 +2,14 @@
 
 A DAO for exploring payment gateways and resource providers
 
+See also;
+
+- [stxeco-launcher](https://github.com/radicleart/stxeco-launcher)
+- [ai-flow](https://github.com/radicleart/ai-flow)
+- [bitcoin-dao](https://github.com/radicleart/bitcoin-dao)
+
+Note: this is experimental code - use at your own risk
+
 ## Extensions
 
 Bitcoin DAO will launch with the following additional features;
