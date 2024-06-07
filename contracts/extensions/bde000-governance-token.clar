@@ -18,9 +18,9 @@
 (define-fungible-token bdg-token)
 (define-fungible-token bdg-token-locked)
 
-(define-data-var token-name (string-ascii 32) "Bitcoin DAO Governance Token")
-(define-data-var token-symbol (string-ascii 10) "BDG")
-(define-data-var token-uri (optional (string-utf8 256)) none)
+(define-data-var token-name (string-ascii 32) "{{token_name}}")
+(define-data-var token-symbol (string-ascii 10) "{{symbol}}")
+(define-data-var token-uri (optional (string-utf8 256)) (some u"{{token_uri}}"))
 (define-data-var token-decimals uint u6)
 
 ;; --- Authorisation check

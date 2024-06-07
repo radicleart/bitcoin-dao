@@ -27,26 +27,26 @@
 		))
 
 		;; Set core team members.
-		(try! (contract-call? .bde003-core-proposals set-core-team-member 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM true))
-		(try! (contract-call? .bde003-core-proposals set-core-team-member 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5 true))
-		(try! (contract-call? .bde003-core-proposals set-core-team-member 'ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG true))
-		(try! (contract-call? .bde003-core-proposals set-core-team-member 'ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC true))
+		(try! (contract-call? .bde003-core-proposals set-core-team-member '{{core-team1}} true))
+		(try! (contract-call? .bde003-core-proposals set-core-team-member '{{core-team2}} true))
+		(try! (contract-call? .bde003-core-proposals set-core-team-member '{{core-team3}} true))
+		(try! (contract-call? .bde003-core-proposals set-core-team-member '{{core-team4}} true))
 
 		;; Set executive team members.
-		(try! (contract-call? .bde004-core-execute set-executive-team-member 'ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM true))
-		(try! (contract-call? .bde004-core-execute set-executive-team-member 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5 true))
-		(try! (contract-call? .bde004-core-execute set-executive-team-member 'ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG true))
-		(try! (contract-call? .bde004-core-execute set-executive-team-member 'ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC true))
+		(try! (contract-call? .bde004-core-execute set-executive-team-member '{{core-team1}} true))
+		(try! (contract-call? .bde004-core-execute set-executive-team-member '{{core-team2}} true))
+		(try! (contract-call? .bde004-core-execute set-executive-team-member '{{core-team3}} true))
+		(try! (contract-call? .bde004-core-execute set-executive-team-member '{{core-team4}} true))
 		(try! (contract-call? .bde004-core-execute set-signals-required u2)) ;; signal from 3 out of 4 team members requied.
 
 		;; Mint initial token supply.
 		(try! (contract-call? .bde000-governance-token bdg-mint-many
 			(list
 				{amount: u1000, recipient: sender}
-				{amount: u1000, recipient: 'ST1SJ3DTE5DN7X54YDH5D64R3BCB6A2AG2ZQ8YPD5}
-				{amount: u1000, recipient: 'ST2CY5V39NHDPWSXMW9QDT3HC3GD6Q6XX4CFRK9AG}
-				{amount: u1000, recipient: 'ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC}
-				{amount: u1000000000, recipient: .bde006-treasury}
+				{amount: u1000, recipient: '{{core-team1}}}
+				{amount: u1000, recipient: '{{core-team2}}}
+				{amount: u1000, recipient: '{{core-team3}}}
+				{amount: u1000, recipient: '{{core-team4}}}
 			)
 		))
 
