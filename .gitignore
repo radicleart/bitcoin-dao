@@ -4,7 +4,8 @@ history.txt
 scraps.txt
 cvm/vmstate.db
 .DS_Store
-
+.cache
+nohup.out
 # Ignore Node and NPM files. Added by the clarinet-sdk migration.
 logs
 *.log
