@@ -2,10 +2,10 @@
 
 # List of URLs to open in the browser, e.g., pointing to different containers
 urls=(
-  "http://localhost:3999/v2/info" # api node
-  "http://localhost:3999/extended/v1/contract/ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-bootstrap-signers" # pox-4
-  "http://localhost:3999/extended/v1/contract/ST000000000000000000002AMW42H.pox-4" # pox-4
-  "http://localhost:8000/transactions?chain=testnet&api=http://localhost:3999" # stacks explorer
+  "http://localhost:4001/v2/info" # api node
+  "http://localhost:4001/extended/v1/contract/ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-bootstrap-signers" # pox-4
+  "http://localhost:4001/extended/v1/contract/ST000000000000000000002AMW42H.pox-4" # pox-4
+  "http://localhost:8000/transactions?chain=testnet&api=http://localhost:4001" # stacks explorer
   "http://localhost:8001" # bitcoin explorer
   # Add more URLs as needed
 )
