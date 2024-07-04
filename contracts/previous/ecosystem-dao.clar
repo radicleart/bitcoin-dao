@@ -1,13 +1,15 @@
-;; Bitcoin DAO
-;; Author Mike Cohen - based on Marvin Janssen' Executor DAO
-;; Synopsis:
-;; bitcoin-dao is the core of the dao framework.
+;; Title: Ecosystem DAO
+;; Author: Clarity Innovation Lab
+;; Based-On: Executor DAO by Marvin Janssen
+;; Synopsis: Tools to support governance of the Stacks Blockchain.
 ;; Description:
-;; Valid extensions must be registered here. The DAO is bootstrapped
-;; by calling construct with a bootstrap proposal.
+;; Ecosystem DAO is a developer driven project
+;; which aims to give people a say in key
+;; decision making processes concerning 
+;; changes and upgrades to the Stacks Network.
 
-(use-trait extension-trait .extension-trait.extension-trait)
 (use-trait proposal-trait .proposal-trait.proposal-trait)
+(use-trait extension-trait .extension-trait.extension-trait)
 
 (define-constant err-unauthorised (err u1000))
 (define-constant err-already-executed (err u1001))

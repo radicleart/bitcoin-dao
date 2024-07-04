@@ -1,5 +1,5 @@
 ;; Title: BDE000 Governance Token
-;; Author: Marvin Janssen
+;; Author: Mike Cohen (based upon work of Marvin Janssen)
 ;; Depends-On: 
 ;; Synopsis:
 ;; This extension defines the governance token of Bitcoin DAO.

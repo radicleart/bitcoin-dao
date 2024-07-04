@@ -1,5 +1,5 @@
 ;; Title: BDE003 Core Proposals
-;; Author: Marvin Janssen
+;; Author: Mike Cohen (based upon work of Marvin Janssen)
 ;; Depends-On: BDE001
 ;; Synopsis:
 ;; This extension allows for the creation of core proposals by a few trusted
@@ -15,13 +15,14 @@
 (impl-trait .extension-trait.extension-trait)
 (use-trait proposal-trait .proposal-trait.proposal-trait)
 
-(define-data-var core-proposal-duration uint u144) ;; ~1 day
 (define-data-var core-team-sunset-height uint u0) ;; does not expire by default - can be changed by proposal
 
 (define-constant err-unauthorised (err u3300))
 (define-constant err-not-core-team-member (err u3301))
 (define-constant err-sunset-height-reached (err u3302))
 (define-constant err-sunset-height-in-past (err u3303))
+(define-constant err-proposal-minimum-start-delay (err u3304))
+(define-constant err-proposal-minimum-duration (err u3305))
 
 (define-map core-team principal bool)
 
@@ -32,13 +33,6 @@
 )
 
 ;; --- Internal DAO functions
-
-(define-public (set-core-proposal-duration (duration uint))
-	(begin
-		(try! (is-dao-or-extension))
-		(ok (var-set core-proposal-duration duration))
-	)
-)
 
 (define-public (set-core-team-sunset-height (height uint))
 	(begin
@@ -61,15 +55,19 @@
 	(default-to false (map-get? core-team who))
 )
 
-(define-public (core-propose (proposal <proposal-trait>))
+(define-public (core-propose (proposal <proposal-trait>) (start-burn-height uint) (duration uint) (custom-majority (optional uint)))
 	(begin
 		(asserts! (is-core-team-member tx-sender) err-not-core-team-member)
 		(asserts! (or (is-eq (var-get core-team-sunset-height) u0) (< burn-block-height (var-get core-team-sunset-height))) err-sunset-height-reached)
+		(asserts! (>= start-burn-height (+ burn-block-height u2)) err-proposal-minimum-start-delay)
+		(asserts! (>= (+ start-burn-height duration) (+ burn-block-height u72)) err-proposal-minimum-duration)
 		(contract-call? .bde001-proposal-voting add-proposal proposal
 			{
-				start-block-height: burn-block-height,
-				end-block-height: (+ burn-block-height (var-get core-proposal-duration)),
-				proposer: tx-sender
+				start-height-stacks: block-height,
+				start-burn-height: start-burn-height,
+				end-burn-height: (+ start-burn-height duration),
+				custom-majority: custom-majority,
+				proposer: tx-sender ;; change to original submitter
 			}
 		)
 	)

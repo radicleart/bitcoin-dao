@@ -1,8 +1,8 @@
-;; Title: BDE001 Snapshot Proposal Voting
-;; Author: Mike Cohen (based upon work of Marvin Janssen)
+;; Title: BDE007 Snapshot Proposal Voting
+;; Author: Marvin Janssen
 ;; Depends-On: 
 ;; Synopsis:
-;; This extension is a concept that allows all STX holders to
+;; This extension is an EcosystemDAO concept that allows all STX holders to
 ;; vote on proposals based on their STX balance.
 ;; Description:
 ;; This extension allows anyone with STX to vote on proposals. The maximum upper
@@ -24,7 +24,7 @@
 (define-constant err-proposal-already-concluded (err u3004))
 (define-constant err-proposal-inactive (err u3005))
 (define-constant err-insufficient-voting-capacity (err u3006))
-(define-constant err-end-burn-height-not-reached (err u3007))
+(define-constant err-end-block-height-not-reached (err u3007))
 (define-constant err-not-majority (err u3008))
 (define-constant err-exceeds-voting-cap (err u3009))
 
@@ -36,9 +36,8 @@
 	{
 		votes-for: uint,
 		votes-against: uint,
-		start-height-stacks: uint,
-		start-burn-height: uint,
-		end-burn-height: uint,
+		start-block-height: uint,
+		end-block-height: uint,
 		concluded: bool,
 		passed: bool,
 		custom-majority: (optional uint), ;; u10000 = 100%
@@ -58,7 +57,7 @@
 
 ;; Proposals
 
-(define-public (add-proposal (proposal <proposal-trait>) (data {start-height-stacks: uint, start-burn-height: uint, end-burn-height: uint, proposer: principal, custom-majority: (optional uint)}))
+(define-public (add-proposal (proposal <proposal-trait>) (data {start-block-height: uint, end-block-height: uint, proposer: principal, custom-majority: (optional uint)}))
 	(begin
 		(try! (is-dao-or-extension))
 		(asserts! (is-none (contract-call? .bitcoin-dao executed-at proposal)) err-proposal-already-executed)
@@ -99,10 +98,10 @@
 		(
 			(proposal-data (unwrap! (map-get? proposals proposal) err-unknown-proposal))
 			(new-total-votes (+ (get-current-total-votes proposal tx-sender) amount))
-			(historical-values (unwrap! (get-historical-values (get start-height-stacks proposal-data) tx-sender) err-proposal-inactive))
+			(historical-values (unwrap! (get-historical-values (get start-block-height proposal-data) tx-sender) err-proposal-inactive))
 		)
-		(asserts! (>= burn-block-height (get start-burn-height proposal-data)) err-proposal-inactive)
-		(asserts! (< burn-block-height (get end-burn-height proposal-data)) err-proposal-inactive)
+		(asserts! (>= block-height (get start-block-height proposal-data)) err-proposal-inactive)
+		(asserts! (< block-height (get end-block-height proposal-data)) err-proposal-inactive)
 		(asserts!
 			(<= new-total-votes (get user-balance historical-values))
 			err-insufficient-voting-capacity
@@ -137,7 +136,7 @@
 			)
 		)
 		(asserts! (not (get concluded proposal-data)) err-proposal-already-concluded)
-		(asserts! (>= burn-block-height (get end-burn-height proposal-data)) err-end-burn-height-not-reached)
+		(asserts! (>= block-height (get end-block-height proposal-data)) err-end-block-height-not-reached)
 		(map-set proposals (contract-of proposal) (merge proposal-data {concluded: true, passed: passed}))
 		(print {event: "conclude", proposal: proposal, passed: passed})
 		(and passed (try! (contract-call? .bitcoin-dao execute proposal tx-sender)))

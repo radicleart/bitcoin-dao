@@ -25,7 +25,7 @@ plan:
         - contract-publish:
             contract-name: bitcoin-dao
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 27510
+            cost: 27500
             path: contracts/bitcoin-dao.clar
             anchor-block-only: true
             clarity-version: 2
@@ -46,43 +46,43 @@ plan:
         - contract-publish:
             contract-name: bde000-governance-token
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 42110
+            cost: 42430
             path: contracts/extensions/bde000-governance-token.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: bde001-proposal-voting
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 63220
+            cost: 56960
             path: contracts/extensions/bde001-proposal-voting.clar
+            anchor-block-only: true
+            clarity-version: 2
+        - contract-publish:
+            contract-name: bde006-treasury
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 50690
+            path: contracts/extensions/bde006-treasury.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: bde002-proposal-submission
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 42960
+            cost: 60620
             path: contracts/extensions/bde002-proposal-submission.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: bde003-core-proposals
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 26810
+            cost: 29210
             path: contracts/extensions/bde003-core-proposals.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
             contract-name: bde004-core-execute
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 36630
+            cost: 36850
             path: contracts/extensions/bde004-core-execute.clar
-            anchor-block-only: true
-            clarity-version: 2
-        - contract-publish:
-            contract-name: bde006-treasury
-            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 50370
-            path: contracts/extensions/bde006-treasury.clar
             anchor-block-only: true
             clarity-version: 2
         - contract-publish:
@@ -116,7 +116,7 @@ plan:
         - contract-publish:
             contract-name: bdp000-bootstrap
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 26490
+            cost: 17710
             path: contracts/proposals/testnet/bdp000-bootstrap.clar
             anchor-block-only: true
             clarity-version: 2

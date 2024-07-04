@@ -1,5 +1,5 @@
-;; Title: BDE002 Funded Custom End Proposal Submission
-;; Author: Mike Cohen (based upon work of Marvin Janssen)
+;; Title: BDE008 Funded Custom End Proposal Submission
+;; Author: Marvin Janssen & Mike Cohen
 ;; Depends-On: BDE001, BDE007
 ;; Synopsis:
 ;; This extension part of the core of Bitcoin DAO. It allows members to
@@ -48,13 +48,12 @@
 
 ;; Proposals
 
-(define-private (submit-proposal-for-vote (proposal <proposal-trait>) (start-height-stacks uint) (start-burn-height uint) (duration uint) (custom-majority (optional uint)))
-	(contract-call? .bde001-proposal-voting add-proposal
+(define-private (submit-proposal-for-vote (proposal <proposal-trait>) (start-block-height uint) (duration uint) (custom-majority (optional uint)))
+	(contract-call? .bde007-snapshot-proposal-voting add-proposal
 		proposal
 		{
-			start-height-stacks: start-height-stacks,
-			start-burn-height: start-burn-height,
-			end-burn-height: (+ start-burn-height duration),
+			start-block-height: start-block-height,
+			end-block-height: (+ start-block-height duration),
 			custom-majority: custom-majority,
 			proposer: tx-sender ;; change to original submitter
 		}
@@ -129,7 +128,7 @@
 		(asserts! (>= start-delay (try! (get-parameter "minimum-proposal-start-delay"))) err-proposal-minimum-start-delay)
 		(asserts! (>= duration (try! (get-parameter "minimum-proposal-duration"))) err-proposal-minimum-duration)
 		(map-set funded-proposals proposal-principal true)
-		(submit-proposal-for-vote proposal block-height (+ burn-block-height start-delay) duration custom-majority)
+		(submit-proposal-for-vote proposal (+ block-height start-delay) duration custom-majority)
 	)
 )
 

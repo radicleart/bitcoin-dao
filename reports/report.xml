@@ -1,23 +1,99 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="9" failures="0" errors="0" time="9008.839">
-    <testsuite name="tests/bde020-resource-manager.test.ts" timestamp="2024-06-05T10:12:40.865Z" hostname="mikes-macbook" tests="9" failures="0" errors="0" skipped="0" time="0.328">
-        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager setup &gt; construct - bootstrap proposal sets resource manager extensions" time="0.037">
+<testsuites name="vitest tests" tests="33" failures="2" errors="0" time="3.076">
+    <testsuite name="tests/bde003-core-proposals.test.ts" timestamp="2024-07-01T11:52:15.068Z" hostname="mikes-macbook" tests="9" failures="2" errors="0" skipped="0" time="0.254">
+        <testcase classname="tests/bde003-core-proposals.test.ts" name="bde003-core-proposals sunset tests &gt; construct - bootstrap proposal sets core team" time="0.051">
+            <failure message="expected true to be false // Object.is equality" type="AssertionError">
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/bde003-core-proposals.test.ts:23:54
+            </failure>
         </testcase>
-        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager managing resources &gt; add-resource - cannot be added by non dao principal" time="0.019">
+        <testcase classname="tests/bde003-core-proposals.test.ts" name="bde003-core-proposals sunset tests &gt; core-propose - core proposals can only be proposed by a core team member" time="0.024">
+            <failure message="expected 3102n to be 3301n // Object.is equality" type="AssertionError">
+AssertionError: expected 3102n to be 3301n // Object.is equality
+
+- Expected
++ Received
+
+- 3301n
++ 3102n
+
+ ❯ tests/bde003-core-proposals.test.ts:31:29
+            </failure>
         </testcase>
-        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager managing resources &gt; add-resource - can only be added by the dao" time="0.048">
+        <testcase classname="tests/bde003-core-proposals.test.ts" name="bde003-core-proposals sunset tests &gt; core-propose - sunset height is 0 by default" time="0.016">
         </testcase>
-        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager pay invoices &gt; pay-invoice - cannot be paid for resource id 0" time="0.027">
+        <testcase classname="tests/bde003-core-proposals.test.ts" name="bde003-core-proposals sunset tests &gt; core-propose - can only be proposed by a core team member" time="0.026">
         </testcase>
-        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager pay invoices &gt; pay-invoice - fails if user balance is below price" time="0.029">
+        <testcase classname="tests/bde003-core-proposals.test.ts" name="bde003-core-proposals sunset tests &gt; core-propose - can only be proposed by core team member" time="0.023">
+        </testcase>
+        <testcase classname="tests/bde003-core-proposals.test.ts" name="bde003-core-proposals sunset tests &gt; core-propose - cannot be proposed twice by the same team member" time="0.024">
+        </testcase>
+        <testcase classname="tests/bde003-core-proposals.test.ts" name="bde003-core-proposals sunset tests &gt; core-propose - cannot propose an already executed proposal" time="0.028">
+        </testcase>
+        <testcase classname="tests/bde003-core-proposals.test.ts" name="bde003-core-proposals sunset tests &gt; core-propose - can set new sunset height" time="0.03">
+        </testcase>
+        <testcase classname="tests/bde003-core-proposals.test.ts" name="bde003-core-proposals sunset tests &gt; core-propose - cannot execute proposals after sunset" time="0.03">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/bde004-core-execute.test.ts" timestamp="2024-07-01T11:52:15.075Z" hostname="mikes-macbook" tests="9" failures="0" errors="0" skipped="0" time="0.176">
+        <testcase classname="tests/bde004-core-execute.test.ts" name="bde004-core-execute sunset tests &gt; construct - bootstrap proposal sets executive core team" time="0.02">
+        </testcase>
+        <testcase classname="tests/bde004-core-execute.test.ts" name="bde004-core-execute sunset tests &gt; executive-action - can only be signalled by a core executive team member" time="0.023">
+        </testcase>
+        <testcase classname="tests/bde004-core-execute.test.ts" name="bde004-core-execute sunset tests &gt; executive-action - sunset height is 0 by default" time="0.018">
+        </testcase>
+        <testcase classname="tests/bde004-core-execute.test.ts" name="bde004-core-execute sunset tests &gt; executive-action - can only be signalled by a core executive team member" time="0.018">
+        </testcase>
+        <testcase classname="tests/bde004-core-execute.test.ts" name="bde004-core-execute sunset tests &gt; executive-action - can only be signalled by executive team member" time="0.019">
+        </testcase>
+        <testcase classname="tests/bde004-core-execute.test.ts" name="bde004-core-execute sunset tests &gt; executive-action - cannot be signalled twice by the same team member" time="0.017">
+        </testcase>
+        <testcase classname="tests/bde004-core-execute.test.ts" name="bde004-core-execute sunset tests &gt; executive-action - cannot execute an already executed proposal" time="0.019">
+        </testcase>
+        <testcase classname="tests/bde004-core-execute.test.ts" name="bde004-core-execute sunset tests &gt; executive-action - can set new sunset height" time="0.02">
+        </testcase>
+        <testcase classname="tests/bde004-core-execute.test.ts" name="bde004-core-execute sunset tests &gt; executive-action - cannot execute proposals after sunset" time="0.022">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/bde020-resource-manager.test.ts" timestamp="2024-07-01T11:52:15.079Z" hostname="mikes-macbook" tests="9" failures="0" errors="0" skipped="0" time="0.295">
+        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager setup &gt; construct - bootstrap proposal sets resource manager extensions" time="0.02">
+        </testcase>
+        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager managing resources &gt; add-resource - cannot be added by non dao principal" time="0.018">
+        </testcase>
+        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager managing resources &gt; add-resource - can only be added by the dao" time="0.043">
+        </testcase>
+        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager pay invoices &gt; pay-invoice - cannot be paid for resource id 0" time="0.024">
+        </testcase>
+        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager pay invoices &gt; pay-invoice - fails if user balance is below price" time="0.028">
         </testcase>
         <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager pay invoices &gt; pay-invoice - succeeds if user balance has funds" time="0.029">
         </testcase>
-        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager pay invoices &gt; pay-invoice - succeeds for two users 1 resource" time="0.033">
+        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager pay invoices &gt; pay-invoice - succeeds for two users 1 resource" time="0.032">
         </testcase>
-        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager pay invoices &gt; pay-invoice - succeeds for one users twice for same resource" time="0.031">
+        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager pay invoices &gt; pay-invoice - succeeds for one users twice for same resource" time="0.032">
         </testcase>
-        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager pay invoices &gt; pay-invoice - fails for one user after they run out of funds" time="0.072">
+        <testcase classname="tests/bde020-resource-manager.test.ts" name="bde020-resource-manager pay invoices &gt; pay-invoice - fails for one user after they run out of funds" time="0.068">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/bitcoin-dao.test.ts" timestamp="2024-07-01T11:52:15.083Z" hostname="mikes-macbook" tests="6" failures="0" errors="0" skipped="0" time="0.069">
+        <testcase classname="tests/bitcoin-dao.test.ts" name="BitcoinDAO error tests &gt; execute cannot be called by non dao principal" time="0.008">
+        </testcase>
+        <testcase classname="tests/bitcoin-dao.test.ts" name="BitcoinDAO error tests &gt; request-extension-callback cannot be called by unapproved extensions" time="0.009">
+        </testcase>
+        <testcase classname="tests/bitcoin-dao.test.ts" name="BitcoinDAO error tests &gt; construct can only be called by contract deployer" time="0.008">
+        </testcase>
+        <testcase classname="tests/bitcoin-dao.test.ts" name="BitcoinDAO error tests &gt; isExtension returns false" time="0.008">
+        </testcase>
+        <testcase classname="tests/bitcoin-dao.test.ts" name="BitcoinDAO construction tests &gt; construct sets deployer to self" time="0.017">
+        </testcase>
+        <testcase classname="tests/bitcoin-dao.test.ts" name="BitcoinDAO construction tests &gt; construct executes and mints governance token" time="0.018">
         </testcase>
     </testsuite>
 </testsuites>

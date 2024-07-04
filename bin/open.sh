@@ -2,18 +2,20 @@
 
 # List of URLs to open in the browser, e.g., pointing to different containers
 urls=(
-  "http://localhost:3999/v2/info" # api node
-  "http://localhost:3999/extended/v1/contract/ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sbtc-bootstrap-signers"
-  "http://localhost:3999/extended/v1/contract/ST000000000000000000002AMW42H.pox-4"
-  "http://localhost:3999/extended/v1/contract/ST000000000000000000002AMW42H.signers-1-12"
-  "http://localhost:3999/extended/v1/contract/ST000000000000000000002AMW42H.pox-4"
-  "http://localhost:3999/extended/v1/contract/ST000000000000000000002AMW42H.bns"
-  "http://localhost:3999/extended/v1/contract/ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bitcoin-dao"
-  "http://localhost:3999/extended/v1/contract/ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde001-proposal-voting"
-  "http://localhost:3999/extended/v1/contract/ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde001-proposal-voting"
-  "http://localhost:3999/extended/v1/contract/ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde001-proposal-voting"
   "http://localhost:8000/transactions?chain=testnet&api=http://localhost:3999"
+
+  "http://localhost:8000/txid/ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bitcoin-dao?chain=testnet&api=http://localhost:3999"
+  "http://localhost:8000/txid/ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde001-proposal-voting?chain=testnet&api=http://localhost:3999"
+  "http://localhost:8000/txid/ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde002-proposal-submission?chain=testnet&api=http://localhost:3999"
+  "http://localhost:8000/txid/ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde003-core-proposals?chain=testnet&api=http://localhost:3999"
+  "http://localhost:8000/txid/ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde004-core-execute?chain=testnet&api=http://localhost:3999"
+
+  #"http://localhost:8000/txid/ST000000000000000000002AMW42H.pox-4?chain=testnet&api=http://localhost:3999"
+  #"http://localhost:8000/txid/ST000000000000000000002AMW42H.signers-1-12?chain=testnet&api=http://localhost:3999"
+  #"http://localhost:8000/txid/ST000000000000000000002AMW42H.bns?chain=testnet&api=http://localhost:3999"
+
   "http://localhost:8001" # bitcoin explorer
+  "http://localhost:3999/v2/info" # api node
   # Add more URLs as needed
 )
 
