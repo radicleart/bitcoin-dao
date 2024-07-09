@@ -25,9 +25,8 @@ describe("bde003-core-proposals sunset tests", () => {
 
   test("core-propose - core proposals can only be proposed by a core team member", async () => {
     const proposal = constructDao()
-    
     //console.log('response', util.inspect(response, false, null, true /* enable colors */));
-    const response1 = txErr(coreProposals.corePropose(proposal), bob);
+    const response1 = txErr(coreProposals.corePropose(proposal, (simnet.blockHeight+5), 100, 6600), bob);
     expect(response1.value).toBe(errors.coreProposals.errNotCoreTeamMember)
   });
 
@@ -41,11 +40,11 @@ describe("bde003-core-proposals sunset tests", () => {
     const proposal = constructDao()
 
     //console.log('response', util.inspect(response, false, null, true /* enable colors */));
-    const response1 = txErr(coreProposals.corePropose(proposal), aria);
+    const response1 = txErr(coreProposals.corePropose(proposal, (simnet.blockHeight+5), 100, 6600), aria);
     expect(response1.value).toBe(errors.coreProposals.errNotCoreTeamMember)
 
     const proposal1 = simnet.deployer + '.' + 'bdp000-core-team-sunset-height'
-    const response2 = txOk(coreProposals.corePropose(proposal1), simnet.deployer);
+    const response2 = txOk(coreProposals.corePropose(proposal1, (simnet.blockHeight+5), 100, 6600), simnet.deployer);
     expect(response2.value).toBe(true)
   });
 
@@ -54,10 +53,10 @@ describe("bde003-core-proposals sunset tests", () => {
     
     const proposal1 = simnet.deployer + '.' + 'bdp000-core-team-sunset-height'
     //console.log('response', util.inspect(response, false, null, true /* enable colors */));
-    const response1 = txErr(coreProposals.corePropose(proposal1), aria);
+    const response1 = txErr(coreProposals.corePropose(proposal1, (simnet.blockHeight+5), 100, 6600), aria);
     expect(response1.value).toBe(errors.coreProposals.errNotCoreTeamMember)
 
-    const response2 = txOk(coreProposals.corePropose(proposal1), alice);
+    const response2 = txOk(coreProposals.corePropose(proposal1, (simnet.blockHeight+5), 100, 6600), alice);
     expect(response2.value).toBe(true)
   });
 
@@ -65,10 +64,10 @@ describe("bde003-core-proposals sunset tests", () => {
     constructDao()
     
     const proposal1 = simnet.deployer + '.' + 'bdp000-core-team-sunset-height'
-    const response2 = txOk(coreProposals.corePropose(proposal1), alice);
+    const response2 = txOk(coreProposals.corePropose(proposal1, (simnet.blockHeight+5), 100, 6600), alice);
     expect(response2.value).toBe(true)
     
-    const response3 = txErr(coreProposals.corePropose(proposal1), alice);
+    const response3 = txErr(coreProposals.corePropose(proposal1, (simnet.blockHeight+5), 100, 6600), alice);
     expect(response3.value).toBe(errors.proposalVoting.errProposalAlreadyExists)
   });
 
@@ -76,10 +75,10 @@ describe("bde003-core-proposals sunset tests", () => {
     constructDao()
     
     const proposal1 = simnet.deployer + '.' + 'bdp000-core-team-sunset-height'
-    const response2 = txOk(coreProposals.corePropose(proposal1), alice);
+    const response2 = txOk(coreProposals.corePropose(proposal1, (simnet.blockHeight+5), 100, 6600), alice);
     expect(response2.value).toBe(true)
 
-    const response3 = txErr(coreProposals.corePropose(proposal1), alice);
+    const response3 = txErr(coreProposals.corePropose(proposal1, (simnet.blockHeight+5), 100, 6600), alice);
     expect(response3.value).toBe(errors.proposalVoting.errProposalAlreadyExists)
   });
 
@@ -87,10 +86,11 @@ describe("bde003-core-proposals sunset tests", () => {
     constructDao()
     
     const proposal1 = simnet.deployer + '.' + 'bdp000-core-team-sunset-height'
-    const response2 = txOk(coreProposals.corePropose(proposal1), alice);
+    const response2 = txOk(coreProposals.corePropose(proposal1, (simnet.blockHeight + 2), 100, 6600), alice);
     expect(response2.value).toBe(true)
 
-    let response3 = txOk(proposalVoting.vote(1000n, true, proposal1, governanceToken.identifier), bob);
+    simnet.mineEmptyBlocks(2)
+    let response3 = txOk(proposalVoting.vote(1000n, true, proposal1), bob);
     expect(response3.value).toBe(true)
 
     let height = await varGet(coreProposals.identifier, coreProposals.variables.coreTeamSunsetHeight);
@@ -110,9 +110,12 @@ describe("bde003-core-proposals sunset tests", () => {
     
     // pass proposal to change sunset
     const proposal1 = simnet.deployer + '.' + 'bdp000-core-team-sunset-height'
-    let response = txOk(coreProposals.corePropose(proposal1), alice);
+    let response = txOk(coreProposals.corePropose(proposal1, (simnet.blockHeight+5), 100, 6600), alice);
     expect(response.value).toBe(true)
-    response = txOk(proposalVoting.vote(1000n, true, proposal1, governanceToken.identifier), bob);
+
+    simnet.mineEmptyBlocks(5)
+
+    response = txOk(proposalVoting.vote(1000n, true, proposal1), bob);
     expect(response.value).toBe(true)
     let height = await varGet(coreProposals.identifier, coreProposals.variables.coreTeamSunsetHeight);
     expect(height).toBe(0n)
@@ -125,7 +128,7 @@ describe("bde003-core-proposals sunset tests", () => {
     // fail to core team propose after new sunset 
     const proposal2 = simnet.deployer + '.' + 'bdp000-executive-team-sunset-height'
     simnet.mineEmptyBlocks(200)
-    const responseErr = txErr(coreProposals.corePropose(proposal2), alice);
+    const responseErr = txErr(coreProposals.corePropose(proposal2, (simnet.blockHeight+5), 100, 6600), alice);
     expect(responseErr.value).toBe(errors.coreProposals.errSunsetHeightReached)
   });
 

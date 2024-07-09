@@ -85,6 +85,11 @@ plan:
             path: contracts/extensions/bde001-proposal-voting.clar
             clarity-version: 2
         - emulated-contract-publish:
+            contract-name: bde006-treasury
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/extensions/bde006-treasury.clar
+            clarity-version: 2
+        - emulated-contract-publish:
             contract-name: bde002-proposal-submission
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/extensions/bde002-proposal-submission.clar
@@ -98,11 +103,6 @@ plan:
             contract-name: bde004-core-execute
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/extensions/bde004-core-execute.clar
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: bde006-treasury
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/extensions/bde006-treasury.clar
             clarity-version: 2
         - emulated-contract-publish:
             contract-name: payment-gateway-trait

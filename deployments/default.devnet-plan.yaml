@@ -74,7 +74,7 @@ plan:
         - contract-publish:
             contract-name: bde003-core-proposals
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 29210
+            cost: 28800
             path: contracts/extensions/bde003-core-proposals.clar
             anchor-block-only: true
             clarity-version: 2
@@ -116,7 +116,7 @@ plan:
         - contract-publish:
             contract-name: bdp000-bootstrap
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 17710
+            cost: 26530
             path: contracts/proposals/testnet/bdp000-bootstrap.clar
             anchor-block-only: true
             clarity-version: 2

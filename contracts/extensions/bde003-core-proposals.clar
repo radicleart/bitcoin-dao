@@ -5,8 +5,7 @@
 ;; This extension allows for the creation of core proposals by a few trusted
 ;; principals.
 ;; Description:
-;; Core proposals have a voting period of roughly 1 day, instead of the
-;; normal proposal duration. Only a list of trusted principals, designated as the
+;; Only a list of trusted principals, designated as the
 ;; "core team", can create core proposals. The core proposal
 ;; extension has an optional ~3 month sunset period, after which no more core
 ;; proposals can be made - set it to 0 to disable. The core team members, sunset period, and 

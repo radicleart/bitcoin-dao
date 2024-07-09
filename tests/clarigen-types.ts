@@ -395,9 +395,9 @@ export const contracts = {
         value: 3_000n,
       },
       tokenDecimals: 6n,
-      tokenName: "Bitcoin DAO Governance Token",
-      tokenSymbol: "BDG",
-      tokenUri: null,
+      tokenName: "{{token_name}}",
+      tokenSymbol: "{{symbol}}",
+      tokenUri: "{{token_uri}}",
     },
     non_fungible_tokens: [],
     fungible_tokens: [{ name: "bdg-token" }, { name: "bdg-token-locked" }],
@@ -407,15 +407,6 @@ export const contracts = {
   },
   bde001ProposalVoting: {
     functions: {
-      isGovernanceToken: {
-        name: "is-governance-token",
-        access: "private",
-        args: [{ name: "governance-token", type: "trait_reference" }],
-        outputs: { type: { response: { ok: "bool", error: "uint128" } } },
-      } as TypedAbiFunction<
-        [governanceToken: TypedAbiArg<string, "governanceToken">],
-        Response<boolean, bigint>
-      >,
       addProposal: {
         name: "add-proposal",
         access: "public",
@@ -425,9 +416,11 @@ export const contracts = {
             name: "data",
             type: {
               tuple: [
-                { name: "end-block-height", type: "uint128" },
+                { name: "custom-majority", type: { optional: "uint128" } },
+                { name: "end-burn-height", type: "uint128" },
                 { name: "proposer", type: "principal" },
-                { name: "start-block-height", type: "uint128" },
+                { name: "start-burn-height", type: "uint128" },
+                { name: "start-height-stacks", type: "uint128" },
               ],
             },
           },
@@ -438,9 +431,11 @@ export const contracts = {
           proposal: TypedAbiArg<string, "proposal">,
           data: TypedAbiArg<
             {
-              endBlockHeight: number | bigint;
+              customMajority: number | bigint | null;
+              endBurnHeight: number | bigint;
               proposer: string;
-              startBlockHeight: number | bigint;
+              startBurnHeight: number | bigint;
+              startHeightStacks: number | bigint;
             },
             "data"
           >,
@@ -477,51 +472,6 @@ export const contracts = {
         args: [],
         outputs: { type: { response: { ok: "bool", error: "uint128" } } },
       } as TypedAbiFunction<[], Response<boolean, bigint>>,
-      reclaimAndVote: {
-        name: "reclaim-and-vote",
-        access: "public",
-        args: [
-          { name: "amount", type: "uint128" },
-          { name: "for", type: "bool" },
-          { name: "proposal", type: "principal" },
-          { name: "reclaim-from", type: "trait_reference" },
-          { name: "governance-token", type: "trait_reference" },
-        ],
-        outputs: { type: { response: { ok: "bool", error: "uint128" } } },
-      } as TypedAbiFunction<
-        [
-          amount: TypedAbiArg<number | bigint, "amount">,
-          _for: TypedAbiArg<boolean, "_for">,
-          proposal: TypedAbiArg<string, "proposal">,
-          reclaimFrom: TypedAbiArg<string, "reclaimFrom">,
-          governanceToken: TypedAbiArg<string, "governanceToken">,
-        ],
-        Response<boolean, bigint>
-      >,
-      reclaimVotes: {
-        name: "reclaim-votes",
-        access: "public",
-        args: [
-          { name: "proposal", type: "trait_reference" },
-          { name: "governance-token", type: "trait_reference" },
-        ],
-        outputs: { type: { response: { ok: "bool", error: "uint128" } } },
-      } as TypedAbiFunction<
-        [
-          proposal: TypedAbiArg<string, "proposal">,
-          governanceToken: TypedAbiArg<string, "governanceToken">,
-        ],
-        Response<boolean, bigint>
-      >,
-      setGovernanceToken: {
-        name: "set-governance-token",
-        access: "public",
-        args: [{ name: "governance-token", type: "trait_reference" }],
-        outputs: { type: { response: { ok: "bool", error: "uint128" } } },
-      } as TypedAbiFunction<
-        [governanceToken: TypedAbiArg<string, "governanceToken">],
-        Response<boolean, bigint>
-      >,
       vote: {
         name: "vote",
         access: "public",
@@ -529,7 +479,6 @@ export const contracts = {
           { name: "amount", type: "uint128" },
           { name: "for", type: "bool" },
           { name: "proposal", type: "principal" },
-          { name: "governance-token", type: "trait_reference" },
         ],
         outputs: { type: { response: { ok: "bool", error: "uint128" } } },
       } as TypedAbiFunction<
@@ -537,7 +486,6 @@ export const contracts = {
           amount: TypedAbiArg<number | bigint, "amount">,
           _for: TypedAbiArg<boolean, "_for">,
           proposal: TypedAbiArg<string, "proposal">,
-          governanceToken: TypedAbiArg<string, "governanceToken">,
         ],
         Response<boolean, bigint>
       >,
@@ -547,23 +495,42 @@ export const contracts = {
         args: [
           { name: "proposal", type: "principal" },
           { name: "voter", type: "principal" },
-          { name: "governance-token", type: "principal" },
         ],
         outputs: { type: "uint128" },
       } as TypedAbiFunction<
         [
           proposal: TypedAbiArg<string, "proposal">,
           voter: TypedAbiArg<string, "voter">,
-          governanceToken: TypedAbiArg<string, "governanceToken">,
         ],
         bigint
       >,
-      getGovernanceToken: {
-        name: "get-governance-token",
+      getHistoricalValues: {
+        name: "get-historical-values",
         access: "read_only",
-        args: [],
-        outputs: { type: "principal" },
-      } as TypedAbiFunction<[], string>,
+        args: [
+          { name: "height", type: "uint128" },
+          { name: "who", type: "principal" },
+        ],
+        outputs: {
+          type: {
+            optional: {
+              tuple: [
+                { name: "user-balance", type: "uint128" },
+                { name: "voting-cap", type: "uint128" },
+              ],
+            },
+          },
+        },
+      } as TypedAbiFunction<
+        [
+          height: TypedAbiArg<number | bigint, "height">,
+          who: TypedAbiArg<string, "who">,
+        ],
+        {
+          userBalance: bigint;
+          votingCap: bigint;
+        } | null
+      >,
       getProposalData: {
         name: "get-proposal-data",
         access: "read_only",
@@ -573,10 +540,12 @@ export const contracts = {
             optional: {
               tuple: [
                 { name: "concluded", type: "bool" },
-                { name: "end-block-height", type: "uint128" },
+                { name: "custom-majority", type: { optional: "uint128" } },
+                { name: "end-burn-height", type: "uint128" },
                 { name: "passed", type: "bool" },
                 { name: "proposer", type: "principal" },
-                { name: "start-block-height", type: "uint128" },
+                { name: "start-burn-height", type: "uint128" },
+                { name: "start-height-stacks", type: "uint128" },
                 { name: "votes-against", type: "uint128" },
                 { name: "votes-for", type: "uint128" },
               ],
@@ -587,10 +556,12 @@ export const contracts = {
         [proposal: TypedAbiArg<string, "proposal">],
         {
           concluded: boolean;
-          endBlockHeight: bigint;
+          customMajority: bigint | null;
+          endBurnHeight: bigint;
           passed: boolean;
           proposer: string;
-          startBlockHeight: bigint;
+          startBurnHeight: bigint;
+          startHeightStacks: bigint;
           votesAgainst: bigint;
           votesFor: bigint;
         } | null
@@ -601,7 +572,6 @@ export const contracts = {
         name: "member-total-votes",
         key: {
           tuple: [
-            { name: "governance-token", type: "principal" },
             { name: "proposal", type: "principal" },
             { name: "voter", type: "principal" },
           ],
@@ -609,7 +579,6 @@ export const contracts = {
         value: "uint128",
       } as TypedAbiMap<
         {
-          governanceToken: string;
           proposal: string;
           voter: string;
         },
@@ -621,10 +590,12 @@ export const contracts = {
         value: {
           tuple: [
             { name: "concluded", type: "bool" },
-            { name: "end-block-height", type: "uint128" },
+            { name: "custom-majority", type: { optional: "uint128" } },
+            { name: "end-burn-height", type: "uint128" },
             { name: "passed", type: "bool" },
             { name: "proposer", type: "principal" },
-            { name: "start-block-height", type: "uint128" },
+            { name: "start-burn-height", type: "uint128" },
+            { name: "start-height-stacks", type: "uint128" },
             { name: "votes-against", type: "uint128" },
             { name: "votes-for", type: "uint128" },
           ],
@@ -633,18 +604,25 @@ export const contracts = {
         string,
         {
           concluded: boolean;
-          endBlockHeight: bigint;
+          customMajority: bigint | null;
+          endBurnHeight: bigint;
           passed: boolean;
           proposer: string;
-          startBlockHeight: bigint;
+          startBurnHeight: bigint;
+          startHeightStacks: bigint;
           votesAgainst: bigint;
           votesFor: bigint;
         }
       >,
     },
     variables: {
-      errDisabled: {
-        name: "err-disabled",
+      customMajorityUpper: {
+        name: "custom-majority-upper",
+        type: "uint128",
+        access: "constant",
+      } as TypedAbiVariable<bigint>,
+      errEndBurnHeightNotReached: {
+        name: "err-end-burn-height-not-reached",
         type: {
           response: {
             ok: "none",
@@ -653,8 +631,8 @@ export const contracts = {
         },
         access: "constant",
       } as TypedAbiVariable<Response<null, bigint>>,
-      errEndBlockHeightNotReached: {
-        name: "err-end-block-height-not-reached",
+      errExceedsVotingCap: {
+        name: "err-exceeds-voting-cap",
         type: {
           response: {
             ok: "none",
@@ -663,8 +641,8 @@ export const contracts = {
         },
         access: "constant",
       } as TypedAbiVariable<Response<null, bigint>>,
-      errNoVotesToReturn: {
-        name: "err-no-votes-to-return",
+      errInsufficientVotingCapacity: {
+        name: "err-insufficient-voting-capacity",
         type: {
           response: {
             ok: "none",
@@ -673,8 +651,8 @@ export const contracts = {
         },
         access: "constant",
       } as TypedAbiVariable<Response<null, bigint>>,
-      errNotGovernanceToken: {
-        name: "err-not-governance-token",
+      errNotMajority: {
+        name: "err-not-majority",
         type: {
           response: {
             ok: "none",
@@ -723,16 +701,6 @@ export const contracts = {
         },
         access: "constant",
       } as TypedAbiVariable<Response<null, bigint>>,
-      errProposalNotConcluded: {
-        name: "err-proposal-not-concluded",
-        type: {
-          response: {
-            ok: "none",
-            error: "uint128",
-          },
-        },
-        access: "constant",
-      } as TypedAbiVariable<Response<null, bigint>>,
       errUnauthorised: {
         name: "err-unauthorised",
         type: {
@@ -753,59 +721,55 @@ export const contracts = {
         },
         access: "constant",
       } as TypedAbiVariable<Response<null, bigint>>,
-      governanceTokenPrincipal: {
-        name: "governance-token-principal",
-        type: "principal",
-        access: "variable",
-      } as TypedAbiVariable<string>,
+      voteCap: {
+        name: "vote-cap",
+        type: "uint128",
+        access: "constant",
+      } as TypedAbiVariable<bigint>,
     },
     constants: {
-      errDisabled: {
+      customMajorityUpper: 10_000n,
+      errEndBurnHeightNotReached: {
         isOk: false,
-        value: 3_110n,
+        value: 3_007n,
       },
-      errEndBlockHeightNotReached: {
+      errExceedsVotingCap: {
         isOk: false,
-        value: 3_109n,
+        value: 3_009n,
       },
-      errNoVotesToReturn: {
+      errInsufficientVotingCapacity: {
         isOk: false,
-        value: 3_108n,
+        value: 3_006n,
       },
-      errNotGovernanceToken: {
+      errNotMajority: {
         isOk: false,
-        value: 3_101n,
+        value: 3_008n,
       },
       errProposalAlreadyConcluded: {
         isOk: false,
-        value: 3_105n,
+        value: 3_004n,
       },
       errProposalAlreadyExecuted: {
         isOk: false,
-        value: 3_102n,
+        value: 3_001n,
       },
       errProposalAlreadyExists: {
         isOk: false,
-        value: 3_103n,
+        value: 3_002n,
       },
       errProposalInactive: {
         isOk: false,
-        value: 3_106n,
-      },
-      errProposalNotConcluded: {
-        isOk: false,
-        value: 3_107n,
+        value: 3_005n,
       },
       errUnauthorised: {
         isOk: false,
-        value: 3_100n,
+        value: 3_000n,
       },
       errUnknownProposal: {
         isOk: false,
-        value: 3_104n,
+        value: 3_003n,
       },
-      governanceTokenPrincipal:
-        "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde000-governance-token",
+      voteCap: 140_000_000_000n,
     },
     non_fungible_tokens: [],
     fungible_tokens: [],
@@ -815,44 +779,24 @@ export const contracts = {
   },
   bde002ProposalSubmission: {
     functions: {
-      isGovernanceToken: {
-        name: "is-governance-token",
-        access: "private",
-        args: [{ name: "governance-token", type: "trait_reference" }],
-        outputs: { type: { response: { ok: "bool", error: "uint128" } } },
-      } as TypedAbiFunction<
-        [governanceToken: TypedAbiArg<string, "governanceToken">],
-        Response<boolean, bigint>
-      >,
-      setParametersIter: {
-        name: "set-parameters-iter",
+      submitProposalForVote: {
+        name: "submit-proposal-for-vote",
         access: "private",
         args: [
-          {
-            name: "item",
-            type: {
-              tuple: [
-                { name: "parameter", type: { "string-ascii": { length: 34 } } },
-                { name: "value", type: "uint128" },
-              ],
-            },
-          },
-          {
-            name: "previous",
-            type: { response: { ok: "bool", error: "uint128" } },
-          },
+          { name: "proposal", type: "trait_reference" },
+          { name: "start-height-stacks", type: "uint128" },
+          { name: "start-burn-height", type: "uint128" },
+          { name: "duration", type: "uint128" },
+          { name: "custom-majority", type: { optional: "uint128" } },
         ],
         outputs: { type: { response: { ok: "bool", error: "uint128" } } },
       } as TypedAbiFunction<
         [
-          item: TypedAbiArg<
-            {
-              parameter: string;
-              value: number | bigint;
-            },
-            "item"
-          >,
-          previous: TypedAbiArg<Response<boolean, number | bigint>, "previous">,
+          proposal: TypedAbiArg<string, "proposal">,
+          startHeightStacks: TypedAbiArg<number | bigint, "startHeightStacks">,
+          startBurnHeight: TypedAbiArg<number | bigint, "startBurnHeight">,
+          duration: TypedAbiArg<number | bigint, "duration">,
+          customMajority: TypedAbiArg<number | bigint | null, "customMajority">,
         ],
         Response<boolean, bigint>
       >,
@@ -871,43 +815,53 @@ export const contracts = {
         ],
         Response<boolean, null>
       >,
+      fund: {
+        name: "fund",
+        access: "public",
+        args: [
+          { name: "proposal", type: "trait_reference" },
+          { name: "start-delay", type: "uint128" },
+          { name: "duration", type: "uint128" },
+          { name: "amount", type: "uint128" },
+          { name: "custom-majority", type: { optional: "uint128" } },
+        ],
+        outputs: { type: { response: { ok: "bool", error: "uint128" } } },
+      } as TypedAbiFunction<
+        [
+          proposal: TypedAbiArg<string, "proposal">,
+          startDelay: TypedAbiArg<number | bigint, "startDelay">,
+          duration: TypedAbiArg<number | bigint, "duration">,
+          amount: TypedAbiArg<number | bigint, "amount">,
+          customMajority: TypedAbiArg<number | bigint | null, "customMajority">,
+        ],
+        Response<boolean, bigint>
+      >,
       isDaoOrExtension: {
         name: "is-dao-or-extension",
         access: "public",
         args: [],
         outputs: { type: { response: { ok: "bool", error: "uint128" } } },
       } as TypedAbiFunction<[], Response<boolean, bigint>>,
-      propose: {
-        name: "propose",
+      refund: {
+        name: "refund",
         access: "public",
         args: [
-          { name: "proposal", type: "trait_reference" },
-          { name: "start-block-height", type: "uint128" },
-          { name: "governance-token", type: "trait_reference" },
+          { name: "proposal", type: "principal" },
+          { name: "funder", type: { optional: "principal" } },
         ],
         outputs: { type: { response: { ok: "bool", error: "uint128" } } },
       } as TypedAbiFunction<
         [
           proposal: TypedAbiArg<string, "proposal">,
-          startBlockHeight: TypedAbiArg<number | bigint, "startBlockHeight">,
-          governanceToken: TypedAbiArg<string, "governanceToken">,
+          funder: TypedAbiArg<string | null, "funder">,
         ],
-        Response<boolean, bigint>
-      >,
-      setGovernanceToken: {
-        name: "set-governance-token",
-        access: "public",
-        args: [{ name: "governance-token", type: "trait_reference" }],
-        outputs: { type: { response: { ok: "bool", error: "uint128" } } },
-      } as TypedAbiFunction<
-        [governanceToken: TypedAbiArg<string, "governanceToken">],
         Response<boolean, bigint>
       >,
       setParameter: {
         name: "set-parameter",
         access: "public",
         args: [
-          { name: "parameter", type: { "string-ascii": { length: 34 } } },
+          { name: "parameter", type: { "string-ascii": { length: 30 } } },
           { name: "value", type: "uint128" },
         ],
         outputs: { type: { response: { ok: "bool", error: "uint128" } } },
@@ -918,65 +872,128 @@ export const contracts = {
         ],
         Response<boolean, bigint>
       >,
-      setParameters: {
-        name: "set-parameters",
+      setRefundable: {
+        name: "set-refundable",
         access: "public",
         args: [
-          {
-            name: "parameter-list",
-            type: {
-              list: {
-                type: {
-                  tuple: [
-                    {
-                      name: "parameter",
-                      type: { "string-ascii": { length: 34 } },
-                    },
-                    { name: "value", type: "uint128" },
-                  ],
-                },
-                length: 200,
-              },
-            },
-          },
+          { name: "proposal", type: "principal" },
+          { name: "refundable", type: "bool" },
         ],
         outputs: { type: { response: { ok: "bool", error: "uint128" } } },
       } as TypedAbiFunction<
         [
-          parameterList: TypedAbiArg<
-            {
-              parameter: string;
-              value: number | bigint;
-            }[],
-            "parameterList"
-          >,
+          proposal: TypedAbiArg<string, "proposal">,
+          refundable: TypedAbiArg<boolean, "refundable">,
         ],
         Response<boolean, bigint>
       >,
-      getGovernanceToken: {
-        name: "get-governance-token",
+      canRefund: {
+        name: "can-refund",
         access: "read_only",
-        args: [],
-        outputs: { type: "principal" },
-      } as TypedAbiFunction<[], string>,
+        args: [
+          { name: "proposal", type: "principal" },
+          { name: "funder", type: "principal" },
+        ],
+        outputs: { type: "bool" },
+      } as TypedAbiFunction<
+        [
+          proposal: TypedAbiArg<string, "proposal">,
+          funder: TypedAbiArg<string, "funder">,
+        ],
+        boolean
+      >,
       getParameter: {
         name: "get-parameter",
         access: "read_only",
-        args: [{ name: "parameter", type: { "string-ascii": { length: 34 } } }],
+        args: [{ name: "parameter", type: { "string-ascii": { length: 30 } } }],
         outputs: { type: { response: { ok: "uint128", error: "uint128" } } },
       } as TypedAbiFunction<
         [parameter: TypedAbiArg<string, "parameter">],
         Response<bigint, bigint>
       >,
+      getProposalFunding: {
+        name: "get-proposal-funding",
+        access: "read_only",
+        args: [{ name: "proposal", type: "principal" }],
+        outputs: { type: "uint128" },
+      } as TypedAbiFunction<
+        [proposal: TypedAbiArg<string, "proposal">],
+        bigint
+      >,
+      getProposalFundingByPrincipal: {
+        name: "get-proposal-funding-by-principal",
+        access: "read_only",
+        args: [
+          { name: "proposal", type: "principal" },
+          { name: "funder", type: "principal" },
+        ],
+        outputs: { type: "uint128" },
+      } as TypedAbiFunction<
+        [
+          proposal: TypedAbiArg<string, "proposal">,
+          funder: TypedAbiArg<string, "funder">,
+        ],
+        bigint
+      >,
+      isProposalFunded: {
+        name: "is-proposal-funded",
+        access: "read_only",
+        args: [{ name: "proposal", type: "principal" }],
+        outputs: { type: "bool" },
+      } as TypedAbiFunction<
+        [proposal: TypedAbiArg<string, "proposal">],
+        boolean
+      >,
     },
     maps: {
+      fundedProposals: {
+        name: "funded-proposals",
+        key: "principal",
+        value: "bool",
+      } as TypedAbiMap<string, boolean>,
+      fundingPerPrincipal: {
+        name: "funding-per-principal",
+        key: {
+          tuple: [
+            { name: "funder", type: "principal" },
+            { name: "proposal", type: "principal" },
+          ],
+        },
+        value: "uint128",
+      } as TypedAbiMap<
+        {
+          funder: string;
+          proposal: string;
+        },
+        bigint
+      >,
       parameters: {
         name: "parameters",
-        key: { "string-ascii": { length: 34 } },
+        key: { "string-ascii": { length: 30 } },
         value: "uint128",
       } as TypedAbiMap<string, bigint>,
+      proposalFunding: {
+        name: "proposal-funding",
+        key: "principal",
+        value: "uint128",
+      } as TypedAbiMap<string, bigint>,
+      refundableProposals: {
+        name: "refundable-proposals",
+        key: "principal",
+        value: "bool",
+      } as TypedAbiMap<string, boolean>,
     },
     variables: {
+      errAlreadyFunded: {
+        name: "err-already-funded",
+        type: {
+          response: {
+            ok: "none",
+            error: "uint128",
+          },
+        },
+        access: "constant",
+      } as TypedAbiVariable<Response<null, bigint>>,
       errInsufficientBalance: {
         name: "err-insufficient-balance",
         type: {
@@ -997,8 +1014,18 @@ export const contracts = {
         },
         access: "constant",
       } as TypedAbiVariable<Response<null, bigint>>,
-      errProposalMaximumStartDelay: {
-        name: "err-proposal-maximum-start-delay",
+      errNothingToRefund: {
+        name: "err-nothing-to-refund",
+        type: {
+          response: {
+            ok: "none",
+            error: "uint128",
+          },
+        },
+        access: "constant",
+      } as TypedAbiVariable<Response<null, bigint>>,
+      errProposalMinimumDuration: {
+        name: "err-proposal-minimum-duration",
         type: {
           response: {
             ok: "none",
@@ -1009,6 +1036,16 @@ export const contracts = {
       } as TypedAbiVariable<Response<null, bigint>>,
       errProposalMinimumStartDelay: {
         name: "err-proposal-minimum-start-delay",
+        type: {
+          response: {
+            ok: "none",
+            error: "uint128",
+          },
+        },
+        access: "constant",
+      } as TypedAbiVariable<Response<null, bigint>>,
+      errRefundNotAllowed: {
+        name: "err-refund-not-allowed",
         type: {
           response: {
             ok: "none",
@@ -1037,13 +1074,12 @@ export const contracts = {
         },
         access: "constant",
       } as TypedAbiVariable<Response<null, bigint>>,
-      governanceTokenPrincipal: {
-        name: "governance-token-principal",
-        type: "principal",
-        access: "variable",
-      } as TypedAbiVariable<string>,
     },
     constants: {
+      errAlreadyFunded: {
+        isOk: false,
+        value: 3_106n,
+      },
       errInsufficientBalance: {
         isOk: false,
         value: 3_102n,
@@ -1052,13 +1088,21 @@ export const contracts = {
         isOk: false,
         value: 3_101n,
       },
-      errProposalMaximumStartDelay: {
+      errNothingToRefund: {
+        isOk: false,
+        value: 3_107n,
+      },
+      errProposalMinimumDuration: {
         isOk: false,
         value: 3_105n,
       },
       errProposalMinimumStartDelay: {
         isOk: false,
         value: 3_104n,
+      },
+      errRefundNotAllowed: {
+        isOk: false,
+        value: 3_108n,
       },
       errUnauthorised: {
         isOk: false,
@@ -1068,8 +1112,6 @@ export const contracts = {
         isOk: false,
         value: 3_103n,
       },
-      governanceTokenPrincipal:
-        "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.bde000-governance-token",
     },
     non_fungible_tokens: [],
     fungible_tokens: [],
@@ -1097,10 +1139,20 @@ export const contracts = {
       corePropose: {
         name: "core-propose",
         access: "public",
-        args: [{ name: "proposal", type: "trait_reference" }],
+        args: [
+          { name: "proposal", type: "trait_reference" },
+          { name: "start-burn-height", type: "uint128" },
+          { name: "duration", type: "uint128" },
+          { name: "custom-majority", type: { optional: "uint128" } },
+        ],
         outputs: { type: { response: { ok: "bool", error: "uint128" } } },
       } as TypedAbiFunction<
-        [proposal: TypedAbiArg<string, "proposal">],
+        [
+          proposal: TypedAbiArg<string, "proposal">,
+          startBurnHeight: TypedAbiArg<number | bigint, "startBurnHeight">,
+          duration: TypedAbiArg<number | bigint, "duration">,
+          customMajority: TypedAbiArg<number | bigint | null, "customMajority">,
+        ],
         Response<boolean, bigint>
       >,
       isDaoOrExtension: {
@@ -1109,15 +1161,6 @@ export const contracts = {
         args: [],
         outputs: { type: { response: { ok: "bool", error: "uint128" } } },
       } as TypedAbiFunction<[], Response<boolean, bigint>>,
-      setCoreProposalDuration: {
-        name: "set-core-proposal-duration",
-        access: "public",
-        args: [{ name: "duration", type: "uint128" }],
-        outputs: { type: { response: { ok: "bool", error: "uint128" } } },
-      } as TypedAbiFunction<
-        [duration: TypedAbiArg<number | bigint, "duration">],
-        Response<boolean, bigint>
-      >,
       setCoreTeamMember: {
         name: "set-core-team-member",
         access: "public",
@@ -1167,6 +1210,26 @@ export const contracts = {
         },
         access: "constant",
       } as TypedAbiVariable<Response<null, bigint>>,
+      errProposalMinimumDuration: {
+        name: "err-proposal-minimum-duration",
+        type: {
+          response: {
+            ok: "none",
+            error: "uint128",
+          },
+        },
+        access: "constant",
+      } as TypedAbiVariable<Response<null, bigint>>,
+      errProposalMinimumStartDelay: {
+        name: "err-proposal-minimum-start-delay",
+        type: {
+          response: {
+            ok: "none",
+            error: "uint128",
+          },
+        },
+        access: "constant",
+      } as TypedAbiVariable<Response<null, bigint>>,
       errSunsetHeightInPast: {
         name: "err-sunset-height-in-past",
         type: {
@@ -1197,11 +1260,6 @@ export const contracts = {
         },
         access: "constant",
       } as TypedAbiVariable<Response<null, bigint>>,
-      coreProposalDuration: {
-        name: "core-proposal-duration",
-        type: "uint128",
-        access: "variable",
-      } as TypedAbiVariable<bigint>,
       coreTeamSunsetHeight: {
         name: "core-team-sunset-height",
         type: "uint128",
@@ -1209,11 +1267,18 @@ export const contracts = {
       } as TypedAbiVariable<bigint>,
     },
     constants: {
-      coreProposalDuration: 144n,
       coreTeamSunsetHeight: 0n,
       errNotCoreTeamMember: {
         isOk: false,
         value: 3_301n,
+      },
+      errProposalMinimumDuration: {
+        isOk: false,
+        value: 3_305n,
+      },
+      errProposalMinimumStartDelay: {
+        isOk: false,
+        value: 3_304n,
       },
       errSunsetHeightInPast: {
         isOk: false,
