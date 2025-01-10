@@ -401,12 +401,102 @@ export const contracts = {
     },
     non_fungible_tokens: [],
     fungible_tokens: [{ name: "bdg-token" }, { name: "bdg-token-locked" }],
-    epoch: "Epoch25",
-    clarity_version: "Clarity2",
+    epoch: "Epoch30",
+    clarity_version: "Clarity3",
     contractName: "bde000-governance-token",
   },
   bde001ProposalVoting: {
     functions: {
+      foldVote: {
+        name: "fold-vote",
+        access: "private",
+        args: [
+          {
+            name: "input-vote",
+            type: {
+              tuple: [
+                {
+                  name: "message",
+                  type: {
+                    tuple: [
+                      { name: "for", type: "bool" },
+                      { name: "proposal", type: "principal" },
+                      { name: "timestamp", type: "uint128" },
+                      { name: "voter", type: "principal" },
+                      { name: "voting-power", type: "uint128" },
+                    ],
+                  },
+                },
+                { name: "signature", type: { buffer: { length: 65 } } },
+              ],
+            },
+          },
+          { name: "current", type: "uint128" },
+        ],
+        outputs: { type: "uint128" },
+      } as TypedAbiFunction<
+        [
+          inputVote: TypedAbiArg<
+            {
+              message: {
+                for: boolean;
+                proposal: string;
+                timestamp: number | bigint;
+                voter: string;
+                votingPower: number | bigint;
+              };
+              signature: Uint8Array;
+            },
+            "inputVote"
+          >,
+          current: TypedAbiArg<number | bigint, "current">,
+        ],
+        bigint
+      >,
+      processVote: {
+        name: "process-vote",
+        access: "private",
+        args: [
+          {
+            name: "input-vote",
+            type: {
+              tuple: [
+                {
+                  name: "message",
+                  type: {
+                    tuple: [
+                      { name: "for", type: "bool" },
+                      { name: "proposal", type: "principal" },
+                      { name: "timestamp", type: "uint128" },
+                      { name: "voter", type: "principal" },
+                      { name: "voting-power", type: "uint128" },
+                    ],
+                  },
+                },
+                { name: "signature", type: { buffer: { length: 65 } } },
+              ],
+            },
+          },
+        ],
+        outputs: { type: { response: { ok: "uint128", error: "uint128" } } },
+      } as TypedAbiFunction<
+        [
+          inputVote: TypedAbiArg<
+            {
+              message: {
+                for: boolean;
+                proposal: string;
+                timestamp: number | bigint;
+                voter: string;
+                votingPower: number | bigint;
+              };
+              signature: Uint8Array;
+            },
+            "inputVote"
+          >,
+        ],
+        Response<bigint, bigint>
+      >,
       addProposal: {
         name: "add-proposal",
         access: "public",
@@ -441,6 +531,55 @@ export const contracts = {
           >,
         ],
         Response<boolean, bigint>
+      >,
+      batchVote: {
+        name: "batch-vote",
+        access: "public",
+        args: [
+          {
+            name: "votes",
+            type: {
+              list: {
+                type: {
+                  tuple: [
+                    {
+                      name: "message",
+                      type: {
+                        tuple: [
+                          { name: "for", type: "bool" },
+                          { name: "proposal", type: "principal" },
+                          { name: "timestamp", type: "uint128" },
+                          { name: "voter", type: "principal" },
+                          { name: "voting-power", type: "uint128" },
+                        ],
+                      },
+                    },
+                    { name: "signature", type: { buffer: { length: 65 } } },
+                  ],
+                },
+                length: 50,
+              },
+            },
+          },
+        ],
+        outputs: { type: { response: { ok: "uint128", error: "none" } } },
+      } as TypedAbiFunction<
+        [
+          votes: TypedAbiArg<
+            {
+              message: {
+                for: boolean;
+                proposal: string;
+                timestamp: number | bigint;
+                voter: string;
+                votingPower: number | bigint;
+              };
+              signature: Uint8Array;
+            }[],
+            "votes"
+          >,
+        ],
+        Response<bigint, null>
       >,
       callback: {
         name: "callback",
@@ -515,8 +654,15 @@ export const contracts = {
           type: {
             optional: {
               tuple: [
-                { name: "user-balance", type: "uint128" },
-                { name: "voting-cap", type: "uint128" },
+                {
+                  name: "user-balance",
+                  type: {
+                    tuple: [
+                      { name: "locked", type: "uint128" },
+                      { name: "unlocked", type: "uint128" },
+                    ],
+                  },
+                },
               ],
             },
           },
@@ -527,8 +673,10 @@ export const contracts = {
           who: TypedAbiArg<string, "who">,
         ],
         {
-          userBalance: bigint;
-          votingCap: bigint;
+          userBalance: {
+            locked: bigint;
+            unlocked: bigint;
+          };
         } | null
       >,
       getProposalData: {
@@ -565,6 +713,40 @@ export const contracts = {
           votesAgainst: bigint;
           votesFor: bigint;
         } | null
+      >,
+      verifySignature: {
+        name: "verify-signature",
+        access: "read_only",
+        args: [
+          { name: "hash", type: { buffer: { length: 32 } } },
+          { name: "signature", type: { buffer: { length: 65 } } },
+          { name: "signer", type: "principal" },
+        ],
+        outputs: { type: "bool" },
+      } as TypedAbiFunction<
+        [
+          hash: TypedAbiArg<Uint8Array, "hash">,
+          signature: TypedAbiArg<Uint8Array, "signature">,
+          signer: TypedAbiArg<string, "signer">,
+        ],
+        boolean
+      >,
+      verifySignedStructuredData: {
+        name: "verify-signed-structured-data",
+        access: "read_only",
+        args: [
+          { name: "structured-data-hash", type: { buffer: { length: 32 } } },
+          { name: "signature", type: { buffer: { length: 65 } } },
+          { name: "signer", type: "principal" },
+        ],
+        outputs: { type: "bool" },
+      } as TypedAbiFunction<
+        [
+          structuredDataHash: TypedAbiArg<Uint8Array, "structuredDataHash">,
+          signature: TypedAbiArg<Uint8Array, "signature">,
+          signer: TypedAbiArg<string, "signer">,
+        ],
+        boolean
       >,
     },
     maps: {
@@ -614,6 +796,22 @@ export const contracts = {
           votesFor: bigint;
         }
       >,
+      voterTimestamps: {
+        name: "voter-timestamps",
+        key: {
+          tuple: [
+            { name: "proposal", type: "principal" },
+            { name: "voter", type: "principal" },
+          ],
+        },
+        value: "uint128",
+      } as TypedAbiMap<
+        {
+          proposal: string;
+          voter: string;
+        },
+        bigint
+      >,
     },
     variables: {
       customMajorityUpper: {
@@ -623,16 +821,6 @@ export const contracts = {
       } as TypedAbiVariable<bigint>,
       errEndBurnHeightNotReached: {
         name: "err-end-burn-height-not-reached",
-        type: {
-          response: {
-            ok: "none",
-            error: "uint128",
-          },
-        },
-        access: "constant",
-      } as TypedAbiVariable<Response<null, bigint>>,
-      errExceedsVotingCap: {
-        name: "err-exceeds-voting-cap",
         type: {
           response: {
             ok: "none",
@@ -721,21 +909,39 @@ export const contracts = {
         },
         access: "constant",
       } as TypedAbiVariable<Response<null, bigint>>,
-      voteCap: {
-        name: "vote-cap",
-        type: "uint128",
+      messageDomainHash: {
+        name: "message-domain-hash",
+        type: {
+          buffer: {
+            length: 32,
+          },
+        },
         access: "constant",
-      } as TypedAbiVariable<bigint>,
+      } as TypedAbiVariable<Uint8Array>,
+      structuredDataHeader: {
+        name: "structured-data-header",
+        type: {
+          buffer: {
+            length: 38,
+          },
+        },
+        access: "constant",
+      } as TypedAbiVariable<Uint8Array>,
+      structuredDataPrefix: {
+        name: "structured-data-prefix",
+        type: {
+          buffer: {
+            length: 6,
+          },
+        },
+        access: "constant",
+      } as TypedAbiVariable<Uint8Array>,
     },
     constants: {
       customMajorityUpper: 10_000n,
       errEndBurnHeightNotReached: {
         isOk: false,
         value: 3_007n,
-      },
-      errExceedsVotingCap: {
-        isOk: false,
-        value: 3_009n,
       },
       errInsufficientVotingCapacity: {
         isOk: false,
@@ -769,12 +975,21 @@ export const contracts = {
         isOk: false,
         value: 3_003n,
       },
-      voteCap: 140_000_000_000n,
+      messageDomainHash: Uint8Array.from([
+        69, 12, 111, 78, 86, 245, 51, 108, 254, 239, 155, 35, 88, 17, 1, 83, 97,
+        248, 193, 42, 20, 110, 53, 233, 103, 131, 185, 75, 54, 119, 242, 110,
+      ]),
+      structuredDataHeader: Uint8Array.from([
+        83, 73, 80, 48, 49, 56, 69, 12, 111, 78, 86, 245, 51, 108, 254, 239,
+        155, 35, 88, 17, 1, 83, 97, 248, 193, 42, 20, 110, 53, 233, 103, 131,
+        185, 75, 54, 119, 242, 110,
+      ]),
+      structuredDataPrefix: Uint8Array.from([83, 73, 80, 48, 49, 56]),
     },
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch25",
-    clarity_version: "Clarity2",
+    epoch: "Epoch30",
+    clarity_version: "Clarity3",
     contractName: "bde001-proposal-voting",
   },
   bde002ProposalSubmission: {
@@ -783,6 +998,7 @@ export const contracts = {
         name: "submit-proposal-for-vote",
         access: "private",
         args: [
+          { name: "voting-contract", type: "trait_reference" },
           { name: "proposal", type: "trait_reference" },
           { name: "start-height-stacks", type: "uint128" },
           { name: "start-burn-height", type: "uint128" },
@@ -792,6 +1008,7 @@ export const contracts = {
         outputs: { type: { response: { ok: "bool", error: "uint128" } } },
       } as TypedAbiFunction<
         [
+          votingContract: TypedAbiArg<string, "votingContract">,
           proposal: TypedAbiArg<string, "proposal">,
           startHeightStacks: TypedAbiArg<number | bigint, "startHeightStacks">,
           startBurnHeight: TypedAbiArg<number | bigint, "startBurnHeight">,
@@ -819,6 +1036,7 @@ export const contracts = {
         name: "fund",
         access: "public",
         args: [
+          { name: "voting-contract", type: "trait_reference" },
           { name: "proposal", type: "trait_reference" },
           { name: "start-delay", type: "uint128" },
           { name: "duration", type: "uint128" },
@@ -828,6 +1046,7 @@ export const contracts = {
         outputs: { type: { response: { ok: "bool", error: "uint128" } } },
       } as TypedAbiFunction<
         [
+          votingContract: TypedAbiArg<string, "votingContract">,
           proposal: TypedAbiArg<string, "proposal">,
           startDelay: TypedAbiArg<number | bigint, "startDelay">,
           duration: TypedAbiArg<number | bigint, "duration">,
@@ -1115,8 +1334,8 @@ export const contracts = {
     },
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch25",
-    clarity_version: "Clarity2",
+    epoch: "Epoch30",
+    clarity_version: "Clarity3",
     contractName: "bde002-proposal-submission",
   },
   bde003CoreProposals: {
@@ -1140,6 +1359,7 @@ export const contracts = {
         name: "core-propose",
         access: "public",
         args: [
+          { name: "voting-contract", type: "trait_reference" },
           { name: "proposal", type: "trait_reference" },
           { name: "start-burn-height", type: "uint128" },
           { name: "duration", type: "uint128" },
@@ -1148,6 +1368,7 @@ export const contracts = {
         outputs: { type: { response: { ok: "bool", error: "uint128" } } },
       } as TypedAbiFunction<
         [
+          votingContract: TypedAbiArg<string, "votingContract">,
           proposal: TypedAbiArg<string, "proposal">,
           startBurnHeight: TypedAbiArg<number | bigint, "startBurnHeight">,
           duration: TypedAbiArg<number | bigint, "duration">,
@@ -1295,8 +1516,8 @@ export const contracts = {
     },
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch25",
-    clarity_version: "Clarity2",
+    epoch: "Epoch30",
+    clarity_version: "Clarity3",
     contractName: "bde003-core-proposals",
   },
   bde004CoreExecute: {
@@ -1517,8 +1738,8 @@ export const contracts = {
     },
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch25",
-    clarity_version: "Clarity2",
+    epoch: "Epoch30",
+    clarity_version: "Clarity3",
     contractName: "bde004-core-execute",
   },
   bde006Treasury: {
@@ -1931,8 +2152,8 @@ export const contracts = {
     },
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch25",
-    clarity_version: "Clarity2",
+    epoch: "Epoch30",
+    clarity_version: "Clarity3",
     contractName: "bde006-treasury",
   },
   bde020ResourceManager: {
@@ -2635,8 +2856,8 @@ export const contracts = {
     },
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch25",
-    clarity_version: "Clarity2",
+    epoch: "Epoch30",
+    clarity_version: "Clarity3",
     contractName: "bde020-resource-manager",
   },
   bdp000AddResource: {
@@ -2656,8 +2877,8 @@ export const contracts = {
     constants: {},
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch25",
-    clarity_version: "Clarity2",
+    epoch: "Epoch30",
+    clarity_version: "Clarity3",
     contractName: "bdp000-add-resource",
   },
   bdp000Bootstrap: {
@@ -2677,8 +2898,8 @@ export const contracts = {
     constants: {},
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch25",
-    clarity_version: "Clarity2",
+    epoch: "Epoch30",
+    clarity_version: "Clarity3",
     contractName: "bdp000-bootstrap",
   },
   bdp000CoreTeamSunsetHeight: {
@@ -2698,8 +2919,8 @@ export const contracts = {
     constants: {},
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch25",
-    clarity_version: "Clarity2",
+    epoch: "Epoch30",
+    clarity_version: "Clarity3",
     contractName: "bdp000-core-team-sunset-height",
   },
   bdp000ExecutiveTeamSunsetHeight: {
@@ -2719,8 +2940,8 @@ export const contracts = {
     constants: {},
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch25",
-    clarity_version: "Clarity2",
+    epoch: "Epoch30",
+    clarity_version: "Clarity3",
     contractName: "bdp000-executive-team-sunset-height",
   },
   bitcoinDao: {
@@ -2936,8 +3157,8 @@ export const contracts = {
     },
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch25",
-    clarity_version: "Clarity2",
+    epoch: "Epoch30",
+    clarity_version: "Clarity3",
     contractName: "bitcoin-dao",
   },
   extensionTrait: {
@@ -2947,8 +3168,8 @@ export const contracts = {
     constants: {},
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch25",
-    clarity_version: "Clarity2",
+    epoch: "Epoch21",
+    clarity_version: "Clarity1",
     contractName: "extension-trait",
   },
   governanceTokenTrait: {
@@ -2958,8 +3179,8 @@ export const contracts = {
     constants: {},
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch25",
-    clarity_version: "Clarity2",
+    epoch: "Epoch21",
+    clarity_version: "Clarity1",
     contractName: "governance-token-trait",
   },
   ownableTrait: {
@@ -2969,8 +3190,8 @@ export const contracts = {
     constants: {},
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch25",
-    clarity_version: "Clarity2",
+    epoch: "Epoch21",
+    clarity_version: "Clarity1",
     contractName: "ownable-trait",
   },
   paymentGatewayTrait: {
@@ -2980,8 +3201,8 @@ export const contracts = {
     constants: {},
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch25",
-    clarity_version: "Clarity2",
+    epoch: "Epoch21",
+    clarity_version: "Clarity1",
     contractName: "payment-gateway-trait",
   },
   proposalTrait: {
@@ -2991,8 +3212,8 @@ export const contracts = {
     constants: {},
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch25",
-    clarity_version: "Clarity2",
+    epoch: "Epoch21",
+    clarity_version: "Clarity1",
     contractName: "proposal-trait",
   },
   resourceProviderTrait: {
@@ -3002,8 +3223,8 @@ export const contracts = {
     constants: {},
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch25",
-    clarity_version: "Clarity2",
+    epoch: "Epoch21",
+    clarity_version: "Clarity1",
     contractName: "resource-provider-trait",
   },
   sip010FtTrait: {
@@ -3013,9 +3234,20 @@ export const contracts = {
     constants: {},
     non_fungible_tokens: [],
     fungible_tokens: [],
-    epoch: "Epoch25",
-    clarity_version: "Clarity2",
+    epoch: "Epoch21",
+    clarity_version: "Clarity1",
     contractName: "sip010-ft-trait",
+  },
+  votingTrait: {
+    functions: {},
+    maps: {},
+    variables: {},
+    constants: {},
+    non_fungible_tokens: [],
+    fungible_tokens: [],
+    epoch: "Epoch21",
+    clarity_version: "Clarity1",
+    contractName: "voting-trait",
   },
 } as const;
 
@@ -3094,6 +3326,7 @@ export const identifiers = {
   resourceProviderTrait:
     "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.resource-provider-trait",
   sip010FtTrait: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sip010-ft-trait",
+  votingTrait: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.voting-trait",
 } as const;
 
 export const simnet = {
@@ -3220,6 +3453,12 @@ export const deployments = {
   sip010FtTrait: {
     devnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sip010-ft-trait",
     simnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.sip010-ft-trait",
+    testnet: null,
+    mainnet: null,
+  },
+  votingTrait: {
+    devnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.voting-trait",
+    simnet: "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM.voting-trait",
     testnet: null,
     mainnet: null,
   },

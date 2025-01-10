@@ -53,95 +53,113 @@ plan:
             contract-name: extension-trait
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/traits/extension-trait.clar
-            clarity-version: 2
+            clarity-version: 1
         - emulated-contract-publish:
             contract-name: proposal-trait
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/traits/proposal-trait.clar
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: bitcoin-dao
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/bitcoin-dao.clar
-            clarity-version: 2
+            clarity-version: 1
         - emulated-contract-publish:
             contract-name: governance-token-trait
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/traits/governance-token-trait.clar
-            clarity-version: 2
+            clarity-version: 1
         - emulated-contract-publish:
             contract-name: sip010-ft-trait
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/traits/sip010-ft-trait.clar
-            clarity-version: 2
+            clarity-version: 1
         - emulated-contract-publish:
-            contract-name: bde000-governance-token
+            contract-name: voting-trait
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/extensions/bde000-governance-token.clar
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: bde001-proposal-voting
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/extensions/bde001-proposal-voting.clar
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: bde006-treasury
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/extensions/bde006-treasury.clar
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: bde002-proposal-submission
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/extensions/bde002-proposal-submission.clar
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: bde003-core-proposals
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/extensions/bde003-core-proposals.clar
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: bde004-core-execute
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/extensions/bde004-core-execute.clar
-            clarity-version: 2
+            path: contracts/traits/voting-trait.clar
+            clarity-version: 1
         - emulated-contract-publish:
             contract-name: payment-gateway-trait
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/traits/payment-gateway-trait.clar
-            clarity-version: 2
+            clarity-version: 1
         - emulated-contract-publish:
             contract-name: resource-provider-trait
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/traits/resource-provider-trait.clar
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: bde020-resource-manager
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/extensions/bde020-resource-manager.clar
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: bdp000-add-resource
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/proposals/testnet/resources/bdp000-add-resource.clar
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: bdp000-bootstrap
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/proposals/testnet/bdp000-bootstrap.clar
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: bdp000-core-team-sunset-height
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/proposals/testnet/bdp000-core-team-sunset-height.clar
-            clarity-version: 2
-        - emulated-contract-publish:
-            contract-name: bdp000-executive-team-sunset-height
-            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            path: contracts/proposals/testnet/bdp000-executive-team-sunset-height.clar
-            clarity-version: 2
+            clarity-version: 1
         - emulated-contract-publish:
             contract-name: ownable-trait
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/traits/ownable-trait.clar
-            clarity-version: 2
-      epoch: "2.5"
+            clarity-version: 1
+      epoch: "2.05"
+    - id: 1
+      transactions:
+        - emulated-contract-publish:
+            contract-name: bitcoin-dao
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/bitcoin-dao.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: bde000-governance-token
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/extensions/bde000-governance-token.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: bde001-proposal-voting
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/extensions/bde001-proposal-voting.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: bde006-treasury
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/extensions/bde006-treasury.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: bde002-proposal-submission
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/extensions/bde002-proposal-submission.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: bde003-core-proposals
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/extensions/bde003-core-proposals.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: bde004-core-execute
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/extensions/bde004-core-execute.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: bde020-resource-manager
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/extensions/bde020-resource-manager.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: bde021-opinion-polling
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/extensions/bde021-opinion-polling.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: bdp000-add-resource
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/proposals/testnet/resources/bdp000-add-resource.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: bdp000-bootstrap
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/proposals/testnet/bdp000-bootstrap.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: bdp000-core-team-sunset-height
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/proposals/testnet/bdp000-core-team-sunset-height.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: bdp000-executive-team-sunset-height
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/proposals/testnet/bdp000-executive-team-sunset-height.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: bdp021-opinion-polls
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/proposals/testnet/bdp021-opinion-polls.clar
+            clarity-version: 3
+      epoch: "3.0"

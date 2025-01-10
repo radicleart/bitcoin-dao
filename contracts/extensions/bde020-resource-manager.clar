@@ -215,7 +215,7 @@
     (asserts! (map-insert ResourceData
       newCount
       {
-        createdAt: block-height,
+        createdAt: stacks-block-height,
         enabled: true,
         name: name,
         description: description,
@@ -286,7 +286,6 @@
   (let
     (
       (newCount (+ (get-total-invoices) u1))
-      (lastAnchoredBlock (- block-height u1))
       (resourceData (unwrap! (get-resource resourceIndex) ERR_RESOURCE_NOT_FOUND))
       (userIndex (unwrap! (get-or-create-user contract-caller) ERR_USER_NOT_FOUND))
       (userData (unwrap! (get-user-data userIndex) ERR_USER_NOT_FOUND))
@@ -300,7 +299,7 @@
       newCount
       {
         amount: (get price resourceData),
-        createdAt: block-height,
+        createdAt: stacks-block-height,
         userIndex: userIndex,
         resourceName: (get name resourceData),
         resourceIndex: resourceIndex,

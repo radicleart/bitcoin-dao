@@ -62,7 +62,7 @@
 (define-public (execute (proposal <proposal-trait>) (sender principal))
 	(begin
 		(try! (is-self-or-extension))
-		(asserts! (map-insert executed-proposals (contract-of proposal) block-height) err-already-executed)
+		(asserts! (map-insert executed-proposals (contract-of proposal) stacks-block-height) err-already-executed)
 		(print {event: "execute", proposal: proposal})
 		(as-contract (contract-call? proposal execute sender))
 	)

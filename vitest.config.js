@@ -1,7 +1,10 @@
 /// <reference types="vitest" />
 
 import { defineConfig } from "vite";
-import { vitestSetupFilePath, getClarinetVitestsArgv } from "@hirosystems/clarinet-sdk/vitest";
+import {
+  vitestSetupFilePath,
+  getClarinetVitestsArgv,
+} from "@hirosystems/clarinet-sdk/vitest";
 
 /*
   In this file, Vitest is configured so that it works seamlessly with Clarinet and the Simnet.
@@ -20,10 +23,11 @@ import { vitestSetupFilePath, getClarinetVitestsArgv } from "@hirosystems/clarin
 
 export default defineConfig({
   test: {
-    reporters: ['default', 'json', 'junit'], // add or remove reporters as needed
+    reporters: ["default", "json", "junit"], // add or remove reporters as needed
+    include: ["./tests-clarinet/**/*.test.ts"], // Include only Clarinet tests
     outputFile: {
-      json: 'reports/report.json',
-      junit: 'reports/report.xml',
+      json: "reports/report.json",
+      junit: "reports/report.xml",
     },
     silent: false, // if true, suppresses all output
     watch: true, // enables watch mode

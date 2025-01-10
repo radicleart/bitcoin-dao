@@ -1,4 +1,4 @@
-;; Title: BDP000 Unit Tests
+;; Title: BDP000 Add Resource
 ;; Author: Mike Cohen
 ;; Synopsis:
 ;; sets core team sunset height.

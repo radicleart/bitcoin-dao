@@ -1,4 +1,4 @@
-;; Title: BDP000 Unit Tests
+;; Title: BDP000 Core Sunset Height
 ;; Author: Mike Cohen
 ;; Synopsis:
 ;; Boot proposal that sets the governance token, DAO parameters, and extensions, and
