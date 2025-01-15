@@ -29,6 +29,9 @@ path = "contracts/traits/ownable-trait.clar"
 [contracts.sip010-ft-trait]
 path = "contracts/traits/sip010-ft-trait.clar"
 
+[contracts.sip009-nft-trait]
+path = "contracts/traits/sip009-nft-trait.clar"
+
 [contracts.voting-trait]
 path = "contracts/traits/voting-trait.clar"
 
@@ -83,6 +86,11 @@ epoch = "3.0"
 
 [contracts.bde021-opinion-polling]
 path = "contracts/extensions/bde021-opinion-polling.clar"
+clarity_version = 3
+epoch = "3.0"
+
+[contracts.bde022-poll-gating]
+path = "contracts/extensions/bde022-poll-gating.clar"
 clarity_version = 3
 epoch = "3.0"
 

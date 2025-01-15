@@ -1,21 +1,20 @@
-;; Title: set-core-team-sunset-height
-;; Author: Mike Cohen
+;; Title: Gating
+;; Author(s): Mike Cohen
 ;; Synopsis:
-;; sets core team sunset height.
+;; Description:
 
 (impl-trait .proposal-trait.proposal-trait)
 
 (define-public (execute (sender principal))
 	(begin
-
+		;; Enable genesis extensions.
 		(try! (contract-call? .bitcoin-dao set-extensions
 			(list
 				{extension: .bde021-opinion-polling, enabled: true}
 				{extension: .bde022-poll-gating, enabled: true}
 			)
 		))
-		(try! (contract-call? .bde003-core-proposals set-core-team-sunset-height (+ burn-block-height u10)))
-
+		(print "bde022-poll-gating.")
 		(ok true)
 	)
 )

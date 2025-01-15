@@ -23,6 +23,8 @@
 				{extension: .bde004-core-execute, enabled: true}
 				{extension: .bde006-treasury, enabled: true}
 				{extension: .bde020-resource-manager, enabled: true}
+				{extension: .bde021-opinion-polling, enabled: true}
+				{extension: .bde022-poll-gating, enabled: true}
 			)
 		))
 

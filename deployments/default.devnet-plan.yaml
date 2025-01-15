@@ -58,6 +58,13 @@ plan:
             anchor-block-only: true
             clarity-version: 1
         - contract-publish:
+            contract-name: sip009-nft-trait
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 4690
+            path: contracts/traits/sip009-nft-trait.clar
+            anchor-block-only: true
+            clarity-version: 1
+        - contract-publish:
             contract-name: ownable-trait
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 1440
@@ -84,7 +91,7 @@ plan:
         - contract-publish:
             contract-name: bde001-proposal-voting
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 115340
+            cost: 114430
             path: contracts/extensions/bde001-proposal-voting.clar
             anchor-block-only: true
             clarity-version: 3
@@ -124,9 +131,16 @@ plan:
             anchor-block-only: true
             clarity-version: 3
         - contract-publish:
+            contract-name: bde022-poll-gating
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 52640
+            path: contracts/extensions/bde022-poll-gating.clar
+            anchor-block-only: true
+            clarity-version: 3
+        - contract-publish:
             contract-name: bde021-opinion-polling
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 84520
+            cost: 112050
             path: contracts/extensions/bde021-opinion-polling.clar
             anchor-block-only: true
             clarity-version: 3
@@ -140,14 +154,14 @@ plan:
         - contract-publish:
             contract-name: bdp000-bootstrap
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 26610
+            cost: 27690
             path: contracts/proposals/testnet/bdp000-bootstrap.clar
             anchor-block-only: true
             clarity-version: 3
         - contract-publish:
             contract-name: bdp000-core-team-sunset-height
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 3260
+            cost: 5050
             path: contracts/proposals/testnet/bdp000-core-team-sunset-height.clar
             anchor-block-only: true
             clarity-version: 3

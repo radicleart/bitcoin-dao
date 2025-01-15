@@ -85,6 +85,11 @@ plan:
             path: contracts/traits/resource-provider-trait.clar
             clarity-version: 1
         - emulated-contract-publish:
+            contract-name: sip009-nft-trait
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/traits/sip009-nft-trait.clar
+            clarity-version: 1
+        - emulated-contract-publish:
             contract-name: ownable-trait
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/traits/ownable-trait.clar
@@ -131,6 +136,11 @@ plan:
             contract-name: bde020-resource-manager
             emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             path: contracts/extensions/bde020-resource-manager.clar
+            clarity-version: 3
+        - emulated-contract-publish:
+            contract-name: bde022-poll-gating
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/extensions/bde022-poll-gating.clar
             clarity-version: 3
         - emulated-contract-publish:
             contract-name: bde021-opinion-polling
